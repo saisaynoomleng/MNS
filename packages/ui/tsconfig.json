@@ -1,0 +1,10 @@
+{
+  "extends": "../../tsconfig.react.json",
+  "compilerOptions": {
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "resolvePackageJsonImports": true,
+    "noEmit": true
+  },
+  "include": ["src", "tests", "*.config.ts", ".storybook"]
+}

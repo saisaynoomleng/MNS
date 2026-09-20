@@ -1,0 +1,35 @@
+{
+  "name": "mns",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "MNSArt is a creative agency site based in Ohio, USA, offering UI/UX design, web development, and custom digital projects for clients across the United States and Myanmar. MNSArt works with businesses at different stages of growth, delivering projects that range from small business to large enterprise scale.",
+  "keywords": [
+    "nodejs",
+    "express",
+    "design",
+    "engineering",
+    "saas platform"
+  ],
+  "scripts": {
+    "dev": "turbo dev",
+    "build": "turbo build",
+    "lint": "turbo lint",
+    "format": "prettier --write .",
+    "clean": "turbo clean",
+    "test": "turbo test",
+    "typecheck": "turbo run typecheck"
+  },
+  "engines": {
+    "node": ">=24.20.0",
+    "pnpm": ">=11.24.0"
+  },
+  "packageManager": "pnpm@11.24.0",
+  "devDependencies": {
+    "@manypkg/cli": "^0.25.1",
+    "prettier": "^3.9.8",
+    "syncpack": "^15.3.3",
+    "turbo": "^2.11.2",
+    "typescript": "^7.0.2"
+  }
+}

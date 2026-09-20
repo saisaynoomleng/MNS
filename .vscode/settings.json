@@ -1,0 +1,10 @@
+// .vscode/settings.json
+
+{
+  "tailwindCSS.experimental.configFile": {
+    "apps/admin/src/app/globals.css": "apps/admin/**",
+    "apps/agency/src/app/globals.css": "apps/agency/**",
+    "apps/clinics/src/app/globals.css": "apps/clinics/**",
+    "packages/ui/src/globals.css": "packages/ui/**"
+  }
+}

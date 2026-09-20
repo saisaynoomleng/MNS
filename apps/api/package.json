@@ -4,7 +4,11 @@
   "private": true,
   "type": "module",
   "types": "./dist/index.d.ts",
-  "scripts": {},
+  "scripts": {
+    "dev": "node --watch ./src/server.ts",
+    "build": "tsc -p tsconfig.build.json",
+    "clean": "rm -rf ./dist"
+  },
   "exports": {
     ".": {
       "import": "./dist/index.js",
@@ -17,6 +21,8 @@
     "tsx": "^4.23.13"
   },
   "dependencies": {
-    "express": "^5.2.1"
+    "express": "^5.2.1",
+    "@mns/email": "workspace:*",
+    "@mns/utils": "workspace:*"
   }
 }

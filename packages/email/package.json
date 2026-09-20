@@ -4,12 +4,25 @@
   "private": true,
   "type": "module",
   "types": "./dist/index.d.ts",
+  "scripts": {
+    "dev": "email dev -d ./src/emails -p 5000",
+    "build": "tsc -p tsconfig.build.json",
+    "clean": "rm -rf ./dist"
+  },
   "dependencies": {
     "react": "19.2.8",
-    "react-dom": "19.2.8"
+    "react-dom": "19.2.8",
+    "react-email": "6.9.5"
   },
   "devDependencies": {
+    "@react-email/ui": "6.9.5",
     "@types/react": "^19",
     "@types/react-dom": "^19"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
   }
 }

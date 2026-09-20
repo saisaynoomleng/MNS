@@ -67,7 +67,7 @@ export const replaceUnderscore = (input: string, replacement = ' '): string => {
  * Format a date into Readable US Date format
  * @param date string | Date
  * @returns string
- * @example formatDateUS('1996-09-24'); // 'Sep 24, 1996'
+ * @example formatDateUS('1996/09/24'); // 'Sep 24, 1996'
  */
 export const formatDateUS = (date: string | Date): string => {
   const parseDate = new Date(date);
@@ -83,7 +83,7 @@ export const formatDateUS = (date: string | Date): string => {
  * Return a year of the given date
  * @param date string | Date
  * @returns string
- * @example getFormattedYear('1996-09-24'); // '1996'
+ * @example getFormattedYear('1996/09/24'); // '1996'
  */
 export const getFormattedYear = (date: string | Date): string => {
   const parseDate = new Date(date);
@@ -101,7 +101,7 @@ export const getFormattedYear = (date: string | Date): string => {
  * @example isImageTooLarge(1000, 1); //false
  */
 export const isImageTooLarge = (input: number, maxSize = 1): boolean => {
-  if (input > maxSize * 1024 * 1024) return true;
+  if (input >= maxSize * 1024 * 1024) return true;
 
   return false;
 };
@@ -125,11 +125,11 @@ export const getImageExtension = (type: string): string => {
  */
 export const formatImageSize = (size: number): string => {
   if (size >= 1024 * 1024 * 1024) {
-    return `${((size / 1024) * 1024 * 1024).toFixed(2)} GB`;
+    return `${(size / (1024 * 1024 * 1024)).toFixed(2)} GB`;
   }
 
   if (size >= 1024 * 1024) {
-    return `${((size / 1024) * 1024).toFixed(2)} MB`;
+    return `${(size / (1024 * 1024)).toFixed(2)} MB`;
   }
 
   if (size >= 1024) {

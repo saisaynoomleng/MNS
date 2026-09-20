@@ -1,5 +1,3 @@
-// .vscode/settings.json
-
 {
   "tailwindCSS.experimental.configFile": {
     "apps/admin/src/app/globals.css": "apps/admin/**",

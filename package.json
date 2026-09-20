@@ -30,6 +30,6 @@
     "prettier": "^3.9.8",
     "syncpack": "^15.3.3",
     "turbo": "^2.11.2",
-    "typescript": "^7.0.2"
+    "typescript": "^5"
   }
 }

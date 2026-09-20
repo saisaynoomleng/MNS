@@ -1,5 +1,6 @@
 {
   "name": "@mns/api",
+  "version": "1.0.0",
   "private": true,
   "type": "module",
   "types": "./dist/index.d.ts",
@@ -12,7 +13,7 @@
   },
   "devDependencies": {
     "@types/express": "^5.0.6",
-    "@types/node": "^20.19.43",
+    "@types/node": "^20",
     "tsx": "^4.23.13"
   },
   "dependencies": {

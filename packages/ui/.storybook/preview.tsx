@@ -1,7 +1,13 @@
 import type { Preview } from '@storybook/react-vite';
-import '../src/globals.css';
 
 import { withThemeByClassName } from '@storybook/addon-themes';
+
+import '@fontsource-variable/instrument-sans'; // Defaults to wght axis
+import '@fontsource-variable/chivo-mono'; // Defaults to wght axis
+import '@fontsource/sue-ellen-francisco'; // Defaults to weight 400
+
+import './fonts.css';
+import '../src/globals.css';
 
 const preview: Preview = {
   parameters: {

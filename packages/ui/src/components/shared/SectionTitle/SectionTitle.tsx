@@ -9,10 +9,12 @@ type SectionTitleProps<T extends Heading> = {
   size?: Size;
   children: React.ReactNode;
   hasUnderline?: boolean;
+  underlineColor?: UnderlineColor;
 } & Omit<ComponentPropsWithoutRef<T>, 'as' | 'className'>;
 
 type Heading = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
 type Size = 'sm' | 'md' | 'lg';
+type UnderlineColor = 'primary' | 'secondary';
 
 const sizeVariants: Record<Size, string> = {
   sm: 'text-fs-500 md:text-fs-600 lg:text-fs-700',
@@ -26,6 +28,7 @@ export const SectionTitle = <T extends Heading>({
   size = 'sm',
   children,
   hasUnderline = false,
+  underlineColor = 'primary',
   ...props
 }: SectionTitleProps<T>): React.JSX.Element => {
   const Comp = as ?? 'h2';
@@ -41,6 +44,10 @@ export const SectionTitle = <T extends Heading>({
           className,
         ),
       )}
+      style={{
+        textDecorationColor:
+          underlineColor === 'primary' ? '#0e79b2' : '#d96c5a',
+      }}
       {...props}
     >
       {children}

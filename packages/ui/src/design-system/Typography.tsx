@@ -9,10 +9,6 @@ import {
   TableHeader,
   TableRow,
 } from '#components/ui/table';
-import { Card, CardContent } from '#components/ui/card';
-
-import { IoSettingsOutline } from 'react-icons/io5';
-import { CiImageOn } from 'react-icons/ci';
 
 const fontSizes = {
   900: { rem: '5.5rem', px: '88px' },
@@ -24,11 +20,6 @@ const fontSizes = {
   300: { rem: '0.875rem', px: '14px' },
   200: { rem: '0.5rem', px: '8px' },
 };
-
-const icons: React.ReactElement[] = [
-  <IoSettingsOutline aria-hidden />,
-  <CiImageOn aria-hidden />,
-];
 
 export const Typography = (): React.JSX.Element => {
   return (
@@ -93,39 +84,6 @@ export const Typography = (): React.JSX.Element => {
             ))}
           </TableBody>
         </Table>
-      </div>
-
-      <div className="space-y-4">
-        <div className="space-y-4">
-          <SectionTitle hasUnderline>Iconography</SectionTitle>
-          <p>
-            Icons provide a simple and recognizable visual language for
-            communicating actions, navigation, status, and supporting
-            information. The system uses icons from React Icons to maintain a
-            consistent visual style across the interface.
-          </p>
-
-          <p>
-            Icons should be clear, purposeful, and appropriately scaled to their
-            surrounding content. They complement typography and UI elements
-            without competing with the primary message.
-          </p>
-        </div>
-
-        <Card className="rounded-none">
-          <CardContent className="flex flex-wrap gap-2">
-            {icons.map((icon, i) => {
-              return (
-                <span
-                  key={i}
-                  className="text-fs-600 p-1 border border-border/10"
-                >
-                  {icon}
-                </span>
-              );
-            })}
-          </CardContent>
-        </Card>
       </div>
     </Bounded>
   );

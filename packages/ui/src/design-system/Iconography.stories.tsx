@@ -1,14 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { Typography } from './Typography';
+import { Iconography } from './Iconography';
 
-const meta: Meta<typeof Typography> = {
-  title: 'DesignSystem/Typography',
-  component: Typography,
+const meta: Meta<typeof Iconography> = {
+  title: 'DesignSystem/Iconography',
+  component: Iconography,
   parameters: {
     layout: 'fullscreen',
     docs: {
       description: {
-        component: 'Typography used in this app',
+        component: 'Iconography used in this app',
       },
     },
   },

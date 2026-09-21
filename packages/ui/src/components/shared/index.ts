@@ -2,3 +2,5 @@ export * from './Bounded';
 export * from './SectionTitle';
 export * from './FormTextField';
 export * from './FormTextareaField';
+export * from './Logo';
+export * from './FormImageInputField';

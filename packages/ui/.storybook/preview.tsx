@@ -9,6 +9,8 @@ import '@fontsource/sue-ellen-francisco'; // Defaults to weight 400
 import './fonts.css';
 import '../src/globals.css';
 
+import { Toaster } from '../src/components';
+
 const preview: Preview = {
   parameters: {
     controls: {
@@ -36,6 +38,14 @@ const preview: Preview = {
     (Story) => (
       <>
         <Story />
+
+        <Toaster
+          richColors
+          closeButton
+          position="bottom-center"
+          theme="system"
+          duration={3000}
+        />
       </>
     ),
   ],

@@ -30,7 +30,6 @@ export type FormTextFieldProps<T extends FieldValues> = {
   | 'type'
   | 'id'
   | 'aria-invalid'
-  //   rhf
   | 'value'
   | 'defaultValue'
   | 'onChange'

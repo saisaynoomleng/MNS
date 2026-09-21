@@ -93,7 +93,7 @@ export const Typography = (): React.JSX.Element => {
 
       <div className="space-y-4">
         <div className="space-y-4">
-          <SectionTitle size="sm">Iconography</SectionTitle>
+          <SectionTitle hasUnderline>Iconography</SectionTitle>
           <p>
             Icons provide a simple and recognizable visual language for
             communicating actions, navigation, status, and supporting

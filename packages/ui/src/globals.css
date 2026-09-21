@@ -64,17 +64,17 @@
   --color-brand-black-900: #1a1a1a;
   --color-brand-black-950: #070707;
 
-  --color-pimary-50: #f1f9fe;
-  --color-pimary-100: #e2f1fc;
-  --color-pimary-200: #bee4f9;
-  --color-pimary-300: #85cff4;
-  --color-pimary-400: #44b7ec;
-  --color-pimary-500: #1c9edb;
-  --color-pimary-600: #0e79b2;
-  --color-pimary-700: #0d6597;
-  --color-pimary-800: #0f567d;
-  --color-pimary-900: #124868;
-  --color-pimary-950: #0c2e45;
+  --color-primary-50: #f1f9fe;
+  --color-primary-100: #e2f1fc;
+  --color-primary-200: #bee4f9;
+  --color-primary-300: #85cff4;
+  --color-primary-400: #44b7ec;
+  --color-primary-500: #1c9edb;
+  --color-primary-600: #0e79b2;
+  --color-primary-700: #0d6597;
+  --color-primary-800: #0f567d;
+  --color-primary-900: #124868;
+  --color-primary-950: #0c2e45;
 
   --color-secondary-50: #fcf5f4;
   --color-secondary-100: #fae9e6;
@@ -153,7 +153,7 @@
   --card-foreground: var(--color-brand-black-950);
   --popover: var(--color-brand-white);
   --popover-foreground: var(--color-brand-black-950);
-  --primary: var(--color-pimary-600);
+  --primary: var(--color-primary-600);
   --primary-foreground: var(--color-brand-white);
   --secondary: var(--color-secondary-500);
   --secondary-foreground: var(--color-brand-black-950);
@@ -164,7 +164,7 @@
   --destructive: var(--color-error-600);
   --border: var(--color-brand-black-950);
   --input: var(--color-brand-black-950);
-  --ring: var(--color-primary-400);
+  --ring: var(--color-primary-600);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
@@ -187,7 +187,7 @@
   --card-foreground: var(--color-brand-white);
   --popover: var(--color-brand-black-950);
   --popover-foreground: var(--color-brand-white);
-  --primary: var(--color-pimary-600);
+  --primary: var(--color-primary-600);
   --primary-foreground: var(--color-brand-white);
   --secondary: var(--color-secondary-500);
   --secondary-foreground: var(--color-brand-white);

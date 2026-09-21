@@ -12,6 +12,7 @@ import {
 import { Card, CardContent } from '#components/ui/card';
 
 import { IoSettingsOutline } from 'react-icons/io5';
+import { CiImageOn } from 'react-icons/ci';
 
 const fontSizes = {
   900: { rem: '5.5rem', px: '88px' },
@@ -24,7 +25,10 @@ const fontSizes = {
   200: { rem: '0.5rem', px: '8px' },
 };
 
-const icons: React.ReactElement[] = [<IoSettingsOutline aria-hidden />];
+const icons: React.ReactElement[] = [
+  <IoSettingsOutline aria-hidden />,
+  <CiImageOn aria-hidden />,
+];
 
 export const Typography = (): React.JSX.Element => {
   return (

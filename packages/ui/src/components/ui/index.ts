@@ -10,3 +10,4 @@ export * from './navigation-menu';
 export * from './spinner';
 export * from './textarea';
 export * from './tooltip';
+export * from './attachment';

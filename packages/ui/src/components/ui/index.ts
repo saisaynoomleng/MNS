@@ -12,3 +12,4 @@ export * from './textarea';
 export * from './tooltip';
 export * from './attachment';
 export * from './separator';
+export * from './checkbox';

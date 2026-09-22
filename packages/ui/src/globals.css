@@ -248,3 +248,7 @@
   -webkit-box-shadow: 5px 5px 0px 0px rgba(231, 144, 130, 1);
   -moz-box-shadow: 5px 5px 0px 0px rgba(231, 144, 130, 1);
 }
+
+@utility generic-form {
+  @apply flex flex-col gap-y-4 p-6 primary-box-shadow border;
+}

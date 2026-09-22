@@ -4,7 +4,6 @@ import { Logo } from '@mns/ui';
 import Link from 'next/link';
 import React from 'react';
 import { NavLinkButton } from './NavLinkButton';
-import { SiFacebook, SiYoutube } from 'react-icons/si';
 import { FaFacebookSquare, FaYoutubeSquare } from 'react-icons/fa';
 import { IoMdMail } from 'react-icons/io';
 
@@ -66,7 +65,7 @@ export const Footer = async (): Promise<React.JSX.Element | null> => {
               href={`mailto:${footer.email}`}
               className="hover:text-secondary"
             >
-              <IoMdMail size={30} arai-hidden />
+              <IoMdMail size={30} aria-hidden />
               <span className="sr-only">Email us at {footer.email}</span>
             </Link>
           </div>

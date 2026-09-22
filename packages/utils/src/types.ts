@@ -31,7 +31,7 @@ export type ActionResponse<T> =
   | {
       success: false;
       message: string;
-      field: keyof T;
+      field?: keyof T;
     };
 
 export type ImageResponse =

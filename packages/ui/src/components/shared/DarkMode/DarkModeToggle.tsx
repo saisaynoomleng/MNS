@@ -20,10 +20,14 @@ export function DarkModeToggle() {
   return (
     <Button
       variant="outline"
-      className="rounded-full aspect-square px-1 py-1 border-muted! bg-transparent! hover:bg-transparent!"
+      className="rounded-full border-none aspect-square bg-transparent! hover:bg-transparent!"
       onClick={() => setTheme(isDark ? 'light' : 'dark')}
     >
-      {isDark ? <Moon /> : <Sun />}
+      {isDark ? (
+        <Moon color="#0e79b2" className="size-6" />
+      ) : (
+        <Sun color="#f3a644" className="size-6" />
+      )}
     </Button>
   );
 }

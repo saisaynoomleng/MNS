@@ -363,10 +363,38 @@ export type NAVIGATION_QUERY_RESULT = {
   > | null;
 } | null;
 
+// Source: src/sanity/lib/query.ts
+// Variable: FOOTER_QUERY
+// Query: *[_type == 'siteSettings'][0]{  "columns": footerColumns[]{    _key,    title,    links[]{      _key,      href,      label    }  },  "text": footerText,  "street": contactInfo.street,  "zip": contactInfo.zip,  "city": contactInfo.city,  "state": contactInfo.state,  "email": contactInfo.email,  "country": contactInfo.country,  "socialLinks": socialLinks[]}
+export type FOOTER_QUERY_RESULT = {
+  columns: Array<{
+    _key: string;
+    title: string | null;
+    links: Array<{
+      _key: string;
+      href: string | null;
+      label: string | null;
+    }> | null;
+  }> | null;
+  text: string | null;
+  street: string | null;
+  zip: string | null;
+  city: string | null;
+  state: string | null;
+  email: string | null;
+  country: string | null;
+  socialLinks: Array<
+    {
+      _key: string;
+    } & SocialLink
+  > | null;
+} | null;
+
 // Query TypeMap
 declare global {
   interface SanityQueries {
     "*[_type == 'siteSettings'][0]{\n  navLinks[]{\n    _key,\n    _type,\n    href,\n    label,\n    isButton,\n    isExternal,\n    label,\n    dropdownLinks[]{\n      _key,\n      label,\n      links[]{\n        _key,\n        _type,\n        href,\n        label,\n        isButton,\n        isExternal\n      }\n    }\n  }\n}": NAVIGATION_QUERY_RESULT;
+    '*[_type == \'siteSettings\'][0]{\n  "columns": footerColumns[]{\n    _key,\n    title,\n    links[]{\n      _key,\n      href,\n      label\n    }\n  },\n  "text": footerText,\n  "street": contactInfo.street,\n  "zip": contactInfo.zip,\n  "city": contactInfo.city,\n  "state": contactInfo.state,\n  "email": contactInfo.email,\n  "country": contactInfo.country,\n  "socialLinks": socialLinks[]\n}': FOOTER_QUERY_RESULT;
   }
 }
 // Lets @sanity/client releases that predate the global registry read it too

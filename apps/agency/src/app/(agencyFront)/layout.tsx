@@ -1,3 +1,4 @@
+import { Footer } from '@/components/Footer';
 import { Header } from '@/components/Header';
 
 const AgencyFrontLayout = ({ children }: LayoutProps<'/'>) => {
@@ -5,6 +6,7 @@ const AgencyFrontLayout = ({ children }: LayoutProps<'/'>) => {
     <>
       <Header />
       {children}
+      <Footer />
     </>
   );
 };

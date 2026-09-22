@@ -7,3 +7,7 @@
   --font-mono: var(--font-chivo-mono), monospace;
   --font-cursive: var(--font-sue-ellen-francisco), cursive;
 }
+
+@utility bg-paper {
+  @apply bg-[url(/paper-texture.jpg)] bg-no-repeat bg-center bg-cover;
+}

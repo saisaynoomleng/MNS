@@ -19,7 +19,7 @@ export const Header = async (): Promise<React.JSX.Element | null> => {
   return (
     <header
       className={clsx(
-        'max-w-7xl mx-auto py-4 shadow px-4 md:px-6 flex justify-between items-center mt-4 md:mt-6 font-sans relative',
+        'max-w-7xl mx-auto py-4 shadow shadow-muted px-4 md:px-6 flex justify-between items-center mt-4 md:mt-6 font-sans relative ',
       )}
     >
       <div className="flex gap-x-1 md:gap-x-2 items-center">

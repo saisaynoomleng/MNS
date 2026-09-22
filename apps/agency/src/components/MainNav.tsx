@@ -71,7 +71,9 @@ export const MobileNav = ({
         {navOpen ? (
           <Button
             aria-label="close menu button"
-            className={clsx('relative z-20')}
+            className={clsx(
+              'relative z-20 border-brand-black-950! text-brand-black-950!',
+            )}
             variant="outline"
             onClick={() => setNavOpen(false)}
           >
@@ -94,7 +96,7 @@ export const MobileNav = ({
       <nav
         role="navigation"
         className={clsx(
-          'fixed inset-0 bg-primary/10 backdrop-blur-3xl z-10 transition-transform duration-200 ease-in-out',
+          'fixed inset-0 z-10 transition-transform duration-200 ease-in-out bg-paper text-foreground text-fs-500!',
           navOpen ? 'translate-y-0' : '-translate-y-full',
         )}
       >
@@ -103,7 +105,12 @@ export const MobileNav = ({
             <li key={l._key} onClick={() => setNavOpen(false)}>
               <NavLinkButton
                 href={l.href as string}
-                className={clsx(pathname === l.href && 'text-primary')}
+                className={clsx(
+                  pathname === l.href
+                    ? 'text-secondary'
+                    : 'text-brand-black-950',
+                  'bg-brand-white backdrop-blur-3xl px-2 py-1 border-2 border-brand-black-950 rounded-full primary-box-shadow',
+                )}
               >
                 {l.label}
               </NavLinkButton>

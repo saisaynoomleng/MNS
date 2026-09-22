@@ -23,3 +23,23 @@ export const NAVIGATION_QUERY = defineQuery(`*[_type == 'siteSettings'][0]{
     }
   }
 }`);
+
+export const FOOTER_QUERY = defineQuery(`*[_type == 'siteSettings'][0]{
+  "columns": footerColumns[]{
+    _key,
+    title,
+    links[]{
+      _key,
+      href,
+      label
+    }
+  },
+  "text": footerText,
+  "street": contactInfo.street,
+  "zip": contactInfo.zip,
+  "city": contactInfo.city,
+  "state": contactInfo.state,
+  "email": contactInfo.email,
+  "country": contactInfo.country,
+  "socialLinks": socialLinks[]
+}`);

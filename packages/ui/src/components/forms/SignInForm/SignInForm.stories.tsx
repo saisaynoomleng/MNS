@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { SignInForm } from './SignInForm';
 import { expect, fn } from 'storybook/test';
-import { FormArgsType } from '#lib/mock-data';
 
 const meta: Meta<typeof SignInForm> = {
   title: 'Components/Forms/SignInForm',

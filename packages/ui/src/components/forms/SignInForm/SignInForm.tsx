@@ -54,7 +54,7 @@ export const SignInForm = ({
       onSubmit={form.handleSubmit(onSignIn)}
     >
       <div className="space-y-1">
-        <SectionTitle>Welcome back</SectionTitle>
+        <SectionTitle as="h3">Welcome back</SectionTitle>
         <p>Sign in to manage your apps, subscriptions, and account.</p>
       </div>
 

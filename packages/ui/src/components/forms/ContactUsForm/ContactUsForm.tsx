@@ -70,7 +70,7 @@ export const ContactUsForm = ({
       onSubmit={form.handleSubmit(onSubmit)}
     >
       <div className="col-span-full">
-        <SectionTitle>Let&apos;s talk</SectionTitle>
+        <SectionTitle as="h3">Let&apos;s talk</SectionTitle>
         <p>
           Tell us what you're building and we'll get back to you within one
           business day.

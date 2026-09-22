@@ -11,6 +11,8 @@ const emailSchema = z
 
 const passwordSchema = z
   .string()
+  .min(8, { error: 'Password must have at least 8 characters' })
+  .max(128, { error: 'Password cannot exceed 128 characters' })
   .refine((data) => PasswordRules.every((v) => v.test(data)));
 
 /* ----------------------------------*/
@@ -73,3 +75,25 @@ export type SignInFormInput = z.input<typeof SignInFormSchema>;
  * Sign In Form Output type
  */
 export type SignInFormOutput = z.output<typeof SignInFormSchema>;
+
+/**
+ * Sign Up Form Schema
+ */
+export const SignUpFormSchema = z
+  .object({
+    name: z.string().min(1, { error: 'Name is required' }),
+    email: emailSchema,
+    password: passwordSchema,
+    confirmPassword: z
+      .string()
+      .min(1, { error: 'Confirm Password is required' }),
+  })
+  .refine((data) => data.password === data.confirmPassword);
+/**
+ * Sign Up Form Input type
+ */
+export type SignUpFormInput = z.input<typeof SignUpFormSchema>;
+/**
+ * Sign Up Form Output type
+ */
+export type SignUpFormOutput = z.output<typeof SignUpFormSchema>;

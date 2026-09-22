@@ -38,11 +38,9 @@ export const siteSettings = defineType({
       type: 'array',
       of: [
         defineArrayMember({
-          name: 'buttonLink',
           type: 'navLink',
         }),
         defineArrayMember({
-          name: 'dropdownLink',
           type: 'navDropdown',
         }),
       ],

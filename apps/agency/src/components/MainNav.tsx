@@ -1,0 +1,116 @@
+'use client';
+
+import { NAVIGATION_QUERY_RESULT } from '@/sanity/types';
+import clsx from 'clsx';
+import React, { useState } from 'react';
+import { twMerge } from 'tailwind-merge';
+import { NavLinkButton } from './NavLinkButton';
+import { Button, Separator } from '@mns/ui';
+import { usePathname } from 'next/navigation';
+import Link from 'next/link';
+import { RxHamburgerMenu } from 'react-icons/rx';
+import { IoClose } from 'react-icons/io5';
+
+type MainNavProps = {
+  className?: string;
+  navLinks: NAVIGATION_QUERY_RESULT;
+};
+
+export const DesktopNav = ({
+  navLinks,
+  className,
+}: MainNavProps): React.JSX.Element | null => {
+  const pathname = usePathname();
+
+  if (!navLinks) return null;
+
+  return (
+    <nav
+      className={twMerge(clsx('flex items-center gap-x-2 ', className))}
+      role="navigation"
+    >
+      <ul className="flex gap-x-4 items-center">
+        {navLinks.navLinks?.map((l) => (
+          <NavLinkButton
+            href={l.href as string}
+            key={l._key}
+            className={clsx(pathname === l.href && 'text-primary')}
+          >
+            {l.label}
+          </NavLinkButton>
+        ))}
+      </ul>
+
+      <Separator orientation="vertical" className="bg-muted" />
+
+      <Button variant="pirmary" asChild>
+        <Link href="/sign-in">Sign In</Link>
+      </Button>
+    </nav>
+  );
+};
+
+export const MobileNav = ({
+  className,
+  navLinks,
+}: MainNavProps): React.JSX.Element | null => {
+  const pathname = usePathname();
+  const [navOpen, setNavOpen] = useState<boolean>(false);
+
+  if (!navLinks) return null;
+
+  return (
+    <div className={twMerge(clsx('', className))}>
+      <div className="flex items-center gap-x-1">
+        <Button asChild variant="pirmary">
+          <Link href="/sign-in">Sign In</Link>
+        </Button>
+
+        <Separator className="bg-muted" orientation="vertical" />
+
+        {navOpen ? (
+          <Button
+            aria-label="close menu button"
+            className={clsx('relative z-20')}
+            variant="outline"
+            onClick={() => setNavOpen(false)}
+          >
+            <IoClose aria-hidden />
+            <span className="sr-only">close menu</span>
+          </Button>
+        ) : (
+          <Button
+            aria-label="open menu button"
+            className={clsx('relative z-20')}
+            variant="outline"
+            onClick={() => setNavOpen(true)}
+          >
+            <RxHamburgerMenu aria-hidden />
+            <span className="sr-only">open menu</span>
+          </Button>
+        )}
+      </div>
+
+      <nav
+        role="navigation"
+        className={clsx(
+          'fixed inset-0 bg-primary/10 backdrop-blur-3xl z-10 transition-transform duration-200 ease-in-out',
+          navOpen ? 'translate-y-0' : '-translate-y-full',
+        )}
+      >
+        <ul className="flex flex-col gap-y-3 justify-center items-center h-full">
+          {navLinks.navLinks?.map((l) => (
+            <li key={l._key} onClick={() => setNavOpen(false)}>
+              <NavLinkButton
+                href={l.href as string}
+                className={clsx(pathname === l.href && 'text-primary')}
+              >
+                {l.label}
+              </NavLinkButton>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </div>
+  );
+};

@@ -1,13 +1,13 @@
 import type React from 'react';
 import { Bounded, SectionTitle } from '../components';
 
-import { IoSettingsOutline } from 'react-icons/io5';
+import { IoClose, IoSettingsOutline } from 'react-icons/io5';
 import { CiImageOn, CiLink } from 'react-icons/ci';
 import {
   MdOutlineQuestionAnswer,
   MdOutlineVideoCameraFront,
 } from 'react-icons/md';
-import { RxDropdownMenu } from 'react-icons/rx';
+import { RxDropdownMenu, RxHamburgerMenu } from 'react-icons/rx';
 import { PiTextColumnsBold } from 'react-icons/pi';
 
 const icons: React.ReactElement[] = [
@@ -18,6 +18,8 @@ const icons: React.ReactElement[] = [
   <MdOutlineVideoCameraFront aria-hidden />,
   <RxDropdownMenu aria-hidden />,
   <PiTextColumnsBold aria-hidden />,
+  <RxHamburgerMenu aria-hidden />,
+  <IoClose aria-hidden />,
 ];
 
 export const Iconography = (): React.JSX.Element => {

@@ -5,3 +5,5 @@ export * from './FormTextareaField';
 export * from './Logo';
 export * from './FormImageInputField';
 export * from './DarkMode';
+export * from './SubmitButton';
+export * from './LoadingSpinner';

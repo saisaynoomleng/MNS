@@ -226,9 +226,42 @@ export const navDropdown = defineType({
       type: 'string',
     }),
     defineField({
-      name: 'dropdownItems',
+      name: 'href',
+      type: 'string',
+    }),
+    defineField({
+      name: 'dropdownLinks',
       type: 'array',
-      of: [{ type: 'navLink', name: 'dropdownItem' }],
+      of: [
+        defineArrayMember({
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'label',
+              type: 'string',
+            }),
+            defineField({
+              name: 'links',
+              type: 'array',
+              of: [defineArrayMember({ type: 'navLink' })],
+            }),
+          ],
+          preview: {
+            select: {
+              label: 'label',
+            },
+            prepare({ label }) {
+              const formatLabel = label
+                ? toTitleCase(label)
+                : 'Label not provided';
+              return {
+                title: formatLabel,
+                media: CiLink,
+              };
+            },
+          },
+        }),
+      ],
     }),
   ],
   preview: {
@@ -237,9 +270,8 @@ export const navDropdown = defineType({
     },
     prepare({ label }) {
       const formatLabel = label ? toTitleCase(label) : 'Label not provided';
-
       return {
-        tilte: formatLabel,
+        title: formatLabel,
         media: RxDropdownMenu,
       };
     },

@@ -1,4 +1,5 @@
 import * as z from 'zod';
+import { PasswordRules } from './helper.js';
 
 /* ----------------------------------*/
 /* Helper Schema                     */
@@ -7,6 +8,10 @@ import * as z from 'zod';
 const emailSchema = z
   .email({ error: 'Must be a valid email address' })
   .min(1, { error: 'Email is required' });
+
+const passwordSchema = z
+  .string()
+  .refine((data) => PasswordRules.every((v) => v.test(data)));
 
 /* ----------------------------------*/
 /* Form Schema                       */
@@ -51,3 +56,20 @@ export type ContactUsFormInput = z.input<typeof ContactUsFormSchema>;
  * Conatact Us Form Output type
  */
 export type ContactUsFormOutput = z.output<typeof ContactUsFormSchema>;
+
+/**
+ * Sign In Form Schema
+ */
+export const SignInFormSchema = z.object({
+  email: emailSchema,
+  password: z.string(),
+  rememberMe: z.boolean().default(false),
+});
+/**
+ * Sign In Form Input type
+ */
+export type SignInFormInput = z.input<typeof SignInFormSchema>;
+/**
+ * Sign In Form Output type
+ */
+export type SignInFormOutput = z.output<typeof SignInFormSchema>;

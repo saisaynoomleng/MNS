@@ -9,6 +9,8 @@ import {
 } from 'react-icons/md';
 import { RxDropdownMenu, RxHamburgerMenu } from 'react-icons/rx';
 import { PiTextColumnsBold } from 'react-icons/pi';
+import { FaFacebookSquare, FaYoutubeSquare } from 'react-icons/fa';
+import { FaGoogle, FaLinkedin } from 'react-icons/fa6';
 
 const icons: React.ReactElement[] = [
   <IoSettingsOutline aria-hidden />,
@@ -20,6 +22,10 @@ const icons: React.ReactElement[] = [
   <PiTextColumnsBold aria-hidden />,
   <RxHamburgerMenu aria-hidden />,
   <IoClose aria-hidden />,
+  <FaFacebookSquare aria-hidden />,
+  <FaYoutubeSquare aria-hidden />,
+  <FaLinkedin aria-hidden />,
+  <FaGoogle aria-hidden />,
 ];
 
 export const Iconography = (): React.JSX.Element => {

@@ -4,3 +4,4 @@ export * from './FormTextField';
 export * from './FormTextareaField';
 export * from './Logo';
 export * from './FormImageInputField';
+export * from './DarkMode';

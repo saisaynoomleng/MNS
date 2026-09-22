@@ -1,5 +1,12 @@
+import { Header } from '@/components/Header';
+
 const AgencyFrontLayout = ({ children }: LayoutProps<'/'>) => {
-  return <>{children}</>;
+  return (
+    <>
+      <Header />
+      {children}
+    </>
+  );
 };
 
 export default AgencyFrontLayout;

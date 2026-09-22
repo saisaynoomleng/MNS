@@ -89,6 +89,7 @@ export type NavDropdown = {
         _key: string;
       } & NavLink
     >;
+    _type: 'dropdownGroup';
     _key: string;
   }>;
 };

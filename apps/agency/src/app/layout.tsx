@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import { sue_ellen_francisco, chivo_mono, instrument_sans } from '@/lib/font';
+import { SanityLive } from '@/sanity/lib/live';
+import { Toaster } from '@mns/ui';
 
 export const metadata: Metadata = {
   title: {
@@ -17,7 +19,19 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
       lang="en"
       className={`${sue_ellen_francisco.variable} ${chivo_mono.variable} ${instrument_sans.variable} min-h-full antialiased`}
     >
-      <body>{children}</body>
+      <body>
+        {children}
+
+        <SanityLive />
+
+        <Toaster
+          richColors
+          closeButton
+          position="bottom-center"
+          theme="system"
+          duration={3000}
+        />
+      </body>
     </html>
   );
 }

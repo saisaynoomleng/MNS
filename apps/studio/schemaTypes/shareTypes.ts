@@ -234,6 +234,7 @@ export const navDropdown = defineType({
       type: 'array',
       of: [
         defineArrayMember({
+          name: 'dropdownGroup',
           type: 'object',
           fields: [
             defineField({

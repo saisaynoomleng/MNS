@@ -4,7 +4,7 @@ import { mockFormAction } from '#lib/mock-data';
 import { expect } from 'storybook/test';
 
 const meta: Meta<typeof NewsletterForm> = {
-  title: 'Components/Form/NewsletterForm',
+  title: 'Components/Forms/NewsletterForm',
   component: NewsletterForm,
   tags: ['autodocs'],
   parameters: {
@@ -19,7 +19,17 @@ const meta: Meta<typeof NewsletterForm> = {
   args: {
     action: mockFormAction,
   },
-  argTypes: {},
+  argTypes: {
+    action: {
+      control: false,
+      description: 'Server Action to be handled in Next.js',
+    },
+
+    className: {
+      control: 'text',
+      description: 'Additional TailwindCSS classes',
+    },
+  },
 };
 
 export default meta;

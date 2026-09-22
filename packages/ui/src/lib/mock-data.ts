@@ -6,3 +6,15 @@ export const mockFormAction = fn(async () => {
     message: 'Form Submitted',
   };
 });
+
+export const FormArgsType = {
+  action: {
+    control: false,
+    description: 'Server Action to be handled in Next.js',
+  },
+
+  className: {
+    control: 'text',
+    description: 'Additional TailwindCSS classes',
+  },
+};

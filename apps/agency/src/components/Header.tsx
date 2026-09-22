@@ -5,6 +5,7 @@ import { Logo, Separator } from '@mns/ui';
 import { sanityFetch } from '@/sanity/lib/live';
 import { NAVIGATION_QUERY } from '@/sanity/lib/query';
 import { DesktopNav, MobileNav } from './MainNav';
+import { DarkModeToggle } from '@mns/ui';
 
 export const Header = async (): Promise<React.JSX.Element | null> => {
   const { data: navLinks } = await sanityFetch({
@@ -28,7 +29,7 @@ export const Header = async (): Promise<React.JSX.Element | null> => {
 
         <Separator orientation="vertical" className="bg-muted" />
 
-        {/* dark mode */}
+        <DarkModeToggle />
       </div>
 
       {/* desktop nav */}

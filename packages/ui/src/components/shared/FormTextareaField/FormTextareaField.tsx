@@ -21,6 +21,7 @@ import {
   type FieldValues,
   type Path,
 } from 'react-hook-form';
+import { twMerge } from 'tailwind-merge';
 
 export type FormTextareaFieldProps<T extends FieldValues> = {
   name: Path<T>;
@@ -47,6 +48,7 @@ export const FormTextareaField = <T extends FieldValues>({
   name,
   label,
   control,
+  className,
   maxLength = 3000,
   description,
   minLength = 10,
@@ -59,7 +61,7 @@ export const FormTextareaField = <T extends FieldValues>({
       name={name}
       control={control}
       render={({ field, fieldState }) => (
-        <Field data-invalid={fieldState.invalid}>
+        <Field data-invalid={fieldState.invalid} className={twMerge(className)}>
           <FieldLabel htmlFor={id}>{label}</FieldLabel>
           {description && <FieldDescription>{description}</FieldDescription>}
 

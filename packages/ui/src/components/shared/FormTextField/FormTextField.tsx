@@ -15,6 +15,7 @@ import {
   type FieldValues,
   type Path,
 } from 'react-hook-form';
+import { twMerge } from 'tailwind-merge';
 
 export type FormTextFieldProps<T extends FieldValues> = {
   name: Path<T>;
@@ -44,6 +45,7 @@ export const FormTextField = <T extends FieldValues>({
   autoComplete,
   type,
   description,
+  className,
   ...props
 }: FormTextFieldProps<T>): React.JSX.Element => {
   const id = useId();
@@ -53,7 +55,7 @@ export const FormTextField = <T extends FieldValues>({
       name={name}
       control={control}
       render={({ field, fieldState }) => (
-        <Field data-invalid={fieldState.invalid}>
+        <Field data-invalid={fieldState.invalid} className={twMerge(className)}>
           <FieldLabel htmlFor={id}>{label}</FieldLabel>
           {description && <FieldDescription>{description}</FieldDescription>}
 

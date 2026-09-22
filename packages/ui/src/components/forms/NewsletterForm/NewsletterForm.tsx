@@ -54,6 +54,7 @@ export const NewsletterForm = ({
 
   return (
     <form
+      noValidate
       className={twMerge(
         clsx('flex flex-col gap-y-4 primary-box-shadow border p-6', className),
       )}
@@ -62,10 +63,8 @@ export const NewsletterForm = ({
       <div className="space-y-2">
         <SectionTitle as="h3">Stay in the loop</SectionTitle>
         <p className="text-fs-300">
-          Get occasional updates, creative insights, and things we're building
-          at
-          <span className="font-semibold"> mns. </span>
-          straight to your inbox.
+          Occasional updates on new features, verticals, and what we're building
+          next.
         </p>
       </div>
 

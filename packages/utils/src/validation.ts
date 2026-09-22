@@ -13,7 +13,10 @@ const passwordSchema = z
   .string()
   .min(8, { error: 'Password must have at least 8 characters' })
   .max(128, { error: 'Password cannot exceed 128 characters' })
-  .refine((data) => PasswordRules.every((v) => v.test(data)));
+  .refine((data) => PasswordRules.every((v) => v.test(data)), {
+    error: 'Password requiremnts does not meet',
+    path: ['password'],
+  });
 
 /* ----------------------------------*/
 /* Form Schema                       */
@@ -49,7 +52,10 @@ export const ContactUsFormSchema = z
       .min(10, { error: 'Message must have at least 10 characters' })
       .max(3000, { error: 'Message cannot exceeds 3000 characters' }),
   })
-  .refine((data) => data.maxBudget > data.minBudget);
+  .refine((data) => data.maxBudget > data.minBudget, {
+    error: 'Maximum Budget is lower than Minimum Budget',
+    path: ['maxBudget'],
+  });
 /**
  * Contact Us Form Input type
  */
@@ -88,7 +94,10 @@ export const SignUpFormSchema = z
       .string()
       .min(1, { error: 'Confirm Password is required' }),
   })
-  .refine((data) => data.password === data.confirmPassword);
+  .refine((data) => data.password === data.confirmPassword, {
+    error: 'Password must match',
+    path: ['confirmPassword'],
+  });
 /**
  * Sign Up Form Input type
  */
@@ -97,3 +106,53 @@ export type SignUpFormInput = z.input<typeof SignUpFormSchema>;
  * Sign Up Form Output type
  */
 export type SignUpFormOutput = z.output<typeof SignUpFormSchema>;
+
+/**
+ * Request Password Reset Form Schema
+ */
+export const RequestPasswordResetFormSchema = z.object({
+  email: emailSchema,
+});
+/**
+ * Request Password Reset Form Input
+ */
+export type RequestPasswordResetFormInput = z.input<
+  typeof RequestPasswordResetFormSchema
+>;
+
+/**
+ * Check Verification OTP Form Schema
+ */
+export const CheckVerificationOTPFormSchema =
+  RequestPasswordResetFormSchema.extend({
+    type: z.literal('forget-password'),
+    otp: z
+      .string()
+      .min(1, { error: 'OTP must have at least 1 character' })
+      .max(6, { error: 'OTP cannot exceed 6 characters' }),
+  });
+/**
+ * Check Verification OTP Form Input Type
+ */
+export type CheckVerificationOTPFormInput = z.input<
+  typeof CheckVerificationOTPFormSchema
+>;
+
+/**
+ * Reset Password Form Schema
+ */
+export const ResetPasswordFormSchema = CheckVerificationOTPFormSchema.omit({
+  type: true,
+})
+  .extend({
+    password: passwordSchema,
+    confirmPassword: z.string(),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    error: 'Password must match',
+    path: ['confirmPassword'],
+  });
+/**
+ * Reset Password Form Input
+ */
+export type ResetPasswordFormInput = z.input<typeof ResetPasswordFormSchema>;

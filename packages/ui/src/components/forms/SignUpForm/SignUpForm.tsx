@@ -44,7 +44,7 @@ export const SignUpForm = ({
       noValidate
       onSubmit={form.handleSubmit(onSignUp)}
       className={twMerge(
-        clsx('p-6 primary-box-shadow flex flex-col gap-y-6 border', className),
+        clsx('p-6 primary-box-shadow flex flex-col gap-y-4 border', className),
       )}
     >
       <div className="space-y-1">

@@ -23,6 +23,10 @@ export const users = pgTable("users", {
     .defaultNow()
     .$onUpdate(() => /* @__PURE__ */ new Date())
     .notNull(),
+  role: text("role"),
+  banned: boolean("banned").default(false),
+  banReason: text("banReason"),
+  banExpires: timestamp("banExpires"),
   companyName: text("companyName").notNull(),
   position: text("position").notNull(),
 });
@@ -44,6 +48,7 @@ export const sessions = pgTable(
     useId: uuid("useId")
       .notNull()
       .references(() => users.id, { onDelete: "cascade" }),
+    impersonatedBy: text("impersonatedBy"),
   },
   (table) => [index("sessions_useId_idx").on(table.useId)],
 );

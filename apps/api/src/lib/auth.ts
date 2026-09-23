@@ -1,0 +1,149 @@
+import { betterAuth } from 'better-auth';
+import env from './env.js';
+import { drizzleAdapter } from 'better-auth/adapters/drizzle';
+import db from '../db/index.js';
+import { emailOTP } from 'better-auth/plugins';
+
+export const auth = betterAuth({
+  appName: env.APP_NAME,
+
+  plugins: [
+    emailOTP({
+      expiresIn: env.OTP_EXPIRES_IN,
+      async sendVerificationOTP({ email, otp, type }) {
+        if (type === 'change-email') {
+          // change email
+        } else if (type === 'email-verification') {
+          // email verification
+        } else if (type === 'forget-password') {
+          // email verification
+        } else if (type === 'sign-in') {
+          // email verification
+        }
+      },
+      changeEmail: {
+        enabled: true,
+      },
+      otpLength: 6,
+      sendVerificationOnSignUp: true,
+    }),
+  ],
+
+  baseURL: env.BETTER_AUTH_URL,
+
+  trustedOrigins: [env.ALLOW_ORIGINS, 'https://*.mnsart.com'],
+
+  secret: env.BETTER_AUTH_SECRET,
+
+  database: drizzleAdapter(db, {
+    provider: 'pg',
+    camelCase: true,
+    schema: {},
+  }),
+
+  emailAndPassword: {
+    enabled: true,
+    requireEmailVerification: true,
+    minPasswordLength: 8,
+    maxPasswordLength: 128,
+    autoSignIn: true,
+    revokeSessionsOnPasswordReset: true,
+    onExistingUserSignUp: async ({ user }) => {
+      // existing sign up email
+    },
+  },
+
+  socialProviders: {
+    google: {
+      clientId: env.GOOGLE_CLIENT_ID,
+      clientSecret: env.GOOGLE_CLIENT_SECRET,
+    },
+    linkedin: {
+      clientId: env.LINKEDIN_CLIENT_ID,
+      clientSecret: env.LINKEDIN_CLIENT_SECRET,
+    },
+  },
+
+  //   user
+  user: {
+    modelName: 'users',
+    fields: {
+      email: 'email',
+      name: 'name',
+    },
+    additionalFields: {
+      companyName: {
+        type: 'string',
+      },
+      position: {
+        type: 'string',
+      },
+    },
+    deleteUser: {
+      enabled: true,
+      sendDeleteAccountVerification: async ({ user, url, token }) => {
+        // delete email
+      },
+    },
+  },
+
+  //   sesseion
+  session: {
+    modelName: 'sessions',
+    fields: {
+      userId: 'useId',
+    },
+    expiresIn: env.SESSION_EXPIRES_IN,
+    updateAge: env.SESSION_UPDATE_AGE,
+    cookieCache: {
+      enabled: true,
+      maxAge: env.SESSION_COOKIE_CACHE_MAX_AGE,
+    },
+  },
+
+  //   account
+  account: {
+    modelName: 'accounts',
+    fields: {
+      userId: 'userId',
+    },
+    encryptOAuthTokens: true,
+    storeStateStrategy: 'database',
+    storeAccountCookie: true,
+    accountLinking: {
+      enabled: true,
+      trustedProviders: [
+        'google',
+        'facebook',
+        'linkedin',
+        'tiktok',
+        'email-password',
+      ],
+      allowDifferentEmails: false,
+    },
+  },
+
+  //   verification
+  verification: {
+    modelName: 'verifications',
+    disableCleanup: false,
+    storeIdentifier: 'hashed',
+    storeInDatabase: true,
+  },
+
+  //   rate limit
+  rateLimit: {
+    enabled: true,
+    window: env.RATE_LIMIT_WINDOW_MS,
+    max: env.RATE_LIMIT_MAX_REQUESTS,
+    modelName: 'rateLimits',
+    storage: 'database',
+  },
+
+  //   advanced
+  advanced: {
+    database: {
+      generateId: 'uuid',
+    },
+  },
+});

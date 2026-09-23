@@ -3,6 +3,8 @@ import helmet from 'helmet';
 import cors from 'cors';
 import morgan from 'morgan';
 import env, { isTest } from './lib/env.js';
+import { toNodeHandler } from 'better-auth/node';
+import { auth } from './lib/auth.js';
 
 const app: Express = express();
 
@@ -12,6 +14,8 @@ app.use(
     credentials: true,
   }),
 );
+
+app.all('/api/auth/{*any}', toNodeHandler(auth));
 
 app.use(helmet());
 app.use(

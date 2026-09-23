@@ -18,6 +18,11 @@ const passwordSchema = z
     path: ['password'],
   });
 
+const OTPSchema = z
+  .string()
+  .min(1, { error: 'OTP must have at least 1 character' })
+  .max(6, { error: 'OTP cannot exceed 6 characters' });
+
 /* ----------------------------------*/
 /* Form Schema                       */
 /* ----------------------------------*/
@@ -156,3 +161,34 @@ export const ResetPasswordFormSchema = CheckVerificationOTPFormSchema.omit({
  * Reset Password Form Input
  */
 export type ResetPasswordFormInput = z.input<typeof ResetPasswordFormSchema>;
+
+/**
+ * Request Email Change Form Schema
+ */
+export const RequestEmailChangeFormSchema = z
+  .object({
+    currentEmail: emailSchema,
+    newEmail: emailSchema,
+  })
+  .refine((data) => data.currentEmail !== data.newEmail, {
+    error: 'New email cannot be the same as old email',
+    path: ['newEmail'],
+  });
+/**
+ * Request Email Change Form Input Type
+ */
+export type RequestEmailChangeFormInput = z.input<
+  typeof RequestEmailChangeFormSchema
+>;
+
+/**
+ * Change Email Form Schema
+ */
+export const ChangeEmailFormSchema = z.object({
+  newEmail: emailSchema,
+  otp: OTPSchema,
+});
+/**
+ * Change Email Form Input Type
+ */
+export type ChangeEmailFormInput = z.input<typeof ChangeEmailFormSchema>;

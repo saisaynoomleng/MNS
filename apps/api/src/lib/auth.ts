@@ -2,7 +2,53 @@ import { betterAuth } from 'better-auth';
 import env from './env.js';
 import { drizzleAdapter } from 'better-auth/adapters/drizzle';
 import db from '../db/index.js';
-import { emailOTP } from 'better-auth/plugins';
+import { admin, createAccessControl, emailOTP } from 'better-auth/plugins';
+
+const statement = {
+  user: [
+    'create',
+    'list',
+    'set-role',
+    'ban',
+    'impersonate',
+    'impersonate-admins',
+    'delete',
+    'set-password',
+  ],
+  session: ['list', 'revoke', 'delete'],
+} as const;
+
+const ac = createAccessControl(statement);
+
+const userRole = ac.newRole({
+  user: ['create'],
+});
+
+const adminRole = ac.newRole({
+  user: [
+    'create',
+    'list',
+    'set-role',
+    'ban',
+    'impersonate',
+    'delete',
+    'set-password',
+  ],
+  session: ['list', 'revoke'],
+});
+const superadmin = ac.newRole({
+  user: [
+    'create',
+    'list',
+    'set-role',
+    'ban',
+    'impersonate',
+    'impersonate-admins',
+    'delete',
+    'set-password',
+  ],
+  session: ['list', 'revoke', 'delete'],
+});
 
 export const auth = betterAuth({
   appName: env.APP_NAME,
@@ -26,6 +72,17 @@ export const auth = betterAuth({
       },
       otpLength: 6,
       sendVerificationOnSignUp: true,
+    }),
+    admin({
+      ac,
+      defaultRole: 'user',
+      bannedUserMessage: `You've been banned`,
+      defaultBanReason: 'Spamming',
+      roles: {
+        user: userRole,
+        admin: adminRole,
+        superadmin,
+      },
     }),
   ],
 
@@ -70,6 +127,7 @@ export const auth = betterAuth({
     fields: {
       email: 'email',
       name: 'name',
+      image: 'imageUrl',
     },
     additionalFields: {
       companyName: {
@@ -91,7 +149,7 @@ export const auth = betterAuth({
   session: {
     modelName: 'sessions',
     fields: {
-      userId: 'useId',
+      userId: 'userId',
     },
     expiresIn: env.SESSION_EXPIRES_IN,
     updateAge: env.SESSION_UPDATE_AGE,
@@ -136,7 +194,7 @@ export const auth = betterAuth({
     enabled: true,
     window: env.RATE_LIMIT_WINDOW_MS,
     max: env.RATE_LIMIT_MAX_REQUESTS,
-    modelName: 'rateLimits',
+    modelName: 'rate_limits',
     storage: 'database',
   },
 

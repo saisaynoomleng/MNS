@@ -192,3 +192,18 @@ export const ChangeEmailFormSchema = z.object({
  * Change Email Form Input Type
  */
 export type ChangeEmailFormInput = z.input<typeof ChangeEmailFormSchema>;
+
+/**
+ * Update User Detail Form Schema
+ */
+export const UpdateUserDetailFormSchema = z.object({
+  name: z.string().min(1, { error: 'Name is required' }),
+  companyName: z.string().optional(),
+  position: z.string().optional(),
+});
+/**
+ * Update User Detail Form Input Type
+ */
+export type UpdateUserDetailFormInput = z.input<
+  typeof UpdateUserDetailFormSchema
+>;

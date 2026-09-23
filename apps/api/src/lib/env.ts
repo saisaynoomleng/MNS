@@ -21,6 +21,24 @@ const schema = z.object({
   BETTER_AUTH_URL: z
     .url({ error: 'Must be a valid URL' })
     .min(1, { error: 'BetterAuth URL is required' }),
+  OTP_EXPIRES_IN: z.coerce.number().default(900),
+  SESSION_EXPIRES_IN: z.coerce.number().default(604800),
+  SESSION_UPDATE_AGE: z.coerce.number().default(86400),
+  SESSION_COOKIE_CACHE_MAX_AGE: z.coerce.number().default(300),
+
+  // Social Providers
+  GOOGLE_CLIENT_ID: z
+    .string()
+    .min(1, { error: 'Google Client ID is required' }),
+  GOOGLE_CLIENT_SECRET: z
+    .string()
+    .min(1, { error: 'Goolge Client Secret is required' }),
+  LINKEDIN_CLIENT_ID: z
+    .string()
+    .min(1, { error: 'LinkedIn client ID is required' }),
+  LINKEDIN_CLIENT_SECRET: z
+    .string()
+    .min(1, { error: 'LinkedIn client secret is required' }),
 
   // CORS
   AGENCY_FRONT_URL: z
@@ -38,6 +56,7 @@ const schema = z.object({
   PORT: z.coerce.number().default(8000),
   NODE_ENV: z.enum(['production', 'development']).default('development'),
   APP_STAGE: z.enum(['dev', 'prod', 'test']).default('dev'),
+  APP_NAME: z.string().min(1, 'App name is required'),
 
   // Rate Limiting
   RATE_LIMIT_WINDOW_MS: z.coerce.number().default(900000),

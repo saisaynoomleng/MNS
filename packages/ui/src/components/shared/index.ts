@@ -7,3 +7,4 @@ export * from './FormImageInputField';
 export * from './DarkMode';
 export * from './SubmitButton';
 export * from './LoadingSpinner';
+export * from './PasswordChecker';

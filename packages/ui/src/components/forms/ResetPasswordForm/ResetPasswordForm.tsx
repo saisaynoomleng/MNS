@@ -11,10 +11,16 @@ import {
 } from '@mns/utils';
 import type React from 'react';
 import { useEffect, useState } from 'react';
-import { Controller, useForm, type SubmitHandler } from 'react-hook-form';
+import {
+  Controller,
+  useForm,
+  useWatch,
+  type SubmitHandler,
+} from 'react-hook-form';
 import {
   Bounded,
   FormTextField,
+  PasswordChecker,
   SectionTitle,
   SubmitButton,
 } from '../../shared';
@@ -84,6 +90,11 @@ export const ResetPasswordForm = ({
       password: '',
       confirmPassword: '',
     },
+  });
+
+  const inputPassword = useWatch({
+    control: resetPasswordForm.control,
+    name: 'password',
   });
 
   const submitRequest: SubmitHandler<RequestPasswordResetFormInput> = async (
@@ -244,6 +255,8 @@ export const ResetPasswordForm = ({
             autoComplete="current-password"
             control={resetPasswordForm.control}
           />
+
+          <PasswordChecker password={inputPassword} />
 
           <Field orientation="horizontal">
             <SubmitButton>Set New Password</SubmitButton>

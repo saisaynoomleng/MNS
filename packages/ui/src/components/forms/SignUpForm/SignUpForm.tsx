@@ -8,9 +8,14 @@ import {
 } from '@mns/utils';
 import clsx from 'clsx';
 import type React from 'react';
-import { useForm, type SubmitHandler } from 'react-hook-form';
+import { useForm, useWatch, type SubmitHandler } from 'react-hook-form';
 import { twMerge } from 'tailwind-merge';
-import { FormTextField, SectionTitle, SubmitButton } from '../../shared';
+import {
+  FormTextField,
+  PasswordChecker,
+  SectionTitle,
+  SubmitButton,
+} from '../../shared';
 import { Field, FieldSeparator } from '#components/ui/field';
 import { OAuthSignInForm } from '../OAuthSignInForm';
 
@@ -34,6 +39,8 @@ export const SignUpForm = ({
       confirmPassword: '',
     },
   });
+
+  const inputPassword = useWatch({ control: form.control, name: 'password' });
 
   const onSignUp: SubmitHandler<SignUpFormInput> = async (data) => {
     await action(data);
@@ -86,6 +93,8 @@ export const SignUpForm = ({
         autoComplete="current-password"
         control={form.control}
       />
+
+      <PasswordChecker password={inputPassword} />
 
       <Field orientation="horizontal">
         <SubmitButton>Sign Up</SubmitButton>

@@ -1,3 +1,10 @@
+import { appType } from './documents/appType';
+import { capabilityType } from './documents/capabilityType';
+import { caseStudyType } from './documents/caseStudyType';
+import { faqsType } from './documents/faqsType';
+import { pageType } from './documents/pageType';
+import { serviceType } from './documents/serviceType';
+import { subscriptionType } from './documents/subscriptionType';
 import {
   blockContent,
   faq,
@@ -25,4 +32,13 @@ export const schemaTypes = [
 
   //   singletons
   siteSettings,
+
+  // documents
+  serviceType,
+  subscriptionType,
+  caseStudyType,
+  faqsType,
+  capabilityType,
+  appType,
+  pageType,
 ];

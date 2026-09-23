@@ -4,13 +4,18 @@ import { Bounded, SectionTitle } from '../components';
 import { IoClose, IoSettingsOutline } from 'react-icons/io5';
 import { CiImageOn, CiLink } from 'react-icons/ci';
 import {
+  MdOutlineDesignServices,
   MdOutlineQuestionAnswer,
   MdOutlineVideoCameraFront,
+  MdPhonelink,
 } from 'react-icons/md';
 import { RxDropdownMenu, RxHamburgerMenu } from 'react-icons/rx';
 import { PiTextColumnsBold } from 'react-icons/pi';
 import { FaFacebookSquare, FaYoutubeSquare } from 'react-icons/fa';
-import { FaGoogle, FaLinkedin } from 'react-icons/fa6';
+import { FaGoogle, FaLinkedin, FaMoneyCheckDollar } from 'react-icons/fa6';
+import { RiSuitcaseLine } from 'react-icons/ri';
+import { GiProgression } from 'react-icons/gi';
+import { LuReceiptText } from 'react-icons/lu';
 
 const icons: React.ReactElement[] = [
   <IoSettingsOutline aria-hidden />,
@@ -26,6 +31,12 @@ const icons: React.ReactElement[] = [
   <FaYoutubeSquare aria-hidden />,
   <FaLinkedin aria-hidden />,
   <FaGoogle aria-hidden />,
+  <MdOutlineDesignServices aria-hidden />,
+  <FaMoneyCheckDollar aria-hidden />,
+  <RiSuitcaseLine aria-hidden />,
+  <GiProgression aria-hidden />,
+  <MdPhonelink aria-hidden />,
+  <LuReceiptText aria-hidden />,
 ];
 
 export const Iconography = (): React.JSX.Element => {

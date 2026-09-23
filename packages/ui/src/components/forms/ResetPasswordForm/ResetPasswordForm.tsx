@@ -177,6 +177,7 @@ export const ResetPasswordForm = ({
 
                 <InputOTP
                   id="otp"
+                  name={field.name}
                   maxLength={6}
                   value={field.value}
                   onChange={field.onChange}

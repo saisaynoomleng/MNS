@@ -3,6 +3,7 @@ import env from './env.js';
 import { drizzleAdapter } from 'better-auth/adapters/drizzle';
 import db from '../db/index.js';
 import { admin, createAccessControl, emailOTP } from 'better-auth/plugins';
+import { nextCookies } from 'better-auth/next-js';
 
 const statement = {
   user: [
@@ -84,9 +85,18 @@ export const auth = betterAuth({
         superadmin,
       },
     }),
+    nextCookies(),
   ],
 
-  baseURL: env.BETTER_AUTH_URL,
+  baseURL: {
+    allowedHosts: [
+      'localhost:3000',
+      'localhost:3001',
+      'localhost:3002',
+      '*.mnsart.com',
+    ],
+    protocol: env.NODE_ENV === 'production' ? 'https' : 'http',
+  },
 
   trustedOrigins: [env.ALLOW_ORIGINS, 'https://*.mnsart.com'],
 
@@ -202,6 +212,10 @@ export const auth = betterAuth({
   advanced: {
     database: {
       generateId: 'uuid',
+    },
+    crossSubDomainCookies: {
+      enabled: true,
+      domain: '.mnsart.com',
     },
   },
 });

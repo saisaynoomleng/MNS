@@ -82,7 +82,7 @@ export const Footer = async (): Promise<React.JSX.Element | null> => {
                     rel="noreferrer nofollow"
                     className="hover:text-secondary"
                   >
-                    <FaFacebookSquare size={30} arai-hidden />
+                    <FaFacebookSquare size={30} aria-hidden />
                     <span className="sr-only">Check us on Facebook</span>
                   </Link>
                 </div>
@@ -97,7 +97,7 @@ export const Footer = async (): Promise<React.JSX.Element | null> => {
                   rel="noreferrer nofollow"
                   className="hover:text-secondary"
                 >
-                  <FaYoutubeSquare size={30} arai-hidden />
+                  <FaYoutubeSquare size={30} aria-hidden />
                   <span className="sr-only">Check us on YouTube</span>
                 </Link>
               </div>

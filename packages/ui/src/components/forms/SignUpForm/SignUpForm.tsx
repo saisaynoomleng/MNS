@@ -3,6 +3,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
   SignUpFormSchema,
+  type CallToActionProps,
   type OAuthProviders,
   type SignUpFormInput,
 } from '@mns/utils';
@@ -23,12 +24,16 @@ type SignUpFormProps = {
   className?: string;
   action: (data: SignUpFormInput) => Promise<void>;
   OAuthAction: (strategy: OAuthProviders) => Promise<void>;
+  callToAction: CallToActionProps;
+  renderAction: (props: CallToActionProps) => React.ReactElement;
 };
 
 export const SignUpForm = ({
   className,
   action,
   OAuthAction,
+  callToAction,
+  renderAction,
 }: SignUpFormProps): React.JSX.Element => {
   const form = useForm<SignUpFormInput>({
     resolver: zodResolver(SignUpFormSchema),
@@ -100,7 +105,13 @@ export const SignUpForm = ({
         <SubmitButton>Sign Up</SubmitButton>
       </Field>
 
-      <FieldSeparator>Or</FieldSeparator>
+      <div className="ml-auto flex gap-x-1 items-center">
+        <p>Already a member?</p>
+
+        {renderAction({ label: callToAction.label, href: callToAction.href })}
+      </div>
+
+      <FieldSeparator>Or Sign In With</FieldSeparator>
 
       <OAuthSignInForm action={OAuthAction} />
     </form>

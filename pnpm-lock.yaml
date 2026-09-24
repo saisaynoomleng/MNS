@@ -298,6 +298,15 @@ importers:
 
   packages/email:
     dependencies:
+      '@mns/ui':
+        specifier: workspace:*
+        version: link:../ui
+      '@mns/utils':
+        specifier: workspace:*
+        version: link:../utils
+      '@tailwindcss/vite':
+        specifier: ^4.3.3
+        version: 4.3.3(vite@8.3.0(@types/node@26.6.2)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.1))
       react:
         specifier: 19.2.8
         version: 19.2.8
@@ -307,6 +316,9 @@ importers:
       react-email:
         specifier: 6.9.5
         version: 6.9.5(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(supports-color@8.1.1)
+      tailwindcss:
+        specifier: ^4.3.3
+        version: 4.3.3
     devDependencies:
       '@react-email/ui':
         specifier: 6.9.5

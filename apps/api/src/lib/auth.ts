@@ -1,9 +1,16 @@
 import { betterAuth } from 'better-auth';
 import env from './env.js';
 import { drizzleAdapter } from 'better-auth/adapters/drizzle';
-import db from '../db/index.js';
+import db, {
+  AccountsTable,
+  RateLimitsTable,
+  SessionsTable,
+  UsersTable,
+  VerificationsTable,
+} from '../db/index.js';
 import { admin, createAccessControl, emailOTP } from 'better-auth/plugins';
 import { nextCookies } from 'better-auth/next-js';
+import schema from '../db/index.js';
 
 const statement = {
   user: [
@@ -73,6 +80,7 @@ export const auth = betterAuth({
       },
       otpLength: 6,
       sendVerificationOnSignUp: true,
+      disableSignUp: true,
     }),
     admin({
       ac,
@@ -105,7 +113,14 @@ export const auth = betterAuth({
   database: drizzleAdapter(db, {
     provider: 'pg',
     camelCase: true,
-    schema: {},
+    schema: {
+      ...schema,
+      users: UsersTable,
+      sessions: SessionsTable,
+      accounts: AccountsTable,
+      verifications: VerificationsTable,
+      rate_limits: RateLimitsTable,
+    },
   }),
 
   emailAndPassword: {
@@ -117,6 +132,13 @@ export const auth = betterAuth({
     revokeSessionsOnPasswordReset: true,
     onExistingUserSignUp: async ({ user }) => {
       // existing sign up email
+    },
+  },
+
+  emailVerification: {
+    sendOnSignUp: true,
+    sendVerificationEmail: async ({ user, url }) => {
+      //
     },
   },
 

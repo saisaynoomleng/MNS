@@ -11,6 +11,8 @@ import db, {
 import { admin, createAccessControl, emailOTP } from 'better-auth/plugins';
 import { nextCookies } from 'better-auth/next-js';
 import schema from '../db/index.js';
+import { signUpVerification } from '../modules/auth/signUpVerification.js';
+import { welcomeEmail } from '../modules/auth/welcomeEmail.js';
 
 const statement = {
   user: [
@@ -101,6 +103,8 @@ export const auth = betterAuth({
       'localhost:3000',
       'localhost:3001',
       'localhost:3002',
+      'localhost:8000',
+      'localhost:4000',
       '*.mnsart.com',
     ],
     protocol: env.NODE_ENV === 'production' ? 'https' : 'http',
@@ -138,7 +142,10 @@ export const auth = betterAuth({
   emailVerification: {
     sendOnSignUp: true,
     sendVerificationEmail: async ({ user, url }) => {
-      //
+      void signUpVerification({ name: user.name, email: user.email, url });
+    },
+    afterEmailVerification: async (user) => {
+      void welcomeEmail({ name: user.name, email: user.email });
     },
   },
 

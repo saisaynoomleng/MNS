@@ -1,12 +1,57 @@
 'use client';
 
 import { authClient } from '@/lib/authClient';
-import { Bounded, SignInForm } from '@mns/ui';
+import { Bounded, SignInForm, toast } from '@mns/ui';
+import { OAuthProviders, SignInFormInput } from '@mns/utils';
+import { useRouter } from 'next/navigation';
 import React from 'react';
 
 const SignInPage = (): React.JSX.Element => {
-  const handleSignInAction = async () => {};
-  const handleOAuthAction = async () => {};
+  const router = useRouter();
+
+  const handleSignInAction = async (data: SignInFormInput) => {
+    try {
+      await authClient.signIn.email(
+        {
+          email: data.email,
+          password: data.password,
+          rememberMe: data.rememberMe,
+        },
+        {
+          onSuccess: () => {
+            router.push('/user');
+          },
+
+          onError: (ctx) => {
+            toast.error(ctx.error.message);
+          },
+        },
+      );
+    } catch (error) {
+      console.error('Sign In Error', JSON.stringify(error, null, 2));
+    }
+  };
+
+  const handleOAuthAction = async (provider: OAuthProviders) => {
+    try {
+      await authClient.signIn.social(
+        {
+          provider,
+        },
+        {
+          onSuccess: () => {
+            router.push('/user');
+          },
+
+          onError: (ctx) => {
+            toast.error(ctx.error.message);
+          },
+        },
+      );
+    } catch (error) {
+      console.error(`OAuth Sign in error`, JSON.stringify(error, null, 2));
+    }
+  };
 
   return (
     <Bounded

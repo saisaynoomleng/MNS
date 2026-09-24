@@ -11,6 +11,7 @@ import Link from 'next/link';
 import { RxHamburgerMenu } from 'react-icons/rx';
 import { IoClose } from 'react-icons/io5';
 import { authClient } from '@/lib/authClient';
+import Image from 'next/image';
 
 type MainNavProps = {
   className?: string;
@@ -26,6 +27,14 @@ export const DesktopNav = ({
   const { data: session } = authClient.useSession();
 
   const isLoggedIn = session?.session;
+
+  const userImage = session?.user.image
+    ? session.user.image
+    : `https://placehold.co/600x400?text=${session?.user.name.charAt(0)}`;
+
+  const isPlacehold = userImage.startsWith('https://placehold.co/')
+    ? true
+    : false;
 
   if (!navLinks) return null;
 
@@ -48,9 +57,22 @@ export const DesktopNav = ({
 
       <Separator orientation="vertical" className="bg-muted" />
 
-      <Button variant="pirmary" asChild>
-        {isLoggedIn ? <div></div> : <Link href="/sign-in">Sign In</Link>}
-      </Button>
+      {isLoggedIn ? (
+        <Link href="/user" className="overflow-hidden relative w-10 h-10">
+          <Image
+            src={userImage}
+            alt=""
+            fill
+            unoptimized={isPlacehold}
+            className="min-w-full object-cover rounded-full"
+            sizes="(max-width: 50px) 100vw, 22vw"
+          />
+        </Link>
+      ) : (
+        <Button variant="pirmary" asChild>
+          <Link href="/sign-in">Sign In</Link>
+        </Button>
+      )}
     </nav>
   );
 };
@@ -61,15 +83,38 @@ export const MobileNav = ({
 }: MainNavProps): React.JSX.Element | null => {
   const pathname = usePathname();
   const [navOpen, setNavOpen] = useState<boolean>(false);
+  const { data: session } = authClient.useSession();
+
+  const isLoggedIn = session?.session;
+  const userImage = session?.user.image
+    ? session.user.image
+    : `https://placehold.co/600x400?text=${session?.user.name.charAt(0)}`;
+
+  const isPlacehold = userImage.startsWith('https://placehold.co/')
+    ? true
+    : false;
 
   if (!navLinks) return null;
 
   return (
     <div className={twMerge(clsx('', className))}>
       <div className="flex items-center gap-x-1">
-        <Button asChild variant="pirmary">
-          <Link href="/sign-in">Sign In</Link>
-        </Button>
+        {isLoggedIn ? (
+          <Link href="/user" className="overflow-hidden relative w-10 h-10">
+            <Image
+              src={userImage}
+              alt=""
+              fill
+              unoptimized={isPlacehold}
+              className="min-w-full object-cover rounded-full"
+              sizes="(max-width: 50px) 100vw, 22vw"
+            />
+          </Link>
+        ) : (
+          <Button variant="pirmary" asChild>
+            <Link href="/sign-in">Sign In</Link>
+          </Button>
+        )}
 
         <Separator className="bg-muted" orientation="vertical" />
 

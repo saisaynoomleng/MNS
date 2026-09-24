@@ -110,7 +110,14 @@ export const auth = betterAuth({
     protocol: env.NODE_ENV === 'production' ? 'https' : 'http',
   },
 
-  trustedOrigins: [env.ALLOW_ORIGINS, 'https://*.mnsart.com'],
+  trustedOrigins: [
+    'localhost:3000',
+    'localhost:3001',
+    'localhost:3002',
+    'localhost:8000',
+    'localhost:4000',
+    'https://*.mnsart.com',
+  ],
 
   secret: env.BETTER_AUTH_SECRET,
 
@@ -242,9 +249,13 @@ export const auth = betterAuth({
     database: {
       generateId: 'uuid',
     },
-    crossSubDomainCookies: {
-      enabled: true,
-      domain: '.mnsart.com',
-    },
+    ...(env.NODE_ENV === 'production'
+      ? {
+          crossSubDomainCookies: {
+            enabled: true,
+            domain: '.mnsart.com',
+          },
+        }
+      : {}),
   },
 });

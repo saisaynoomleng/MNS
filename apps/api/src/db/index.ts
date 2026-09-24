@@ -7,12 +7,11 @@ import { remember } from '@epic-web/remember';
 const createPool = () => {
   const pool = new Pool({
     connectionString: env.DATABASE_URL,
-    min: 2,
     max: 20,
   });
 
   pool.on('error', (err) => {
-    console.error('PG Pool error', JSON.stringify(err, null, 2));
+    console.error('PG Pool error', err);
   });
 
   return pool;

@@ -65,12 +65,17 @@ const schema = z.object({
   //   Logging
   LOG_LEVEL: z.string().min(1, 'Log Level is required'),
 
-  //   AWS
+  // AWS
   AWS_REGION: z.string().min(1, { error: 'AWS region is required' }),
   AWS_SECRET_ACCESS_KEY: z
     .string()
     .min(1, { error: 'AWS secret access key is required' }),
   AWS_ACCESS_KEY: z.string().min(1, { error: 'AWS access key is required' }),
+
+  // email addresses
+  NO_REPLY_ADDRESS: z.email({ error: 'Must be a valid email address' }),
+  REPLY_TO_ADDRESS: z.email({ error: 'Must be a valid email address' }),
+  CONTACT_ADDRESS: z.email({ error: 'Must be a valid email address' }),
 });
 
 type ENV = z.infer<typeof schema>;

@@ -10,6 +10,7 @@ import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { RxHamburgerMenu } from 'react-icons/rx';
 import { IoClose } from 'react-icons/io5';
+import { authClient } from '@/lib/authClient';
 
 type MainNavProps = {
   className?: string;
@@ -21,6 +22,10 @@ export const DesktopNav = ({
   className,
 }: MainNavProps): React.JSX.Element | null => {
   const pathname = usePathname();
+
+  const { data: session } = authClient.useSession();
+
+  const isLoggedIn = session?.session;
 
   if (!navLinks) return null;
 
@@ -44,7 +49,7 @@ export const DesktopNav = ({
       <Separator orientation="vertical" className="bg-muted" />
 
       <Button variant="pirmary" asChild>
-        <Link href="/sign-in">Sign In</Link>
+        {isLoggedIn ? <div></div> : <Link href="/sign-in">Sign In</Link>}
       </Button>
     </nav>
   );

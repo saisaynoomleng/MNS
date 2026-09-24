@@ -42,15 +42,18 @@ export type OAuthProviders = 'google' | 'linkedIn' | 'facebook' | 'tiktok';
 //================================
 // Email Props
 //================================
-export type ProjectStatus = '';
-
-export type ProjectStatusEmailProps = {
-  status: ProjectStatus;
-  projectName: string;
-  clientName: string;
+export type OTPValidationEmailProps = {
+  otp: number;
+  expiresAt?: number;
+  name: string;
 };
 
-export type OTPEmailProps = {
-  otp: string;
-  expiresAt: number;
+export type SignUpVerificationEmailProps = {
+  name: string;
+  url: string;
+  expiresAt?: number;
+};
+
+export type WelcomeEmailProps = {
+  name: string;
 };

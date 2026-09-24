@@ -17,6 +17,8 @@
     "@sanity/client": "^8.6.2",
     "@sanity/image-url": "^2.1.1",
     "@tailwindcss/typography": "^0.5.20",
+    "better-auth": "^1.7.5",
+    "better-fetch": "^1.1.2",
     "next": "16.3.5",
     "next-sanity": "^13.3.4",
     "react": "19.2.8",

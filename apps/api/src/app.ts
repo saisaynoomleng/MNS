@@ -10,7 +10,7 @@ const app: Express = express();
 
 app.use(
   cors({
-    origin: env.ALLOW_ORIGINS.split(','),
+    origin: true,
     credentials: true,
   }),
 );

@@ -6,6 +6,8 @@ import env, { isTest } from './lib/env.js';
 import { toNodeHandler } from 'better-auth/node';
 import { auth } from './lib/auth.js';
 
+import ContactRouter from './modules/contacts/contact.router.js';
+
 const app: Express = express();
 
 app.use(
@@ -32,6 +34,7 @@ app.get('/health', (req, res) => {
 });
 
 // routes
+app.use('/api/contacts', ContactRouter);
 
 app.use((req, res) => {
   res.status(404).json({ message: 'No Resources Found' });

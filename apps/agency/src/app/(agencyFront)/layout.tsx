@@ -5,7 +5,9 @@ const AgencyFrontLayout = ({ children }: LayoutProps<'/'>) => {
   return (
     <>
       <Header />
+
       {children}
+
       <Footer />
     </>
   );

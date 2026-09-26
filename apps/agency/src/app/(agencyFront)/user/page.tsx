@@ -56,6 +56,9 @@ const UserPage = () => {
         onSuccess: () => {
           toast.success('OPT is sent to your new email');
         },
+        onError: (ctx) => {
+          toast.error(ctx.error.message);
+        },
       },
     );
   };

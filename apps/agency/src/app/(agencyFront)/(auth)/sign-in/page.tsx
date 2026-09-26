@@ -1,5 +1,6 @@
 'use client';
 
+import RenderAction from '@/components/RenderAction';
 import { authClient } from '@/lib/authClient';
 import { Bounded, SignInForm, toast } from '@mns/ui';
 import { OAuthProviders, SignInFormInput } from '@mns/utils';
@@ -63,6 +64,8 @@ const SignInPage = (): React.JSX.Element => {
         action={handleSignInAction}
         OAuthAction={handleOAuthAction}
         className="max-w-100 md:max-w-150 mx-auto"
+        resetCTA={{ label: 'Forget Password', href: '/reset-password' }}
+        renderReset={(props) => RenderAction(props)}
       />
     </Bounded>
   );

@@ -9,7 +9,7 @@ const RenderAction = ({ label, href }: RenderActionProps) => {
   return (
     <Link
       href={href}
-      className="text-primary hover:underline underline-offset-2"
+      className="text-primary hover:underline underline-offset-2 text-nowrap w-full"
     >
       {label}
     </Link>

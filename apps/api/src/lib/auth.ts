@@ -14,6 +14,7 @@ import schema from '../db/index.js';
 import { signUpVerification } from '../modules/auth/signUpVerification.js';
 import { welcomeEmail } from '../modules/auth/welcomeEmail.js';
 import { changeEmail } from '../modules/auth/changeEmail.js';
+import { resetPassword } from '../modules/auth/resetPassword.js';
 
 const statement = {
   user: [
@@ -73,7 +74,7 @@ export const auth = betterAuth({
         } else if (type === 'email-verification') {
           // email verification
         } else if (type === 'forget-password') {
-          // email verification
+          void resetPassword({ email, otp });
         } else if (type === 'sign-in') {
           // email verification
         }

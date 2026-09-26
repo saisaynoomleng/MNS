@@ -36,7 +36,6 @@ import { Button } from '#components/ui/button';
 import clsx from 'clsx';
 
 type ResetPasswordFormProps = {
-  className?: string;
   requestPasswordAction: (data: RequestPasswordResetFormInput) => Promise<void>;
   checkVerificationAction: (
     data: CheckVerificationOTPFormInput,
@@ -45,7 +44,6 @@ type ResetPasswordFormProps = {
 };
 
 export const ResetPasswordForm = ({
-  className,
   requestPasswordAction,
   checkVerificationAction,
   resetPasswordAction,

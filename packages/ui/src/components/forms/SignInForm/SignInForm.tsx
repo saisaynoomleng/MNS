@@ -27,13 +27,15 @@ type SignInFormProps = {
   action: (data: SignInFormInput) => Promise<void>;
   OAuthAction: (strategy: OAuthProviders) => Promise<void>;
   resetCTA: CallToActionProps;
-  resetAction: (props: CallToActionProps) => void;
+  renderReset: (props: CallToActionProps) => React.ReactElement;
 };
 
 export const SignInForm = ({
   className,
   action,
   OAuthAction,
+  renderReset,
+  resetCTA,
 }: SignInFormProps): React.JSX.Element => {
   const form = useForm<SignInFormInput>({
     resolver: zodResolver(SignInFormSchema),
@@ -81,7 +83,11 @@ export const SignInForm = ({
           control={form.control}
           render={({ field, fieldState }) => (
             <FieldGroup>
-              <Field aria-invalid={fieldState.invalid} orientation="horizontal">
+              <Field
+                aria-invalid={fieldState.invalid}
+                orientation="horizontal"
+                className="w-fit"
+              >
                 <Checkbox
                   name={field.name}
                   onCheckedChange={field.onChange}
@@ -95,6 +101,10 @@ export const SignInForm = ({
             </FieldGroup>
           )}
         />
+
+        <div className="text-fs-300">
+          {renderReset({ label: resetCTA.label, href: resetCTA.href })}
+        </div>
       </div>
 
       <Field orientation="horizontal">

@@ -6,6 +6,7 @@ export const UsersTable = t.pgTable('users', {
   id: t.uuid('id').defaultRandom().primaryKey(),
   name: t.varchar('name', { length: 255 }).notNull(),
   email: t.varchar('email', { length: 255 }).notNull(),
+  phone: t.varchar('phone', { length: 20 }),
   companyName: t.varchar('companyName', { length: 255 }),
   position: t.varchar('position', { length: 255 }),
   emailVerified: t.boolean('emailVerified').default(false).notNull(),

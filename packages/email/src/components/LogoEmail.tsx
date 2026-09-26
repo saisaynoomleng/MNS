@@ -1,10 +1,15 @@
 import type React from 'react';
-import { Section } from 'react-email';
+import { Img, Section } from 'react-email';
 
 export const LogoEmail = (): React.JSX.Element => {
   return (
     <Section className="mobile:px-6 px-[40px] pt-[40px] pb-[24px] text-center">
-      <text className="font-header font-bold text-7xl text-center">mns.</text>
+      <Img
+        src="https://cdn.sanity.io/images/a8ioaakl/production/9eb17fd66eca92018e76834374fd6d07664848d5-400x134.png"
+        alt="mns logo"
+        className="mx-auto max-w-50 object-cover"
+        loading="lazy"
+      />
     </Section>
   );
 };

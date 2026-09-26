@@ -80,6 +80,25 @@ export const formatDateUS = (date: string | Date): string => {
 };
 
 /**
+ * Format a date into readable US Date Time Format
+ * @param datetime string | Date
+ * @returns string
+ */
+export const formatDateTimeUS = (datetime: string | Date): string => {
+  const parseDate = new Date(datetime);
+
+  return new Intl.DateTimeFormat('en-US', {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+    hour: 'numeric',
+    hour12: true,
+    minute: 'numeric',
+    second: 'numeric',
+  }).format(parseDate);
+};
+
+/**
  * Return a year of the given date
  * @param date string | Date
  * @returns string

@@ -48,9 +48,8 @@ export type CHAT_STYLE_TYPE = {
 // Email Props
 //================================
 export type OTPValidationEmailProps = {
-  otp: number;
+  otp: string;
   expiresAt?: number;
-  name: string;
 };
 
 export type SignUpVerificationEmailProps = {

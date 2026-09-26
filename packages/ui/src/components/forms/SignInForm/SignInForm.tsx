@@ -2,6 +2,7 @@
 
 import {
   SignInFormSchema,
+  type CallToActionProps,
   type OAuthProviders,
   type SignInFormInput,
 } from '@mns/utils';
@@ -25,6 +26,8 @@ type SignInFormProps = {
   className?: string;
   action: (data: SignInFormInput) => Promise<void>;
   OAuthAction: (strategy: OAuthProviders) => Promise<void>;
+  resetCTA: CallToActionProps;
+  resetAction: (props: CallToActionProps) => void;
 };
 
 export const SignInForm = ({
@@ -72,25 +75,27 @@ export const SignInForm = ({
         control={form.control}
       />
 
-      <Controller
-        name="rememberMe"
-        control={form.control}
-        render={({ field, fieldState }) => (
-          <FieldGroup>
-            <Field aria-invalid={fieldState.invalid} orientation="horizontal">
-              <Checkbox
-                name={field.name}
-                onCheckedChange={field.onChange}
-                checked={!!field.value}
-                id="remember"
-                aria-invalid={fieldState.invalid}
-              />
-              <FieldLabel htmlFor="remember">Remember Me</FieldLabel>
-            </Field>
-            {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
-          </FieldGroup>
-        )}
-      />
+      <div className="flex justify-between items-center">
+        <Controller
+          name="rememberMe"
+          control={form.control}
+          render={({ field, fieldState }) => (
+            <FieldGroup>
+              <Field aria-invalid={fieldState.invalid} orientation="horizontal">
+                <Checkbox
+                  name={field.name}
+                  onCheckedChange={field.onChange}
+                  checked={!!field.value}
+                  id="remember"
+                  aria-invalid={fieldState.invalid}
+                />
+                <FieldLabel htmlFor="remember">Remember Me</FieldLabel>
+              </Field>
+              {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+            </FieldGroup>
+          )}
+        />
+      </div>
 
       <Field orientation="horizontal">
         <SubmitButton>Sign In</SubmitButton>

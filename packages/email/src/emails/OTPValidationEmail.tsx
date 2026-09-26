@@ -17,7 +17,6 @@ import { LinkEmail } from '../components/LinkEmail.js';
 const OTPValidationEmail = ({
   otp,
   expiresAt = 15,
-  name,
 }: OTPValidationEmailProps): React.JSX.Element => {
   return (
     <Tailwind config={tailwindConfig}>
@@ -33,21 +32,23 @@ const OTPValidationEmail = ({
         <Container className="mx-auto max-w-160">
           <LogoEmail />
 
-          <Text>Hi {name}</Text>
+          <Section>
+            <Text>Hi</Text>
 
-          <Text>Your OTP is</Text>
+            <Text>Your OTP is</Text>
 
-          <Text className="text-primary-600 font-bold text-2xl">{otp}</Text>
+            <Text className="text-primary-600 font-bold text-2xl">{otp}</Text>
 
-          <Text>
-            This code expires in{' '}
-            <span className="text-primary-600 font-bold">{expiresAt} </span>
-            minutes.
-          </Text>
+            <Text>
+              This code expires in{' '}
+              <span className="text-primary-600 font-bold">{expiresAt} </span>
+              minutes.
+            </Text>
 
-          <Text>
-            If you didn't request this, you can safely ignore this email.
-          </Text>
+            <Text>
+              If you didn't request this, you can safely ignore this email.
+            </Text>
+          </Section>
 
           <LinkEmail />
         </Container>
@@ -61,7 +62,6 @@ export default OTPValidationEmail;
 export const renderOTPValidationEmail = async ({
   otp,
   expiresAt = 15,
-  name,
 }: OTPValidationEmailProps) => {
-  return await render(OTPValidationEmail({ otp, expiresAt, name }));
+  return await render(OTPValidationEmail({ otp, expiresAt }));
 };

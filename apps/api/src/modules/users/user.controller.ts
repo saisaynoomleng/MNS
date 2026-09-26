@@ -43,6 +43,30 @@ export const userController = () => {
       }
     },
 
-    edit: () => {},
+    edit: async (
+      req: Request<{}, {}, SelectUserTable>,
+      res: Response,
+      next: NextFunction,
+    ) => {
+      try {
+        const { name, companyName, position, id } = req.body;
+
+        await db
+          .update(UsersTable)
+          .set({
+            name,
+            companyName,
+            position,
+          })
+          .where(eq(UsersTable.id, id))
+          .returning({ userId: UsersTable.id });
+
+        return res
+          .status(201)
+          .json({ message: 'User info updated successfully!' });
+      } catch (error) {
+        return next(error);
+      }
+    },
   };
 };

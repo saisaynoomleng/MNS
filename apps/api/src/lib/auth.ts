@@ -13,6 +13,7 @@ import { nextCookies } from 'better-auth/next-js';
 import schema from '../db/index.js';
 import { signUpVerification } from '../modules/auth/signUpVerification.js';
 import { welcomeEmail } from '../modules/auth/welcomeEmail.js';
+import { changeEmail } from '../modules/auth/changeEmail.js';
 
 const statement = {
   user: [
@@ -68,7 +69,7 @@ export const auth = betterAuth({
       expiresIn: env.OTP_EXPIRES_IN,
       async sendVerificationOTP({ email, otp, type }) {
         if (type === 'change-email') {
-          // change email
+          void changeEmail({ newEmail: email, otp });
         } else if (type === 'email-verification') {
           // email verification
         } else if (type === 'forget-password') {

@@ -10,10 +10,12 @@ export const env = createEnv({
     SANITY_STUDIO_PROJECT_ID: z
       .string()
       .min(1, { error: 'Sanity Project ID is required' }),
+    API_URL: z.url({ error: 'Must be a valid URL' }),
   },
   runtimeEnv: {
     SANITY_STUDIO_DATASET: process.env.SANITY_STUDIO_DATASET,
     SANITY_STUDIO_PROJECT_ID: process.env.SANITY_STUDIO_PROJECT_ID,
+    API_URL: process.env.API_URL,
   },
   skipValidation: !!process.env.SKIP_VALIDATION,
 });

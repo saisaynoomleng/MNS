@@ -1,6 +1,6 @@
 import * as t from 'drizzle-orm/pg-core';
 import { contactStatus, timestamps } from './schema-helper.js';
-import { sql } from 'drizzle-orm';
+import { sql, type InferInsertModel, type InferSelectModel } from 'drizzle-orm';
 
 export const ContactsTable = t.pgTable(
   'contacts',
@@ -24,3 +24,6 @@ export const ContactsTable = t.pgTable(
     t.check('min_budget_check', sql`${table.minBudget} >= 0`),
   ],
 );
+
+export type InsertContactsTable = InferInsertModel<typeof ContactsTable>;
+export type SelectContactsTable = InferSelectModel<typeof ContactsTable>;

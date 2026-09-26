@@ -238,7 +238,7 @@ export const auth = betterAuth({
   //   rate limit
   rateLimit: {
     enabled: true,
-    window: env.RATE_LIMIT_WINDOW_MS,
+    window: env.RATE_LIMIT_WINDOW,
     max: env.RATE_LIMIT_MAX_REQUESTS,
     modelName: 'rate_limits',
     storage: 'database',

@@ -57,38 +57,13 @@ export const MobileNav = ({
 }: MainNavProps): React.JSX.Element | null => {
   const pathname = usePathname();
   const [navOpen, setNavOpen] = useState<boolean>(false);
-  const { data: session } = authClient.useSession();
-
-  const isLoggedIn = session?.session;
-  const userImage = session?.user.image
-    ? session.user.image
-    : `https://placehold.co/600x400?text=${session?.user.name.charAt(0)}`;
-
-  const isPlacehold = userImage.startsWith('https://placehold.co/')
-    ? true
-    : false;
 
   if (!navLinks) return null;
 
   return (
     <div className={twMerge(clsx('', className))}>
       <div className="flex items-center gap-x-1">
-        {isLoggedIn ? (
-          <Link href="/user" className="overflow-hidden relative w-10 h-10">
-            <Image
-              src={userImage}
-              alt=""
-              fill
-              unoptimized={isPlacehold}
-              className="min-w-full object-cover rounded-full"
-              sizes="(max-width: 50px) 100vw, 22vw"
-            />
-          </Link>
-        ) : (
-          <Button variant="primary" asChild>
-            <Link href="/sign-in">Sign In</Link>
-          </Button>
-        )}
+        <UserButton />
 
         <Separator className="bg-muted" orientation="vertical" />
 

@@ -59,7 +59,7 @@ const schema = z.object({
   APP_NAME: z.string().min(1, 'App name is required'),
 
   // Rate Limiting
-  RATE_LIMIT_WINDOW_MS: z.coerce.number().default(900000),
+  RATE_LIMIT_WINDOW: z.coerce.number().default(900000),
   RATE_LIMIT_MAX_REQUESTS: z.coerce.number().default(100),
 
   //   Logging

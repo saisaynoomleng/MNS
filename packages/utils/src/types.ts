@@ -39,6 +39,11 @@ export type ImageResponse =
 
 export type OAuthProviders = 'google' | 'linkedIn' | 'facebook' | 'tiktok';
 
+export type CHAT_STYLE_TYPE = {
+  inbound: string;
+  outbound: string;
+};
+
 //================================
 // Email Props
 //================================

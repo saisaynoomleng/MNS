@@ -29,6 +29,9 @@ export const structure: StructureResolver = (S) =>
         .title('Case Studies')
         .icon(RiSuitcaseLine),
       S.documentTypeListItem('app').title('Apps Hub').icon(MdPhonelink),
+      S.documentTypeListItem('chatBubble')
+        .title('Chat Bubbles')
+        .icon(MdOutlineQuestionAnswer),
 
       S.divider().title('Marketing'),
       S.documentTypeListItem('faqs')

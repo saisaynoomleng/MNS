@@ -15,6 +15,203 @@
 export declare const internalGroqTypeReferenceTo: unique symbol;
 
 // Source: src/sanity/extract.json
+export type ChatBubble = {
+  _id: string;
+  _type: 'chatBubble';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  slug?: Slug;
+  messages?: Array<{
+    inbound?: string;
+    outbound?: string;
+    _type: 'message';
+    _key: string;
+  }>;
+};
+
+export type Slug = {
+  _type: 'slug';
+  current?: string;
+  source?: string;
+};
+
+export type Page = {
+  _id: string;
+  _type: 'page';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  slug?: Slug;
+  type?: 'main' | 'company';
+  seo?: Seo;
+  body?: BlockContent;
+};
+
+export type BlockContent = Array<
+  | {
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: 'span';
+        _key: string;
+      }>;
+      style?: 'normal' | 'h1' | 'h2' | 'h3' | 'h4' | 'blockquote';
+      listItem?: 'bullet';
+      markDefs?: Array<{
+        href?: string;
+        _type: 'link';
+        _key: string;
+      }>;
+      level?: number;
+      _type: 'block';
+      _key: string;
+    }
+  | ({
+      _key: string;
+    } & ImageWithAlt)
+>;
+
+export type Seo = {
+  _type: 'seo';
+  metaTitle?: string;
+  metaDescription?: string;
+  ogImage?: ImageWithAlt;
+  noIndex?: boolean;
+};
+
+export type App = {
+  _id: string;
+  _type: 'app';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  slug?: Slug;
+  url?: string;
+  subtitle?: string;
+  excerpt?: string;
+  body?: BlockContent;
+  seo?: Seo;
+  mainImage?: ImageWithAlt;
+  type?:
+    | 'health-care'
+    | 'creative-and-media'
+    | 'food-and-hospitality'
+    | 'retail-and-commerce';
+};
+
+export type SanityImageAssetReference = {
+  _ref: string;
+  _type: 'reference';
+  _weak?: boolean;
+  [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+};
+
+export type ImageWithAlt = {
+  _type: 'imageWithAlt';
+  asset?: SanityImageAssetReference;
+  media?: unknown;
+  hotspot?: SanityImageHotspot;
+  crop?: SanityImageCrop;
+  alt?: string;
+};
+
+export type Capability = {
+  _id: string;
+  _type: 'capability';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  slug?: Slug;
+  value?: number;
+};
+
+export type Faqs = {
+  _id: string;
+  _type: 'faqs';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  slug?: Slug;
+  contents?: Array<{
+    title?: string;
+    body?: string;
+    _type: 'content';
+    _key: string;
+  }>;
+};
+
+export type CaseStudy = {
+  _id: string;
+  _type: 'caseStudy';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  slug?: Slug;
+  type?: string;
+  mainImage?: ImageWithAlt;
+  startedAt?: string;
+  endedAt?: string;
+  excerpt?: string;
+  body?: BlockContent;
+  seo?: Seo;
+  previewUrl?: string;
+};
+
+export type ServiceReference = {
+  _ref: string;
+  _type: 'reference';
+  _weak?: boolean;
+  [internalGroqTypeReferenceTo]?: 'service';
+};
+
+export type Subscription = {
+  _id: string;
+  _type: 'subscription';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  slug?: Slug;
+  pricePerMonth?: number;
+  type?: ServiceReference;
+  excerpt?: string;
+  inclusives?: Array<{
+    title?: string;
+    body?: string;
+    _type: 'feature';
+    _key: string;
+  }>;
+  exclusives?: Array<{
+    title?: string;
+    body?: string;
+    _type: 'feature';
+    _key: string;
+  }>;
+  seo?: Seo;
+};
+
+export type Service = {
+  _id: string;
+  _type: 'service';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  slug?: Slug;
+  subtitle?: string;
+  excerpt?: string;
+  body?: BlockContent;
+  mainImage?: ImageWithAlt;
+  seo?: Seo;
+};
+
 export type SiteSettings = {
   _id: string;
   _type: 'siteSettings';
@@ -50,14 +247,6 @@ export type SiteSettings = {
     email?: string;
     country?: string;
   };
-};
-
-export type Seo = {
-  _type: 'seo';
-  metaTitle?: string;
-  metaDescription?: string;
-  ogImage?: ImageWithAlt;
-  noIndex?: boolean;
 };
 
 export type VideoEmbedded = {
@@ -114,46 +303,6 @@ export type SocialLink = {
   url?: string;
 };
 
-export type SanityImageAssetReference = {
-  _ref: string;
-  _type: 'reference';
-  _weak?: boolean;
-  [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
-};
-
-export type ImageWithAlt = {
-  _type: 'imageWithAlt';
-  asset?: SanityImageAssetReference;
-  media?: unknown;
-  hotspot?: SanityImageHotspot;
-  crop?: SanityImageCrop;
-  alt?: string;
-};
-
-export type BlockContent = Array<
-  | {
-      children?: Array<{
-        marks?: Array<string>;
-        text?: string;
-        _type: 'span';
-        _key: string;
-      }>;
-      style?: 'normal' | 'h1' | 'h2' | 'h3' | 'h4' | 'blockquote';
-      listItem?: 'bullet';
-      markDefs?: Array<{
-        href?: string;
-        _type: 'link';
-        _key: string;
-      }>;
-      level?: number;
-      _type: 'block';
-      _key: string;
-    }
-  | ({
-      _key: string;
-    } & ImageWithAlt)
->;
-
 export type SanityImageCrop = {
   _type: 'sanity.imageCrop';
   top?: number;
@@ -194,12 +343,6 @@ export type MediaTag = {
   _updatedAt: string;
   _rev: string;
   name?: Slug;
-};
-
-export type Slug = {
-  _type: 'slug';
-  current?: string;
-  source?: string;
 };
 
 export type SanityImagePaletteSwatch = {
@@ -300,23 +443,32 @@ export type Geopoint = {
 };
 
 export type AllSanitySchemaTypes =
-  | SiteSettings
+  | ChatBubble
+  | Slug
+  | Page
+  | BlockContent
   | Seo
+  | App
+  | SanityImageAssetReference
+  | ImageWithAlt
+  | Capability
+  | Faqs
+  | CaseStudy
+  | ServiceReference
+  | Subscription
+  | Service
+  | SiteSettings
   | VideoEmbedded
   | FooterColumn
   | NavDropdown
   | NavLink
   | Faq
   | SocialLink
-  | SanityImageAssetReference
-  | ImageWithAlt
-  | BlockContent
   | SanityImageCrop
   | SanityImageHotspot
   | MediaFolderReference
   | MediaFolder
   | MediaTag
-  | Slug
   | SanityImagePaletteSwatch
   | SanityImagePalette
   | SanityImageDimensions
@@ -390,11 +542,32 @@ export type FOOTER_QUERY_RESULT = {
   > | null;
 } | null;
 
+// Source: src/sanity/lib/query.ts
+// Variable: CONTACT_US_PAGE_CHAT
+// Query: *[_type == 'chatBubble' && defined(slug.current) && slug.current == $page][0]{    messages[]{      _key,      inbound,      outbound    } }
+export type CONTACT_US_PAGE_CHAT_RESULT = {
+  messages: Array<{
+    _key: string;
+    inbound: string | null;
+    outbound: string | null;
+  }> | null;
+} | null;
+
+// Source: src/sanity/lib/query.ts
+// Variable: PAGE_METADATA_QUERY
+// Query: *[_type == 'page' && defined(slug.current) && slug.current == $page][0]{  "title": seo.metaTitle,  "description": seo.metaDescription }
+export type PAGE_METADATA_QUERY_RESULT = {
+  title: string | null;
+  description: string | null;
+} | null;
+
 // Query TypeMap
 declare global {
   interface SanityQueries {
     "*[_type == 'siteSettings'][0]{\n  navLinks[]{\n    _key,\n    _type,\n    href,\n    label,\n    isButton,\n    isExternal,\n    label,\n    dropdownLinks[]{\n      _key,\n      label,\n      links[]{\n        _key,\n        _type,\n        href,\n        label,\n        isButton,\n        isExternal\n      }\n    }\n  }\n}": NAVIGATION_QUERY_RESULT;
     '*[_type == \'siteSettings\'][0]{\n  "columns": footerColumns[]{\n    _key,\n    title,\n    links[]{\n      _key,\n      href,\n      label\n    }\n  },\n  "text": footerText,\n  "street": contactInfo.street,\n  "zip": contactInfo.zip,\n  "city": contactInfo.city,\n  "state": contactInfo.state,\n  "email": contactInfo.email,\n  "country": contactInfo.country,\n  "socialLinks": socialLinks[]\n}': FOOTER_QUERY_RESULT;
+    "*[_type == 'chatBubble'\n && defined(slug.current)\n && slug.current == $page][0]{\n    messages[]{\n      _key,\n      inbound,\n      outbound\n    }\n }": CONTACT_US_PAGE_CHAT_RESULT;
+    '*[_type == \'page\'\n && defined(slug.current)\n && slug.current == $page][0]{\n  "title": seo.metaTitle,\n  "description": seo.metaDescription\n }': PAGE_METADATA_QUERY_RESULT;
   }
 }
 // Lets @sanity/client releases that predate the global registry read it too

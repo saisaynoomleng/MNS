@@ -29,17 +29,17 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
           disableTransitionOnChange
         >
           {children}
+
+          <SanityLive />
+
+          <Toaster
+            richColors
+            closeButton
+            position="bottom-center"
+            theme="system"
+            duration={3000}
+          />
         </ThemeProvider>
-
-        <SanityLive />
-
-        <Toaster
-          richColors
-          closeButton
-          position="bottom-center"
-          theme="system"
-          duration={3000}
-        />
       </body>
     </html>
   );

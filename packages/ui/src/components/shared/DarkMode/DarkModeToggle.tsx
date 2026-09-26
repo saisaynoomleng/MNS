@@ -23,7 +23,7 @@ export function DarkModeToggle() {
       className="rounded-full border-none aspect-square bg-transparent! hover:bg-transparent!"
       onClick={() => setTheme(isDark ? 'light' : 'dark')}
     >
-      {isDark ? (
+      {!isDark ? (
         <Moon color="#0e79b2" className="size-6" />
       ) : (
         <Sun color="#f3a644" className="size-6" />

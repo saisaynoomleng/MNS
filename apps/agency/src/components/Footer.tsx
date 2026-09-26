@@ -33,9 +33,9 @@ export const Footer = async (): Promise<React.JSX.Element | null> => {
           </p>
           <ul className="flex flex-col gap-y-2">
             {c.links?.map((l) => (
-              <NavLinkButton key={l._key} href={l.href as string}>
-                {l.label}
-              </NavLinkButton>
+              <li key={l._key} className="w-fit">
+                <NavLinkButton href={l.href as string}>{l.label}</NavLinkButton>
+              </li>
             ))}
           </ul>
         </div>

@@ -43,3 +43,20 @@ export const FOOTER_QUERY = defineQuery(`*[_type == 'siteSettings'][0]{
   "country": contactInfo.country,
   "socialLinks": socialLinks[]
 }`);
+
+export const CONTACT_US_PAGE_CHAT = defineQuery(`*[_type == 'chatBubble'
+ && defined(slug.current)
+ && slug.current == $page][0]{
+    messages[]{
+      _key,
+      inbound,
+      outbound
+    }
+ }`);
+
+export const PAGE_METADATA_QUERY = defineQuery(`*[_type == 'page'
+ && defined(slug.current)
+ && slug.current == $page][0]{
+  "title": seo.metaTitle,
+  "description": seo.metaDescription
+ }`);

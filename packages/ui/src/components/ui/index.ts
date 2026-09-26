@@ -13,3 +13,7 @@ export * from './tooltip';
 export * from './attachment';
 export * from './separator';
 export * from './checkbox';
+export * from './message';
+export * from './avatar';
+export * from './bubble';
+export * from './skeleton';

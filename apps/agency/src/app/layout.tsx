@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 import { sue_ellen_francisco, chivo_mono, instrument_sans } from '@/lib/font';
 import { SanityLive } from '@/sanity/lib/live';
-import { Toaster, ThemeProvider } from '@mns/ui';
+import { Toaster } from '@mns/ui';
 
 export const metadata: Metadata = {
   title: {
@@ -22,24 +22,17 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
       data-scroll-behavior="smooth"
     >
       <body>
-        <ThemeProvider
-          enableSystem
-          defaultTheme="system"
-          attribute="class"
-          disableTransitionOnChange
-        >
-          {children}
+        {children}
 
-          <SanityLive />
+        <SanityLive />
 
-          <Toaster
-            richColors
-            closeButton
-            position="bottom-center"
-            theme="system"
-            duration={3000}
-          />
-        </ThemeProvider>
+        <Toaster
+          richColors
+          closeButton
+          position="bottom-center"
+          theme="system"
+          duration={3000}
+        />
       </body>
     </html>
   );

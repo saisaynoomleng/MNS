@@ -1,6 +1,7 @@
 import { appType } from './documents/appType';
 import { capabilityType } from './documents/capabilityType';
 import { caseStudyType } from './documents/caseStudyType';
+import { chatBubbleType } from './documents/chatBubbleType';
 import { faqsType } from './documents/faqsType';
 import { pageType } from './documents/pageType';
 import { serviceType } from './documents/serviceType';
@@ -41,4 +42,5 @@ export const schemaTypes = [
   capabilityType,
   appType,
   pageType,
+  chatBubbleType,
 ];

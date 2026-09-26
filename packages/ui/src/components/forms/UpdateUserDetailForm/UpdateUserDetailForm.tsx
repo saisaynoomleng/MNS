@@ -29,6 +29,7 @@ export const UpdateUserDetailForm = ({
   const form = useForm<UpdateUserDetailFormInput>({
     resolver: zodResolver(UpdateUserDetailFormSchema),
     defaultValues: {
+      id: userDetail?.id ?? '',
       name: userDetail?.name ?? '',
       companyName: userDetail?.companyName ?? '',
       position: userDetail?.position ?? '',

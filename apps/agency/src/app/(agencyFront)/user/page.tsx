@@ -3,13 +3,21 @@
 import { useGetUserById, useUpdateUserInfo } from '@/app/hooks/users';
 import { authClient } from '@/lib/authClient';
 
-import { Bounded, Spinner, UpdateUserDetailForm } from '@mns/ui';
-import { UpdateUserDetailFormInput } from '@mns/utils';
+import {
+  Bounded,
+  ChangeEmailForm,
+  Separator,
+  Spinner,
+  toast,
+  UpdateUserDetailForm,
+} from '@mns/ui';
+import { ChangeEmailFormInput, RequestEmailChangeFormInput } from '@mns/utils';
 
-import { redirect } from 'next/navigation';
+import { redirect, useRouter } from 'next/navigation';
 
 const UserPage = () => {
   const { data: session, isPending: sessionPending } = authClient.useSession();
+  const router = useRouter();
 
   const userId = session?.user.id;
 
@@ -37,12 +45,55 @@ const UserPage = () => {
     return <div>Failed to load user.</div>;
   }
 
+  const handleRequestEmailChange = async (
+    data: RequestEmailChangeFormInput,
+  ) => {
+    await authClient.emailOtp.requestEmailChange(
+      {
+        newEmail: data.newEmail,
+      },
+      {
+        onSuccess: () => {
+          toast.success('OPT is sent to your new email');
+        },
+      },
+    );
+  };
+
+  const handleChangeEmail = async (data: ChangeEmailFormInput) => {
+    await authClient.emailOtp.changeEmail(
+      {
+        newEmail: data.newEmail,
+        otp: data.otp,
+      },
+      {
+        onSuccess: () => {
+          router.refresh();
+          toast.success('Email Updated');
+        },
+        onError: (ctx) => {
+          toast.error(ctx.error.message);
+        },
+      },
+    );
+  };
+
   return (
-    <Bounded padding="sm">
+    <Bounded as="main" padding="sm" size="full" isCenterd={false} spacing="sm">
       <UpdateUserDetailForm
         updateAction={updateAction}
-        userDetail={user}
-        className="min-w-full"
+        userDetail={{
+          id: userId as string,
+          name: user.name,
+          companyName: user.companyName,
+          position: user.position,
+        }}
+      />
+
+      <ChangeEmailForm
+        currentEmail={user.email}
+        requestAction={handleRequestEmailChange}
+        changeAction={handleChangeEmail}
       />
     </Bounded>
   );

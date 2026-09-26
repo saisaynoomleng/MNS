@@ -3,6 +3,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
   UpdateUserDetailFormSchema,
+  type ActionResponse,
   type UpdateUserDetailFormInput,
 } from '@mns/utils';
 import type React from 'react';
@@ -15,7 +16,9 @@ import clsx from 'clsx';
 type UpdateUserDetailFormProps = {
   className?: string;
   userDetail?: UpdateUserDetailFormInput;
-  updateAction: (data: UpdateUserDetailFormInput) => Promise<void>;
+  updateAction: (
+    data: UpdateUserDetailFormInput,
+  ) => Promise<ActionResponse<UpdateUserDetailFormInput>>;
 };
 
 export const UpdateUserDetailForm = ({

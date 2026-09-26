@@ -42,6 +42,10 @@ export const relations = defineRelations(schema, (r) => ({
       from: r.UsersTable.id,
       to: r.InvoicesTable.userId,
     }),
+    address: r.one.AddressesTable({
+      from: r.UsersTable.id,
+      to: r.AddressesTable.userId,
+    }),
   },
 
   //   sessions

@@ -17,3 +17,4 @@ export * from './contact-messages.schema.js';
 export * from './testimonials.schema.js';
 export * from './report-issues.schema.js';
 export * from './feature-requests.schema.js';
+export * from './addresses.schema.js';

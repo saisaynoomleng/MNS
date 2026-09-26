@@ -15,7 +15,7 @@ import type { OTPValidationEmailProps } from '@mns/utils';
 import { LinkEmail } from '../components/LinkEmail.js';
 
 const OTPValidationEmail = ({
-  otp = 123456,
+  otp,
   expiresAt = 15,
   name,
 }: OTPValidationEmailProps): React.JSX.Element => {

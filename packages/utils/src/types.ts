@@ -57,3 +57,8 @@ export type SignUpVerificationEmailProps = {
 export type WelcomeEmailProps = {
   name: string;
 };
+
+export type DeleteUserVerificationEmailProps = Omit<
+  SignUpVerificationEmailProps,
+  'name'
+>;

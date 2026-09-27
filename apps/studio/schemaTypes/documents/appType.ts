@@ -30,7 +30,7 @@ export const appType = defineType({
     defineField({
       name: 'subtitle',
       title: 'App Preview Subtitle',
-      type: 'text',
+      type: 'string',
     }),
     defineField({
       name: 'excerpt',

@@ -7,26 +7,32 @@ import { cookies } from 'next/headers';
 import { betterFetch } from '@better-fetch/fetch';
 import { UserFeatureHistoryType } from './types';
 
-export const getUserById = async (id: string) => {
+export const getMe = async () => {
   try {
-    const respone = await fetch(`${env.API_URL}/api/users/${id}`);
+    const cookieStore = await cookies();
+
+    const respone = await fetch(`${env.API_URL}/api/users/me`, {
+      credentials: 'include',
+      headers: {
+        Cookie: cookieStore.toString(),
+      },
+    });
 
     if (!respone.ok) {
       console.error(`Get User by ID error`, {
         status: respone.status,
         statusText: respone.statusText,
+        body: await respone.text(),
       });
 
-      return {};
+      return null;
     }
 
-    const user = await respone.json();
-
-    return user;
+    return await respone.json();
   } catch (error) {
     console.error('Get By User by ID Error', error);
 
-    return {};
+    return null;
   }
 };
 
@@ -69,27 +75,34 @@ export const getUserIdFromCookies = async () => {
   return session.user.id;
 };
 
-export const getUserFeatureRequestHistory = async (
-  id: string,
-): Promise<UserFeatureHistoryType> => {
-  try {
-    const response = await fetch(
-      `${env.API_URL}/api/users/${id}/feature-requests`,
-    );
+export const getUserFeatureRequestHistory =
+  async (): Promise<UserFeatureHistoryType> => {
+    try {
+      const cookieStore = await cookies();
 
-    if (!response.ok) {
-      console.error(`Get user feature request history dal response error`, {
-        status: response.status,
-        statusText: response.statusText,
-      });
+      const response = await fetch(
+        `${env.API_URL}/api/users/request-feature-history`,
+        {
+          credentials: 'include',
+          headers: {
+            Cookie: cookieStore.toString(),
+          },
+        },
+      );
+
+      if (!response.ok) {
+        console.error(`Get user feature request history dal response error`, {
+          status: response.status,
+          statusText: response.statusText,
+        });
+      }
+
+      const data = await response.json();
+
+      return data;
+    } catch (error) {
+      console.error(`Get user feature request history dal error`, error);
+
+      return [];
     }
-
-    const data = await response.json();
-
-    return data;
-  } catch (error) {
-    console.error(`Get user feature request history dal error`, error);
-
-    return [];
-  }
-};
+  };

@@ -29,10 +29,10 @@ export const UpdateUserDetailForm = ({
   const form = useForm<UpdateUserDetailFormInput>({
     resolver: zodResolver(UpdateUserDetailFormSchema),
     defaultValues: {
-      id: userDetail?.id ?? '',
       name: userDetail?.name ?? '',
       companyName: userDetail?.companyName ?? '',
       position: userDetail?.position ?? '',
+      phone: userDetail?.phone ?? '',
     },
   });
 
@@ -52,6 +52,13 @@ export const UpdateUserDetailForm = ({
         name="name"
         type="text"
         label="Name"
+        control={form.control}
+      />
+
+      <FormTextField
+        name="phone"
+        label="Phone Number"
+        type="text"
         control={form.control}
       />
 

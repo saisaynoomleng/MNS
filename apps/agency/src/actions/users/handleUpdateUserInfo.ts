@@ -6,6 +6,7 @@ import {
   UpdateUserDetailFormInput,
   UpdateUserDetailFormSchema,
 } from '@mns/utils';
+import { cookies } from 'next/headers';
 
 export const handleUpdateUserInfo = async (
   data: UpdateUserDetailFormInput,
@@ -23,14 +24,14 @@ export const handleUpdateUserInfo = async (
       };
     }
 
-    const { name, companyName, position, id } = result.data;
-
-    const response = await fetch(`${env.API_URL}/api/users/${id}`, {
-      method: 'POST',
+    const response = await fetch(`${env.API_URL}/api/users/`, {
+      method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
+        Cookie: (await cookies()).toString(),
       },
-      body: JSON.stringify({ name, companyName, position, id }),
+      credentials: 'include',
+      body: JSON.stringify(result.data),
     });
 
     if (!response.ok) {

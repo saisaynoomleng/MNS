@@ -1,6 +1,6 @@
 import * as t from 'drizzle-orm/pg-core';
 import { timestamps, userRole } from './schema-helper.js';
-import type { InferSelectModel } from 'drizzle-orm';
+import type { InferInsertModel, InferSelectModel } from 'drizzle-orm';
 
 export const UsersTable = t.pgTable('users', {
   id: t.uuid('id').defaultRandom().primaryKey(),
@@ -19,3 +19,4 @@ export const UsersTable = t.pgTable('users', {
 });
 
 export type SelectUserTable = InferSelectModel<typeof UsersTable>;
+export type InsertUserTable = InferInsertModel<typeof UsersTable>;

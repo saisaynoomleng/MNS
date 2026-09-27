@@ -1,5 +1,6 @@
 'use server';
 
+import { getUserIdFromCookies } from '@/lib/dal';
 import { env } from '@/lib/env/server';
 import {
   ActionResponse,
@@ -11,6 +12,8 @@ export const handleRequestFeature = async (
   data: FeatureRequestFormInput,
 ): Promise<ActionResponse<FeatureRequestFormInput>> => {
   try {
+    const userId = await getUserIdFromCookies();
+
     const result = FeatureRequestFormSchema.safeParse(data);
 
     if (!result.success) {
@@ -22,8 +25,6 @@ export const handleRequestFeature = async (
         field: e.path.join('.') as keyof FeatureRequestFormInput,
       };
     }
-
-    const { userId } = result.data;
 
     const response = await fetch(
       `${env.API_URL}/api/users/${userId}/request-feature`,

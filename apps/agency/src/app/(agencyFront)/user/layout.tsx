@@ -4,7 +4,7 @@ import { Bounded, SidebarProvider, SidebarTrigger } from '@mns/ui';
 
 export default function UserLayout({ children }: LayoutProps<'/user'>) {
   return (
-    <Bounded as="main" className="overflow-hidden flex">
+    <Bounded as="main">
       <QueryProvider>
         <SidebarProvider>
           <UserSidebar />

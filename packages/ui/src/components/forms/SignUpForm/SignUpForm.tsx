@@ -105,15 +105,16 @@ export const SignUpForm = ({
         <SubmitButton>Sign Up</SubmitButton>
       </Field>
 
-      <div className="ml-auto flex gap-x-1 items-center">
-        <p>Already a member?</p>
-
-        {renderAction({ label: callToAction.label, href: callToAction.href })}
-      </div>
-
       <FieldSeparator>Or Sign In With</FieldSeparator>
 
       <OAuthSignInForm action={OAuthAction} />
+
+      <div className="self-end">
+        <p>
+          Already a member?{' '}
+          {renderAction({ label: callToAction.label, href: callToAction.href })}
+        </p>
+      </div>
     </form>
   );
 };

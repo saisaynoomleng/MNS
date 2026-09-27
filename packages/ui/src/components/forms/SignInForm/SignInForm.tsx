@@ -27,13 +27,19 @@ type SignInFormProps = {
   action: (data: SignInFormInput) => Promise<void>;
   OAuthAction: (strategy: OAuthProviders) => Promise<void>;
   resetCTA: CallToActionProps;
-  resetAction: (props: CallToActionProps) => void;
+  renderReset: (props: CallToActionProps) => React.ReactElement;
+  signUpCTA: CallToActionProps;
+  renderSingUp: (props: CallToActionProps) => React.ReactElement;
 };
 
 export const SignInForm = ({
   className,
   action,
   OAuthAction,
+  renderReset,
+  resetCTA,
+  signUpCTA,
+  renderSingUp,
 }: SignInFormProps): React.JSX.Element => {
   const form = useForm<SignInFormInput>({
     resolver: zodResolver(SignInFormSchema),
@@ -81,7 +87,11 @@ export const SignInForm = ({
           control={form.control}
           render={({ field, fieldState }) => (
             <FieldGroup>
-              <Field aria-invalid={fieldState.invalid} orientation="horizontal">
+              <Field
+                aria-invalid={fieldState.invalid}
+                orientation="horizontal"
+                className="w-fit"
+              >
                 <Checkbox
                   name={field.name}
                   onCheckedChange={field.onChange}
@@ -95,6 +105,10 @@ export const SignInForm = ({
             </FieldGroup>
           )}
         />
+
+        <div className="text-fs-300">
+          {renderReset({ label: resetCTA.label, href: resetCTA.href })}
+        </div>
       </div>
 
       <Field orientation="horizontal">
@@ -104,6 +118,13 @@ export const SignInForm = ({
       <FieldSeparator>Or</FieldSeparator>
 
       <OAuthSignInForm action={OAuthAction} />
+
+      <div className="self-end">
+        <p>
+          Not a member yet?{' '}
+          {renderSingUp({ label: signUpCTA.label, href: signUpCTA.href })}
+        </p>
+      </div>
     </form>
   );
 };

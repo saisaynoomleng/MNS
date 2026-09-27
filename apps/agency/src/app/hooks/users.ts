@@ -1,7 +1,7 @@
 'use client';
 
 import { handleUpdateUserInfo } from '@/actions/users/handleUpdateUserInfo';
-import { getUserById } from '@/lib/dal';
+import { getUserById, getUserFeatureRequestHistory } from '@/lib/dal';
 import { queryKeys } from '@/lib/queryKeys';
 import { toast } from '@mns/ui';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
@@ -35,5 +35,13 @@ export const useUpdateUserInfo = () => {
     onError: (result) => {
       toast.error(result.message);
     },
+  });
+};
+
+export const useGetFeatureRequestHistory = (id: string) => {
+  return useQuery({
+    queryKey: queryKeys.users.featureRequests(id),
+    queryFn: () => getUserFeatureRequestHistory(id!),
+    enabled: !!id,
   });
 };

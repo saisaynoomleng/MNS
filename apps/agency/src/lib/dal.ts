@@ -3,6 +3,8 @@
 import { sanityFetch } from '@/sanity/lib/live';
 import { env } from './env/server';
 import { USER_FEATURE_REQUEST_APPS } from '@/sanity/lib/query';
+import { cookies } from 'next/headers';
+import { betterFetch } from '@better-fetch/fetch';
 
 export const getUserById = async (id: string) => {
   try {
@@ -35,4 +37,33 @@ export const getAllUserFeatureRequestApps = async () => {
   });
 
   return data;
+};
+
+type Session = {
+  user: {
+    id: string;
+  };
+  session: {
+    id: string;
+  };
+};
+
+export const getUserIdFromCookies = async () => {
+  const cookieStore = await cookies();
+
+  const { data: session, error } = await betterFetch<Session>(
+    '/api/auth/get-session',
+    {
+      baseURL: `${env.API_URL}`,
+      headers: {
+        cookie: cookieStore.toString(),
+      },
+    },
+  );
+
+  if (error || !session) {
+    throw new Error('Not authenticated');
+  }
+
+  return session.user.id;
 };

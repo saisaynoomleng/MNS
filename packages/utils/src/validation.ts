@@ -247,14 +247,11 @@ export type UpdateUserPassowrdFormInput = z.infer<
  * Feature Request Form Schema
  */
 export const FeatureRequestFormSchema = z.object({
-  userName: z.string(),
-  appName: z.string().min(1, { error: 'App name is required' }),
-  appId: z.uuid(),
+  sanityAppId: z.uuid(),
   body: z
     .string()
     .min(10, { error: 'Feature Description must have at least 10 characters' })
     .max(5000, { error: 'Feature Description cannot exceeds 5000 characters' }),
-  userId: z.uuid(),
 });
 /**
  * Feature Request Form Input Type

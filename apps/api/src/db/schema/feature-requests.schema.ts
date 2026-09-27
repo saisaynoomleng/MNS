@@ -19,5 +19,8 @@ export const FeatureRequestsTable = t.pgTable(
     status: featureRequestStatus('status').notNull().default('new'),
     ...timestamps,
   },
-  (table) => [t.index('featureRequest_appId_idx').on(table.appId)],
+  (table) => [
+    t.index('featureRequest_appId_idx').on(table.appId),
+    t.index('featureRequest_userId_idx').on(table.userId),
+  ],
 );

@@ -1,5 +1,6 @@
 import type { Request, Response, NextFunction } from 'express';
 import db, {
+  AppsTable,
   FeatureRequestsTable,
   UsersTable,
   type SelectUserTable,
@@ -75,16 +76,30 @@ export const userController = () => {
     },
 
     requestFeature: async (
-      req: Request<{}, {}, FeatureRequestFormInput>,
+      req: Request<{ id: string }, {}, FeatureRequestFormInput>,
       res: Response,
       next: NextFunction,
     ) => {
       try {
-        const { appId, body, userId } = req.body;
+        const { id: userId } = req.params;
+        const { sanityAppId, body } = req.body;
+
+        const app = await db.query.AppsTable.findFirst({
+          columns: {
+            id: true,
+          },
+          where: { sanityId: sanityAppId },
+        });
+
+        if (!app) {
+          return res.status(404).json({
+            message: 'App not found',
+          });
+        }
 
         await db.insert(FeatureRequestsTable).values({
           userId,
-          appId,
+          appId: app.id,
           body,
           status: 'new',
         });

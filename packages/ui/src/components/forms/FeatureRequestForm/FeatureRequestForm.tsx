@@ -30,9 +30,7 @@ type FeatureRequestFormProps = {
   action: (
     data: FeatureRequestFormInput,
   ) => Promise<ActionResponse<FeatureRequestFormInput>>;
-  userName: string;
   apps: App[];
-  userId: string;
 };
 
 type App = {
@@ -43,18 +41,13 @@ type App = {
 export const FeatureRequestForm = ({
   className,
   action,
-  userName,
   apps,
-  userId,
 }: FeatureRequestFormProps): React.JSX.Element => {
   const form = useForm<FeatureRequestFormInput>({
     resolver: zodResolver(FeatureRequestFormSchema),
     defaultValues: {
-      userName,
-      appName: '',
-      appId: '',
+      sanityAppId: '',
       body: '',
-      userId,
     },
   });
 
@@ -72,7 +65,7 @@ export const FeatureRequestForm = ({
       <SectionTitle as="h3">Request a feature</SectionTitle>
 
       <Controller
-        name="appId"
+        name="sanityAppId"
         control={form.control}
         render={({ field, fieldState }) => (
           <Field orientation="responsive" data-invalid={fieldState.invalid}>
@@ -94,6 +87,8 @@ export const FeatureRequestForm = ({
                 ))}
               </SelectContent>
             </Select>
+
+            {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
           </Field>
         )}
       />

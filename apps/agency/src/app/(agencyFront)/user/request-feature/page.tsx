@@ -4,7 +4,6 @@ import {
   useFeatureRequest,
   useGetAllUserFeatureRequestApps,
 } from '@/app/hooks/apps';
-import { useUserSession } from '@/components/UserSessionContext';
 import { Bounded, FeatureRequestForm, Spinner } from '@mns/ui';
 
 type App = {
@@ -13,15 +12,12 @@ type App = {
 };
 
 const UserRequestFeaturePage = () => {
-  const { session } = useUserSession();
   const {
     data: apps,
     isPending: appPending,
     error: appError,
   } = useGetAllUserFeatureRequestApps();
   const { mutateAsync: action, isPending: actionPending } = useFeatureRequest();
-
-  const { user } = session;
 
   if (appPending) {
     return <Spinner />;
@@ -33,12 +29,7 @@ const UserRequestFeaturePage = () => {
 
   return (
     <Bounded size="full" padding="sm" isCenterd={false}>
-      <FeatureRequestForm
-        userName={user.name}
-        apps={apps as App[]}
-        action={action}
-        userId={user.id}
-      />
+      <FeatureRequestForm apps={apps as App[]} action={action} />
     </Bounded>
   );
 };

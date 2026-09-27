@@ -11,7 +11,7 @@ export const SessionsTable = t.pgTable(
     ipAddress: t.text('ipAddress'),
     userAgent: t.text('userAgent'),
     userId: t
-      .uuid('useId')
+      .uuid('userId')
       .notNull()
       .references(() => UsersTable.id, { onDelete: 'cascade' }),
     impersonatedBy: t.text('impersonatedBy'),

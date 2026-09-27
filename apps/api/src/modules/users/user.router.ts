@@ -6,6 +6,7 @@ import {
   FeatureRequestFormSchema,
   UpdateUserDetailFormSchema,
 } from '@mns/utils';
+import { requireAuth } from '../../middlewares/requireAuth.js';
 
 const UserId = z.object({
   id: z.uuid(),
@@ -14,28 +15,24 @@ const UserId = z.object({
 const router = Router();
 const controller = userController();
 
+router.use(requireAuth);
+
 router.get('/', controller.getAll);
 
-router.get(
-  '/:id/feature-requests',
-  ValidateParams(UserId),
-  controller.getFeatureRequestHistory,
-);
+router.get('/me', controller.getMe);
 
-router.get('/:id', ValidateParams(UserId), controller.getById);
+router.get('/request-feature-history', controller.getFeatureRequestHistory);
 
 router.post(
-  '/:id/request-feature',
-  ValidateParams(UserId),
+  '/request-feature',
   ValidateBody(FeatureRequestFormSchema),
   controller.requestFeature,
 );
 
 router.patch(
-  '/:id',
-  ValidateParams(UserId),
+  '/',
   ValidateBody(UpdateUserDetailFormSchema),
-  controller.edit,
+  controller.updateUserInfo,
 );
 
 export default router;

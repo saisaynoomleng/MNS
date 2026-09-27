@@ -1,20 +1,19 @@
 'use server';
 
-import { getUserIdFromCookies } from '@/lib/dal';
 import { env } from '@/lib/env/server';
 import {
   ActionResponse,
   FeatureRequestFormInput,
   FeatureRequestFormSchema,
 } from '@mns/utils';
+import { cookies } from 'next/headers';
 
 export const handleRequestFeature = async (
   data: FeatureRequestFormInput,
 ): Promise<ActionResponse<FeatureRequestFormInput>> => {
   try {
-    const userId = await getUserIdFromCookies();
-
     const result = FeatureRequestFormSchema.safeParse(data);
+    const cookieStore = await cookies();
 
     if (!result.success) {
       const e = result.error.issues[0];
@@ -26,16 +25,15 @@ export const handleRequestFeature = async (
       };
     }
 
-    const response = await fetch(
-      `${env.API_URL}/api/users/${userId}/request-feature`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(result.data),
+    const response = await fetch(`${env.API_URL}/api/users/request-feature`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Cookie: cookieStore.toString(),
       },
-    );
+      credentials: 'include',
+      body: JSON.stringify(result.data),
+    });
 
     if (!response.ok) {
       console.log('Request Feature Response error', {

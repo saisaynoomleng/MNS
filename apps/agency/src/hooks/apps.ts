@@ -1,7 +1,10 @@
 'use client';
 
 import { handleRequestFeature } from '@/actions/users/handleRequestFeature';
-import { getAllUserFeatureRequestApps } from '@/lib/dal';
+import {
+  getAllUserFeatureRequestApps,
+  getUserFeatureRequestHistory,
+} from '@/lib/dal';
 import { queryKeys } from '@/lib/queryKeys';
 import { toast } from '@mns/ui';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
@@ -14,7 +17,7 @@ export const useGetAllUserFeatureRequestApps = () => {
   });
 };
 
-export const useFeatureRequest = () => {
+export const useRequestFeature = () => {
   const queryClient = useQueryClient();
   const router = useRouter();
 
@@ -39,5 +42,12 @@ export const useFeatureRequest = () => {
     onError: (error) => {
       toast.error(error.message);
     },
+  });
+};
+
+export const useGetFeatureRequestHistory = () => {
+  return useQuery({
+    queryKey: queryKeys.users.featureRequests(),
+    queryFn: () => getUserFeatureRequestHistory(),
   });
 };

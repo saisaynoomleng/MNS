@@ -1,6 +1,6 @@
 'use client';
 
-import { useGetUserById, useUpdateUserInfo } from '@/app/hooks/users';
+import { useGetMe, useUpdateUserInfo } from '@/hooks/users';
 import { authClient } from '@/lib/authClient';
 
 import {
@@ -20,26 +20,11 @@ import {
 import { redirect, useRouter } from 'next/navigation';
 
 const UserPage = () => {
-  const { data: session, isPending: sessionPending } = authClient.useSession();
   const router = useRouter();
 
-  const userId = session?.user.id;
-
-  const {
-    data: user,
-    isPending: userPending,
-    error,
-  } = useGetUserById(userId as string);
+  const { data: user, isPending: userPending, error } = useGetMe();
 
   const { mutateAsync: updateAction } = useUpdateUserInfo();
-
-  if (sessionPending) {
-    return <Spinner />;
-  }
-
-  if (!session?.session.id) {
-    redirect('/sign-in');
-  }
 
   if (userPending) {
     return <Spinner />;
@@ -111,10 +96,10 @@ const UserPage = () => {
       <UpdateUserDetailForm
         updateAction={updateAction}
         userDetail={{
-          id: userId as string,
           name: user.name,
           companyName: user.companyName,
           position: user.position,
+          phone: user.phone,
         }}
       />
 

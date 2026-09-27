@@ -197,8 +197,8 @@ export type ChangeEmailFormInput = z.input<typeof ChangeEmailFormSchema>;
  * Update User Detail Form Schema
  */
 export const UpdateUserDetailFormSchema = z.object({
-  id: z.uuid(),
   name: z.string().min(1, { error: 'Name is required' }),
+  phone: z.string(),
   companyName: z.string().optional(),
   position: z.string().optional(),
 });

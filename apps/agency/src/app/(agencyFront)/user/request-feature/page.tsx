@@ -1,11 +1,10 @@
 'use client';
 
 import {
-  useFeatureRequest,
   useGetAllUserFeatureRequestApps,
-} from '@/app/hooks/apps';
-import { useGetFeatureRequestHistory } from '@/app/hooks/users';
-import { useUserSession } from '@/components/UserSessionContext';
+  useGetFeatureRequestHistory,
+  useRequestFeature,
+} from '@/hooks/apps';
 import {
   Bounded,
   FeatureRequestForm,
@@ -21,21 +20,17 @@ type App = {
 };
 
 const UserRequestFeaturePage = () => {
-  const { session } = useUserSession();
-
-  const { id: userId } = session.user;
-
   const {
     data: apps,
     isPending: appPending,
     error: appError,
   } = useGetAllUserFeatureRequestApps();
-  const { mutateAsync: action, isPending: actionPending } = useFeatureRequest();
+  const { mutateAsync: action, isPending: actionPending } = useRequestFeature();
   const {
     data: featureHistory,
     isPending: featurePending,
     error: featureError,
-  } = useGetFeatureRequestHistory(userId);
+  } = useGetFeatureRequestHistory();
 
   if (appPending) {
     return <Spinner />;
@@ -54,7 +49,7 @@ const UserRequestFeaturePage = () => {
   }
 
   return (
-    <Bounded size="full" padding="sm" isCenterd={false} spacing="sm">
+    <Bounded as="main" padding="sm" size="full" isCenterd={false} spacing="sm">
       <FeatureRequestForm apps={apps as App[]} action={action} />
 
       <Separator className="bg-muted" />
@@ -62,8 +57,8 @@ const UserRequestFeaturePage = () => {
       <Bounded size="full" isCenterd={false} spacing="sm">
         <SectionTitle as="h3">Feature Requests History</SectionTitle>
 
-        {featureHistory.map((h) => (
-          <div key={h.app.id} className="shadow p-4">
+        {featureHistory.map((h, i) => (
+          <div key={i} className="shadow p-4">
             <div className="flex justify-between items-center">
               <p className="font-semibold">{h.app.name}</p>
               <p>

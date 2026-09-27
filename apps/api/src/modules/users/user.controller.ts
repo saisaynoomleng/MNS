@@ -1,39 +1,17 @@
 import type { Request, Response, NextFunction } from 'express';
-import db, {
-  AppsTable,
-  FeatureRequestsTable,
-  UsersTable,
-  type SelectUserTable,
-} from '../../db/index.js';
-import { eq } from 'drizzle-orm';
+import { type SelectUserTable } from '../../db/index.js';
 import type { FeatureRequestFormInput } from '@mns/utils';
+import { userRepository } from './user.repository.js';
 
 export const userController = () => {
+  const repository = userRepository();
+
   return {
     getAll: () => {},
 
-    getById: async (
-      req: Request<{ id: string }>,
-      res: Response,
-      next: NextFunction,
-    ) => {
+    getMe: async (req: Request, res: Response, next: NextFunction) => {
       try {
-        const { id } = req.params;
-
-        const user = await db.query.UsersTable.findFirst({
-          with: {
-            address: true,
-          },
-          columns: {
-            id: true,
-            name: true,
-            email: true,
-            phone: true,
-            companyName: true,
-            position: true,
-          },
-          where: { id },
-        });
+        const user = await repository.findById(req.user.id);
 
         if (!user) {
           return res.status(404).json({
@@ -49,23 +27,22 @@ export const userController = () => {
       }
     },
 
-    edit: async (
+    updateUserInfo: async (
       req: Request<{}, {}, SelectUserTable>,
       res: Response,
       next: NextFunction,
     ) => {
       try {
-        const { name, companyName, position, id } = req.body;
+        const { name, companyName, position, phone } = req.body;
+        const { id } = req.user;
 
-        await db
-          .update(UsersTable)
-          .set({
-            name,
-            companyName,
-            position,
-          })
-          .where(eq(UsersTable.id, id))
-          .returning({ userId: UsersTable.id });
+        await repository.updateUserInfo({
+          id,
+          name,
+          companyName: companyName ?? '',
+          position: position ?? '',
+          phone: phone ?? '',
+        });
 
         return res
           .status(201)
@@ -81,15 +58,10 @@ export const userController = () => {
       next: NextFunction,
     ) => {
       try {
-        const { id: userId } = req.params;
         const { sanityAppId, body } = req.body;
+        const { id: userId } = req.user;
 
-        const app = await db.query.AppsTable.findFirst({
-          columns: {
-            id: true,
-          },
-          where: { sanityId: sanityAppId },
-        });
+        const app = await repository.findApp(sanityAppId);
 
         if (!app) {
           return res.status(404).json({
@@ -97,12 +69,7 @@ export const userController = () => {
           });
         }
 
-        await db.insert(FeatureRequestsTable).values({
-          userId,
-          appId: app.id,
-          body,
-          status: 'new',
-        });
+        await repository.requestFeature({ userId, appId: app.id, body });
 
         return res.status(201).json({
           message: 'Feature Requested!',
@@ -114,25 +81,14 @@ export const userController = () => {
     },
 
     getFeatureRequestHistory: async (
-      req: Request<{ id: string }>,
+      req: Request,
       res: Response,
       next: NextFunction,
     ) => {
       try {
-        const { id } = req.params;
+        const { id } = req.user;
 
-        const histories = await db.query.FeatureRequestsTable.findMany({
-          with: {
-            app: true,
-          },
-          columns: {
-            body: true,
-            createdAt: true,
-            status: true,
-          },
-          where: { userId: id },
-          orderBy: (table, { desc }) => desc(table.createdAt),
-        });
+        const histories = await repository.findFeatureRequestHistory(id);
 
         return res.status(200).json(histories);
       } catch (error) {

@@ -1,6 +1,9 @@
 import type { Request, Response, NextFunction } from 'express';
 import { type SelectUserTable } from '../../db/index.js';
-import type { FeatureRequestFormInput } from '@mns/utils';
+import type {
+  FeatureRequestFormInput,
+  UpdateUserAddressFormInput,
+} from '@mns/utils';
 import { userRepository } from './user.repository.js';
 
 export const userController = () => {
@@ -76,7 +79,7 @@ export const userController = () => {
         });
       } catch (error) {
         console.error('request feature api error', error);
-        next(error);
+        return next(error);
       }
     },
 
@@ -92,7 +95,41 @@ export const userController = () => {
 
         return res.status(200).json(histories);
       } catch (error) {
-        next(error);
+        return next(error);
+      }
+    },
+
+    updateAddress: async (
+      req: Request<{}, {}, UpdateUserAddressFormInput>,
+      res: Response,
+      next: NextFunction,
+    ) => {
+      try {
+        const { id: userId } = req.user;
+        const { address1, address2, city, zip, state, country } = req.body;
+
+        console.log('UPDATE ADDRESS', {
+          userId,
+          body: req.body,
+        });
+
+        await repository.updateAddress({
+          userId,
+          address1,
+          address2,
+          city,
+          zip,
+          state,
+          country,
+        });
+
+        return res.status(200).json({
+          message: 'Address updated!',
+        });
+      } catch (error) {
+        console.error(`Update Address API error`, error);
+
+        return next(error);
       }
     },
   };

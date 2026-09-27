@@ -1,5 +1,10 @@
 import { eq } from 'drizzle-orm';
-import db, { FeatureRequestsTable, UsersTable } from '../../db/index.js';
+import db, {
+  AddressesTable,
+  FeatureRequestsTable,
+  UsersTable,
+  type InsertAddressTable,
+} from '../../db/index.js';
 
 export const userRepository = () => {
   return {
@@ -92,6 +97,40 @@ export const userRepository = () => {
         body,
         status: 'new',
       });
+    },
+
+    updateAddress: async ({
+      userId,
+      address1,
+      address2,
+      city,
+      zip,
+      state,
+      country,
+    }: InsertAddressTable) => {
+      await db
+        .insert(AddressesTable)
+        .values({
+          userId,
+          address1,
+          address2,
+          city,
+          zip,
+          state,
+          country,
+        })
+        .onConflictDoUpdate({
+          target: AddressesTable.userId,
+          set: {
+            address1,
+            address2,
+            city,
+            zip,
+            state,
+            country,
+            updatedAt: new Date(),
+          },
+        });
     },
   };
 };

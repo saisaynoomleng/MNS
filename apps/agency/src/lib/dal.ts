@@ -5,9 +5,9 @@ import { env } from './env/server';
 import { USER_FEATURE_REQUEST_APPS } from '@/sanity/lib/query';
 import { cookies } from 'next/headers';
 import { betterFetch } from '@better-fetch/fetch';
-import { UserFeatureHistoryType } from './types';
+import { GetMeProps, UserFeatureHistoryType } from './types';
 
-export const getMe = async () => {
+export const getMe = async (): Promise<GetMeProps | null> => {
   try {
     const cookieStore = await cookies();
 

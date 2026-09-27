@@ -1,11 +1,11 @@
 'use client';
 
+import { handleUpdateUserAddress } from '@/actions/users/handleUpdateUserAddress';
 import { handleUpdateUserInfo } from '@/actions/users/handleUpdateUserInfo';
-import { getMe, getUserFeatureRequestHistory } from '@/lib/dal';
+import { getMe } from '@/lib/dal';
 import { queryKeys } from '@/lib/queryKeys';
 import { toast } from '@mns/ui';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { useRouter } from 'next/navigation';
 
 export const useGetMe = () => {
   return useQuery({
@@ -16,7 +16,6 @@ export const useGetMe = () => {
 
 export const useUpdateUserInfo = () => {
   const queryClient = useQueryClient();
-  const router = useRouter();
 
   return useMutation({
     mutationFn: handleUpdateUserInfo,
@@ -30,12 +29,34 @@ export const useUpdateUserInfo = () => {
       await queryClient.invalidateQueries({
         queryKey: queryKeys.users.all,
       });
-
-      router.refresh();
     },
 
     onError: (result) => {
       toast.error(result.message);
+    },
+  });
+};
+
+export const useUpdateUserAddress = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: handleUpdateUserAddress,
+
+    onSuccess: async (data) => {
+      if (!data.success) {
+        return toast.error(data.message);
+      }
+
+      toast.success(data.message);
+
+      await queryClient.invalidateQueries({
+        queryKey: queryKeys.users.all,
+      });
+    },
+
+    onError: (data) => {
+      return toast.error(data.message);
     },
   });
 };

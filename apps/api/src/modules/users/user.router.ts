@@ -4,6 +4,7 @@ import * as z from 'zod';
 import { userController } from './user.controller.js';
 import {
   FeatureRequestFormSchema,
+  UpdateUserAddressFormSchema,
   UpdateUserDetailFormSchema,
 } from '@mns/utils';
 import { requireAuth } from '../../middlewares/requireAuth.js';
@@ -27,6 +28,12 @@ router.post(
   '/request-feature',
   ValidateBody(FeatureRequestFormSchema),
   controller.requestFeature,
+);
+
+router.post(
+  '/update-address',
+  ValidateBody(UpdateUserAddressFormSchema),
+  controller.updateAddress,
 );
 
 router.patch(

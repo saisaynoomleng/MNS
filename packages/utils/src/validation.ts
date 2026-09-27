@@ -267,3 +267,21 @@ export const SanityAppWebhookSchema = z.object({
   _type: z.literal('app'),
 });
 export type SanityAppWebhookSchemaType = z.infer<typeof SanityAppWebhookSchema>;
+
+/**
+ * Update User Address Form Schema
+ */
+export const UpdateUserAddressFormSchema = z.object({
+  address1: z.string().min(1, { error: 'Address 1 is required' }).optional(),
+  address2: z.string().optional(),
+  city: z.string().min(1, { error: 'City is required' }).optional(),
+  zip: z.string().min(1, { error: 'Zip/Postal Code is required' }).optional(),
+  state: z.string().min(1, { error: 'State is required' }).optional(),
+  country: z.string().min(1, { error: 'Country is required' }).optional(),
+});
+/**
+ * Update User Address Form Input Type
+ */
+export type UpdateUserAddressFormInput = z.input<
+  typeof UpdateUserAddressFormSchema
+>;

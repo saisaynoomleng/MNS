@@ -1,6 +1,10 @@
 'use client';
 
-import { useGetMe, useUpdateUserInfo } from '@/hooks/users';
+import {
+  useGetMe,
+  useUpdateUserAddress,
+  useUpdateUserInfo,
+} from '@/hooks/users';
 import { authClient } from '@/lib/authClient';
 
 import {
@@ -8,6 +12,7 @@ import {
   ChangeEmailForm,
   Spinner,
   toast,
+  UpdateUserAddressForm,
   UpdateUserDetailForm,
   UpdateUserPasswordForm,
 } from '@mns/ui';
@@ -17,7 +22,7 @@ import {
   UpdateUserPassowrdFormInput,
 } from '@mns/utils';
 
-import { redirect, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 const UserPage = () => {
   const router = useRouter();
@@ -25,6 +30,9 @@ const UserPage = () => {
   const { data: user, isPending: userPending, error } = useGetMe();
 
   const { mutateAsync: updateAction } = useUpdateUserInfo();
+  const { mutateAsync: updateAddress } = useUpdateUserAddress();
+
+  if (!user) return;
 
   if (userPending) {
     return <Spinner />;
@@ -102,6 +110,8 @@ const UserPage = () => {
           phone: user.phone,
         }}
       />
+
+      <UpdateUserAddressForm address={user.address} action={updateAddress} />
 
       <ChangeEmailForm
         currentEmail={user.email}

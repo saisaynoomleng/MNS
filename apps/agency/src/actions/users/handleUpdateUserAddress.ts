@@ -3,16 +3,17 @@
 import { env } from '@/lib/env/server';
 import {
   ActionResponse,
-  UpdateUserDetailFormInput,
-  UpdateUserDetailFormSchema,
+  UpdateUserAddressFormInput,
+  UpdateUserAddressFormSchema,
 } from '@mns/utils';
 import { cookies } from 'next/headers';
 
-export const handleUpdateUserInfo = async (
-  data: UpdateUserDetailFormInput,
-): Promise<ActionResponse<UpdateUserDetailFormInput>> => {
+export const handleUpdateUserAddress = async (
+  data: UpdateUserAddressFormInput,
+): Promise<ActionResponse<UpdateUserAddressFormInput>> => {
   try {
-    const result = UpdateUserDetailFormSchema.safeParse(data);
+    const result = UpdateUserAddressFormSchema.safeParse(data);
+    const cookieStore = await cookies();
 
     if (!result.success) {
       const e = result.error.issues[0];
@@ -20,27 +21,29 @@ export const handleUpdateUserInfo = async (
       return {
         success: false,
         message: e.message,
-        field: e.path.join('.') as keyof UpdateUserDetailFormInput,
+        field: e.path.join('.') as keyof UpdateUserAddressFormInput,
       };
     }
 
-    const response = await fetch(`${env.API_URL}/api/users/`, {
-      method: 'PATCH',
+    const response = await fetch(`${env.API_URL}/api/users/update-address`, {
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Cookie: (await cookies()).toString(),
+        Cookie: cookieStore.toString(),
       },
       body: JSON.stringify(result.data),
     });
 
     if (!response.ok) {
-      console.error(`Handle Update User Info error`, {
+      console.error('Address API Error', {
+        body: await response.text(),
         status: response.status,
         statusText: response.statusText,
       });
+
       return {
         success: false,
-        message: 'Something went wrong!',
+        message: 'Something went wrong, try again later',
       };
     }
 
@@ -51,9 +54,11 @@ export const handleUpdateUserInfo = async (
       message: responseData.message,
     };
   } catch (error) {
+    console.error(`Handle Update User Address Error`, error);
+
     return {
       success: false,
-      message: 'Something went wrong, try again later',
+      message: 'Something went wrong, try again later.',
     };
   }
 };

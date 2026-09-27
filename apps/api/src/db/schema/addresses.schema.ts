@@ -1,6 +1,7 @@
 import * as t from 'drizzle-orm/pg-core';
 import { UsersTable } from './users.schema.js';
 import { timestamps } from './schema-helper.js';
+import type { InferInsertModel } from 'drizzle-orm';
 
 export const AddressesTable = t.pgTable(
   'addresses',
@@ -20,3 +21,5 @@ export const AddressesTable = t.pgTable(
   },
   (table) => [t.uniqueIndex('addresses_userId_idx').on(table.userId)],
 );
+
+export type InsertAddressTable = InferInsertModel<typeof AddressesTable>;

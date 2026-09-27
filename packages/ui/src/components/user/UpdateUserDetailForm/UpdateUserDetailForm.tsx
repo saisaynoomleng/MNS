@@ -38,6 +38,7 @@ export const UpdateUserDetailForm = ({
 
   const onSubmit: SubmitHandler<UpdateUserDetailFormInput> = async (data) => {
     await updateAction(data);
+    form.reset();
   };
 
   return (

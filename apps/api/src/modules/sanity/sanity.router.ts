@@ -12,4 +12,6 @@ router.post(
   controller.createApp,
 );
 
+// router.post('/subscriptions');
+
 export default router;

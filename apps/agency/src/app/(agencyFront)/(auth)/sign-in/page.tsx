@@ -66,6 +66,8 @@ const SignInPage = (): React.JSX.Element => {
         className="max-w-100 md:max-w-150 mx-auto"
         resetCTA={{ label: 'Forget Password', href: '/reset-password' }}
         renderReset={(props) => RenderAction(props)}
+        signUpCTA={{ label: 'Sign Up', href: '/sign-up' }}
+        renderSingUp={(props) => RenderAction(props)}
       />
     </Bounded>
   );

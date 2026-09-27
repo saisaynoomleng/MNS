@@ -28,6 +28,8 @@ type SignInFormProps = {
   OAuthAction: (strategy: OAuthProviders) => Promise<void>;
   resetCTA: CallToActionProps;
   renderReset: (props: CallToActionProps) => React.ReactElement;
+  signUpCTA: CallToActionProps;
+  renderSingUp: (props: CallToActionProps) => React.ReactElement;
 };
 
 export const SignInForm = ({
@@ -36,6 +38,8 @@ export const SignInForm = ({
   OAuthAction,
   renderReset,
   resetCTA,
+  signUpCTA,
+  renderSingUp,
 }: SignInFormProps): React.JSX.Element => {
   const form = useForm<SignInFormInput>({
     resolver: zodResolver(SignInFormSchema),
@@ -114,6 +118,13 @@ export const SignInForm = ({
       <FieldSeparator>Or</FieldSeparator>
 
       <OAuthSignInForm action={OAuthAction} />
+
+      <div className="self-end">
+        <p>
+          Not a member yet?{' '}
+          {renderSingUp({ label: signUpCTA.label, href: signUpCTA.href })}
+        </p>
+      </div>
     </form>
   );
 };

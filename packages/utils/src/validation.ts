@@ -208,3 +208,37 @@ export const UpdateUserDetailFormSchema = z.object({
 export type UpdateUserDetailFormInput = z.input<
   typeof UpdateUserDetailFormSchema
 >;
+
+/**
+ * Update User Password Form
+ */
+export const UpdateUserPasswordFormSchema = z
+  .object({
+    currentPassword: passwordSchema,
+    newPassword: passwordSchema,
+    confirmNewPassword: z.string().min(1, { error: 'This field is required' }),
+    revokeSession: z.boolean(),
+  })
+  .superRefine((data, ctx) => {
+    if (data.currentPassword === data.newPassword) {
+      ctx.addIssue({
+        code: 'custom',
+        message: 'New password cannot be the same as old password',
+        path: ['newPassword'],
+      });
+    }
+
+    if (data.newPassword !== data.confirmNewPassword) {
+      ctx.addIssue({
+        code: 'custom',
+        message: 'Passwords must match',
+        path: ['confirmNewPassword'],
+      });
+    }
+  });
+/**
+ * Update User Password Form Type
+ */
+export type UpdateUserPassowrdFormInput = z.infer<
+  typeof UpdateUserPasswordFormSchema
+>;

@@ -21,6 +21,7 @@ export const OAuthSignInForm = ({
       )}
     >
       <Button
+        type="button"
         onClick={() => action('facebook')}
         className="bg-foreground text-background hover:bg-foreground/80"
         aria-label="log in with facebook"
@@ -30,6 +31,7 @@ export const OAuthSignInForm = ({
       </Button>
 
       <Button
+        type="button"
         onClick={() => action('linkedIn')}
         className="bg-foreground text-background hover:bg-foreground/80"
         aria-label="log in with linked in"
@@ -39,6 +41,7 @@ export const OAuthSignInForm = ({
       </Button>
 
       <Button
+        type="button"
         onClick={() => action('google')}
         className="bg-foreground text-background hover:bg-foreground/80"
         aria-label="log in with google"

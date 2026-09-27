@@ -10,8 +10,13 @@ import {
   Spinner,
   toast,
   UpdateUserDetailForm,
+  UpdateUserPasswordForm,
 } from '@mns/ui';
-import { ChangeEmailFormInput, RequestEmailChangeFormInput } from '@mns/utils';
+import {
+  ChangeEmailFormInput,
+  RequestEmailChangeFormInput,
+  UpdateUserPassowrdFormInput,
+} from '@mns/utils';
 
 import { redirect, useRouter } from 'next/navigation';
 
@@ -81,6 +86,27 @@ const UserPage = () => {
     );
   };
 
+  const handleUpdateUserPassword = async (
+    data: UpdateUserPassowrdFormInput,
+  ) => {
+    await authClient.changePassword(
+      {
+        currentPassword: data.currentPassword,
+        newPassword: data.newPassword,
+        revokeOtherSessions: data.revokeSession,
+      },
+      {
+        onSuccess: () => {
+          toast.success('Password updated!');
+        },
+
+        onError: (ctx) => {
+          toast.error(ctx.error.message);
+        },
+      },
+    );
+  };
+
   return (
     <Bounded as="main" padding="sm" size="full" isCenterd={false} spacing="sm">
       <UpdateUserDetailForm
@@ -98,6 +124,8 @@ const UserPage = () => {
         requestAction={handleRequestEmailChange}
         changeAction={handleChangeEmail}
       />
+
+      <UpdateUserPasswordForm action={handleUpdateUserPassword} />
     </Bounded>
   );
 };

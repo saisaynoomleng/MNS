@@ -6,3 +6,4 @@ export * from './SignUpForm';
 export * from './ChangeEmailForm';
 export * from './UpdateUserDetailForm';
 export * from './ResetPasswordForm';
+export * from './UpdateUserPasswordForm';

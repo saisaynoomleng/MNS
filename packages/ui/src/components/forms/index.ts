@@ -7,3 +7,4 @@ export * from './ChangeEmailForm';
 export * from './UpdateUserDetailForm';
 export * from './ResetPasswordForm';
 export * from './UpdateUserPasswordForm';
+export * from './FeatureRequestForm';

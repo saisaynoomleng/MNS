@@ -1,6 +1,8 @@
 'use server';
 
+import { sanityFetch } from '@/sanity/lib/live';
 import { env } from './env/server';
+import { USER_FEATURE_REQUEST_APPS } from '@/sanity/lib/query';
 
 export const getUserById = async (id: string) => {
   try {
@@ -23,4 +25,14 @@ export const getUserById = async (id: string) => {
 
     return {};
   }
+};
+
+export const getAllUserFeatureRequestApps = async () => {
+  const { data } = await sanityFetch({
+    query: USER_FEATURE_REQUEST_APPS,
+    perspective: 'published',
+    stega: false,
+  });
+
+  return data;
 };

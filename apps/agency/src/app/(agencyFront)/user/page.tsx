@@ -6,7 +6,6 @@ import { authClient } from '@/lib/authClient';
 import {
   Bounded,
   ChangeEmailForm,
-  Separator,
   Spinner,
   toast,
   UpdateUserDetailForm,

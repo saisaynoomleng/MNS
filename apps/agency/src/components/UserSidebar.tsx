@@ -32,6 +32,11 @@ const USER_LINKS: SidebarLinksProps[] = [
   { name: 'Apps Hub', href: '/user/apps-hub' },
 ];
 
+const FEATURES_LINKS: SidebarLinksProps[] = [
+  { name: 'Request Feature', href: '/user/request-feature' },
+  { name: 'Report Issues', href: '/user/report-issue' },
+];
+
 export const UserSidebar = () => {
   const { data: session } = authClient.useSession();
   const pathname = usePathname();
@@ -96,6 +101,24 @@ export const UserSidebar = () => {
 
         <SidebarGroup>
           <SidebarGroupLabel>Helpful Features</SidebarGroupLabel>
+
+          <SidebarMenu>
+            {FEATURES_LINKS.map((l) => (
+              <SidebarMenuItem key={l.name}>
+                <SidebarMenuButton asChild>
+                  <Link
+                    href={l.href}
+                    className={clsx(
+                      pathname === l.href &&
+                        'bg-primary text-primary-foreground',
+                    )}
+                  >
+                    {l.name}
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            ))}
+          </SidebarMenu>
         </SidebarGroup>
       </SidebarContent>
 

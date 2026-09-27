@@ -76,6 +76,11 @@ const schema = z.object({
   NO_REPLY_ADDRESS: z.email({ error: 'Must be a valid email address' }),
   REPLY_TO_ADDRESS: z.email({ error: 'Must be a valid email address' }),
   CONTACT_ADDRESS: z.email({ error: 'Must be a valid email address' }),
+
+  // Webhooks
+  SANITY_WEBHOOK_SECRET: z
+    .string()
+    .min(1, { error: 'Sanity Webhook secret is required' }),
 });
 
 type ENV = z.infer<typeof schema>;

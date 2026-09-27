@@ -60,3 +60,9 @@ export const PAGE_METADATA_QUERY = defineQuery(`*[_type == 'page'
   "title": seo.metaTitle,
   "description": seo.metaDescription
  }`);
+
+export const USER_FEATURE_REQUEST_APPS = defineQuery(`*[_type == 'app'
+ && defined(slug.current)]{
+  _id,
+  name,
+}`);

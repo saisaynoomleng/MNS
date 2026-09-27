@@ -1,5 +1,6 @@
 'use client';
 
+import { handleDeleteRequestFeature } from '@/actions/users/handleDeleteRequestFeature';
 import { handleRequestFeature } from '@/actions/users/handleRequestFeature';
 import {
   getAllUserFeatureRequestApps,
@@ -7,7 +8,12 @@ import {
 } from '@/lib/dal';
 import { queryKeys } from '@/lib/queryKeys';
 import { toast } from '@mns/ui';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import {
+  useMutation,
+  useMutationState,
+  useQuery,
+  useQueryClient,
+} from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 
 export const useGetAllUserFeatureRequestApps = () => {
@@ -49,5 +55,27 @@ export const useGetFeatureRequestHistory = () => {
   return useQuery({
     queryKey: queryKeys.users.featureRequests(),
     queryFn: () => getUserFeatureRequestHistory(),
+  });
+};
+
+export const useDeleteRequestFeatureHistory = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (id: string) => handleDeleteRequestFeature(id),
+
+    onSuccess: async (data) => {
+      if (!data.success) {
+        return toast.error(data.message);
+      }
+
+      await queryClient.invalidateQueries({
+        queryKey: queryKeys.apps.all,
+      });
+    },
+
+    onError: (ctx) => {
+      toast.error(ctx.message);
+    },
   });
 };

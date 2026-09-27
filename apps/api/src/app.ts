@@ -9,6 +9,7 @@ import { auth } from './lib/auth.js';
 import ContactRouter from './modules/contacts/contact.router.js';
 import UserRouter from './modules/users/user.router.js';
 import SanityRouter from './modules/sanity/sanity.router.js';
+import AppsRouter from './modules/apps/apps.router.js';
 
 const app: Express = express();
 
@@ -39,6 +40,7 @@ app.get('/health', (req, res) => {
 app.use('/api/contacts', ContactRouter);
 app.use('/api/users', UserRouter);
 app.use('/api/webhooks/sanity', SanityRouter);
+app.use('/api/apps', AppsRouter);
 
 app.use((req, res) => {
   res.status(404).json({ message: 'No Resources Found' });

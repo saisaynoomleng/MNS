@@ -1,12 +1,14 @@
 'use client';
 
 import {
+  useDeleteRequestFeatureHistory,
   useGetAllUserFeatureRequestApps,
   useGetFeatureRequestHistory,
   useRequestFeature,
 } from '@/hooks/apps';
 import {
   Bounded,
+  Button,
   FeatureRequestForm,
   SectionTitle,
   Separator,
@@ -31,6 +33,8 @@ const UserRequestFeaturePage = () => {
     isPending: featurePending,
     error: featureError,
   } = useGetFeatureRequestHistory();
+  const { mutateAsync: deleteFeatureRequest, isPending: deletePending } =
+    useDeleteRequestFeatureHistory();
 
   if (appPending) {
     return <Spinner />;
@@ -48,6 +52,14 @@ const UserRequestFeaturePage = () => {
     return <div>No features found</div>;
   }
 
+  // if (deletePending) {
+  //   return <Spinner />;
+  // }
+
+  const handleDelete = (id: string) => {
+    deleteFeatureRequest(id);
+  };
+
   return (
     <Bounded as="main" padding="sm" size="full" isCenterd={false} spacing="sm">
       <FeatureRequestForm apps={apps as App[]} action={action} />
@@ -58,7 +70,7 @@ const UserRequestFeaturePage = () => {
         <SectionTitle as="h3">Feature Requests History</SectionTitle>
 
         {featureHistory.map((h, i) => (
-          <div key={i} className="shadow p-4">
+          <div key={i} className="shadow p-4 flex flex-col gap-y-2">
             <div className="flex justify-between items-center">
               <p className="font-semibold">{h.app.name}</p>
               <p>
@@ -77,6 +89,14 @@ const UserRequestFeaturePage = () => {
             </p>
 
             <p>{h.body}</p>
+
+            <Button
+              onClick={() => handleDelete(h.app.id)}
+              className="self-end"
+              variant="destructive"
+            >
+              Delete this request
+            </Button>
           </div>
         ))}
       </Bounded>

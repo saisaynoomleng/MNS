@@ -83,5 +83,7 @@ export const sanityController = () => {
         next(error);
       }
     },
+
+    createSubscription: async () => {},
   };
 };

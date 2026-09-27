@@ -112,5 +112,32 @@ export const userController = () => {
         next(error);
       }
     },
+
+    getFeatureRequestHistory: async (
+      req: Request<{ id: string }>,
+      res: Response,
+      next: NextFunction,
+    ) => {
+      try {
+        const { id } = req.params;
+
+        const histories = await db.query.FeatureRequestsTable.findMany({
+          with: {
+            app: true,
+          },
+          columns: {
+            body: true,
+            createdAt: true,
+            status: true,
+          },
+          where: { userId: id },
+          orderBy: (table, { desc }) => desc(table.createdAt),
+        });
+
+        return res.status(200).json(histories);
+      } catch (error) {
+        next(error);
+      }
+    },
   };
 };

@@ -16,6 +16,12 @@ const controller = userController();
 
 router.get('/', controller.getAll);
 
+router.get(
+  '/:id/feature-requests',
+  ValidateParams(UserId),
+  controller.getFeatureRequestHistory,
+);
+
 router.get('/:id', ValidateParams(UserId), controller.getById);
 
 router.post(

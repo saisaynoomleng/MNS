@@ -5,6 +5,7 @@ import { env } from './env/server';
 import { USER_FEATURE_REQUEST_APPS } from '@/sanity/lib/query';
 import { cookies } from 'next/headers';
 import { betterFetch } from '@better-fetch/fetch';
+import { UserFeatureHistoryType } from './types';
 
 export const getUserById = async (id: string) => {
   try {
@@ -66,4 +67,29 @@ export const getUserIdFromCookies = async () => {
   }
 
   return session.user.id;
+};
+
+export const getUserFeatureRequestHistory = async (
+  id: string,
+): Promise<UserFeatureHistoryType> => {
+  try {
+    const response = await fetch(
+      `${env.API_URL}/api/users/${id}/feature-requests`,
+    );
+
+    if (!response.ok) {
+      console.error(`Get user feature request history dal response error`, {
+        status: response.status,
+        statusText: response.statusText,
+      });
+    }
+
+    const data = await response.json();
+
+    return data;
+  } catch (error) {
+    console.error(`Get user feature request history dal error`, error);
+
+    return [];
+  }
 };

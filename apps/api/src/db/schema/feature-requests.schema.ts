@@ -22,5 +22,6 @@ export const FeatureRequestsTable = t.pgTable(
   (table) => [
     t.index('featureRequest_appId_idx').on(table.appId),
     t.index('featureRequest_userId_idx').on(table.userId),
+    t.index('featureRequest_app_status_idx').on(table.appId, table.status),
   ],
 );

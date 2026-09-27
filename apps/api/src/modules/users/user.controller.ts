@@ -1,6 +1,11 @@
 import type { Request, Response, NextFunction } from 'express';
-import db, { UsersTable, type SelectUserTable } from '../../db/index.js';
+import db, {
+  FeatureRequestsTable,
+  UsersTable,
+  type SelectUserTable,
+} from '../../db/index.js';
 import { eq } from 'drizzle-orm';
+import type { FeatureRequestFormInput } from '@mns/utils';
 
 export const userController = () => {
   return {
@@ -66,6 +71,30 @@ export const userController = () => {
           .json({ message: 'User info updated successfully!' });
       } catch (error) {
         return next(error);
+      }
+    },
+
+    requestFeature: async (
+      req: Request<{}, {}, FeatureRequestFormInput>,
+      res: Response,
+      next: NextFunction,
+    ) => {
+      try {
+        const { appId, body, userId } = req.body;
+
+        await db.insert(FeatureRequestsTable).values({
+          userId,
+          appId,
+          body,
+          status: 'new',
+        });
+
+        return res.status(201).json({
+          message: 'Feature Requested!',
+        });
+      } catch (error) {
+        console.error('request feature api error', error);
+        next(error);
       }
     },
   };

@@ -242,3 +242,31 @@ export const UpdateUserPasswordFormSchema = z
 export type UpdateUserPassowrdFormInput = z.infer<
   typeof UpdateUserPasswordFormSchema
 >;
+
+/**
+ * Feature Request Form Schema
+ */
+export const FeatureRequestFormSchema = z.object({
+  userName: z.string(),
+  appName: z.string().min(1, { error: 'App name is required' }),
+  appId: z.uuid(),
+  body: z
+    .string()
+    .min(10, { error: 'Feature Description must have at least 10 characters' })
+    .max(5000, { error: 'Feature Description cannot exceeds 5000 characters' }),
+  userId: z.uuid(),
+});
+/**
+ * Feature Request Form Input Type
+ */
+export type FeatureRequestFormInput = z.input<typeof FeatureRequestFormSchema>;
+
+/**
+ * Sanity App Webhook Schema
+ */
+export const SanityAppWebhookSchema = z.object({
+  name: z.string(),
+  _id: z.string(),
+  _type: z.literal('app'),
+});
+export type SanityAppWebhookSchemaType = z.infer<typeof SanityAppWebhookSchema>;

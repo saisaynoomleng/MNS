@@ -561,6 +561,14 @@ export type PAGE_METADATA_QUERY_RESULT = {
   description: string | null;
 } | null;
 
+// Source: src/sanity/lib/query.ts
+// Variable: USER_FEATURE_REQUEST_APPS
+// Query: *[_type == 'app' && defined(slug.current)]{  _id,  name,}
+export type USER_FEATURE_REQUEST_APPS_RESULT = Array<{
+  _id: string;
+  name: string | null;
+}>;
+
 // Query TypeMap
 declare global {
   interface SanityQueries {
@@ -568,6 +576,7 @@ declare global {
     '*[_type == \'siteSettings\'][0]{\n  "columns": footerColumns[]{\n    _key,\n    title,\n    links[]{\n      _key,\n      href,\n      label\n    }\n  },\n  "text": footerText,\n  "street": contactInfo.street,\n  "zip": contactInfo.zip,\n  "city": contactInfo.city,\n  "state": contactInfo.state,\n  "email": contactInfo.email,\n  "country": contactInfo.country,\n  "socialLinks": socialLinks[]\n}': FOOTER_QUERY_RESULT;
     "*[_type == 'chatBubble'\n && defined(slug.current)\n && slug.current == $page][0]{\n    messages[]{\n      _key,\n      inbound,\n      outbound\n    }\n }": CONTACT_US_PAGE_CHAT_RESULT;
     '*[_type == \'page\'\n && defined(slug.current)\n && slug.current == $page][0]{\n  "title": seo.metaTitle,\n  "description": seo.metaDescription\n }': PAGE_METADATA_QUERY_RESULT;
+    "*[_type == 'app'\n && defined(slug.current)]{\n  _id,\n  name,\n}": USER_FEATURE_REQUEST_APPS_RESULT;
   }
 }
 // Lets @sanity/client releases that predate the global registry read it too

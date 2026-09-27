@@ -15,6 +15,7 @@ import { signUpVerification } from '../modules/auth/signUpVerification.js';
 import { welcomeEmail } from '../modules/auth/welcomeEmail.js';
 import { changeEmail } from '../modules/auth/changeEmail.js';
 import { resetPassword } from '../modules/auth/resetPassword.js';
+import { existingSignUpEmail } from '../modules/auth/existingSignUpEmail.js';
 
 const statement = {
   user: [
@@ -144,7 +145,7 @@ export const auth = betterAuth({
     autoSignIn: true,
     revokeSessionsOnPasswordReset: true,
     onExistingUserSignUp: async ({ user }) => {
-      // existing sign up email
+      void existingSignUpEmail({ name: user.name, email: user.email });
     },
   },
 

@@ -3,3 +3,4 @@ export * from './FeatureRequestForm';
 export * from './UpdateUserPasswordForm';
 export * from './UpdateUserDetailForm';
 export * from './UpdateUserAddressForm';
+export * from './DeleteUserForm';

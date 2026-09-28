@@ -10,6 +10,7 @@ import { authClient } from '@/lib/authClient';
 import {
   Bounded,
   ChangeEmailForm,
+  DeleteUserForm,
   Spinner,
   toast,
   UpdateUserAddressForm,
@@ -99,6 +100,10 @@ const UserPage = () => {
     );
   };
 
+  const handleDeleteAccount = async () => {
+    await authClient.deleteUser();
+  };
+
   return (
     <Bounded as="main" padding="sm" size="full" isCenterd={false} spacing="sm">
       <UpdateUserDetailForm
@@ -120,6 +125,8 @@ const UserPage = () => {
       />
 
       <UpdateUserPasswordForm action={handleUpdateUserPassword} />
+
+      <DeleteUserForm action={handleDeleteAccount} />
     </Bounded>
   );
 };

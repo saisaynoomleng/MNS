@@ -16,6 +16,7 @@ import { welcomeEmail } from '../modules/auth/welcomeEmail.js';
 import { changeEmail } from '../modules/auth/changeEmail.js';
 import { resetPassword } from '../modules/auth/resetPassword.js';
 import { existingSignUpEmail } from '../modules/auth/existingSignUpEmail.js';
+import { deleteUserAccountEmail } from '../modules/auth/deleteUserAccountEmail.js';
 
 const statement = {
   user: [
@@ -185,16 +186,19 @@ export const auth = betterAuth({
       position: {
         type: 'string',
       },
+      phone: {
+        type: 'string',
+      },
     },
     deleteUser: {
       enabled: true,
-      sendDeleteAccountVerification: async ({ user, url, token }) => {
-        // delete email
+      sendDeleteAccountVerification: async ({ user, url }) => {
+        void deleteUserAccountEmail({ email: user.email, url });
       },
     },
   },
 
-  //   sesseion
+  //   session
   session: {
     modelName: 'sessions',
     fields: {

@@ -78,7 +78,7 @@ const schema = z.object({
   CONTACT_ADDRESS: z.email({ error: 'Must be a valid email address' }),
 
   // Webhooks
-  SANITY_WEBHOOK_SECRET: z
+  SANITY_APPS_WEBHOOK_SECRET: z
     .string()
     .min(1, { error: 'Sanity Webhook secret is required' }),
 });

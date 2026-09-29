@@ -19,3 +19,4 @@ export * from './bubble';
 export * from './skeleton';
 export * from './sidebar';
 export * from './alert-dialog';
+export * from './progress';

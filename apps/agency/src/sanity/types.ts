@@ -569,6 +569,28 @@ export type USER_FEATURE_REQUEST_APPS_RESULT = Array<{
   name: string | null;
 }>;
 
+// Source: src/sanity/lib/query.ts
+// Variable: ALL_SERVICES_QUERY
+// Query: *[_type == 'service' && defined(slug.current)]{  _id,  name,  subtitle,  excerpt,  "slug": slug.current,  "imageUrl": mainImage.asset->url,  "imageAlt": mainImage.alt }
+export type ALL_SERVICES_QUERY_RESULT = Array<{
+  _id: string;
+  name: string | null;
+  subtitle: string | null;
+  excerpt: string | null;
+  slug: string | null;
+  imageUrl: string | null;
+  imageAlt: string | null;
+}>;
+
+// Source: src/sanity/lib/query.ts
+// Variable: ALL_CAPABILITIES_QUERY
+// Query: *[_type == 'capability' && defined(slug.current)]{  name,  _id,  value }
+export type ALL_CAPABILITIES_QUERY_RESULT = Array<{
+  name: string | null;
+  _id: string;
+  value: number | null;
+}>;
+
 // Query TypeMap
 declare global {
   interface SanityQueries {
@@ -577,6 +599,8 @@ declare global {
     "*[_type == 'chatBubble'\n && defined(slug.current)\n && slug.current == $page][0]{\n    messages[]{\n      _key,\n      inbound,\n      outbound\n    }\n }": CONTACT_US_PAGE_CHAT_RESULT;
     '*[_type == \'page\'\n && defined(slug.current)\n && slug.current == $page][0]{\n  "title": seo.metaTitle,\n  "description": seo.metaDescription\n }': PAGE_METADATA_QUERY_RESULT;
     "*[_type == 'app'\n && defined(slug.current)]{\n  _id,\n  name,\n}": USER_FEATURE_REQUEST_APPS_RESULT;
+    '*[_type == \'service\'\n && defined(slug.current)]{\n  _id,\n  name,\n  subtitle,\n  excerpt,\n  "slug": slug.current,\n  "imageUrl": mainImage.asset->url,\n  "imageAlt": mainImage.alt\n }': ALL_SERVICES_QUERY_RESULT;
+    "*[_type == 'capability'\n && defined(slug.current)]{\n  name,\n  _id,\n  value\n }": ALL_CAPABILITIES_QUERY_RESULT;
   }
 }
 // Lets @sanity/client releases that predate the global registry read it too

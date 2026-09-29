@@ -1,9 +1,9 @@
-import { handleContactUsForm } from '@/actions/handleContactUsForm';
 import { ChatBubble } from '@/components/ChatBubble';
+import ContactForm from '@/components/ContactForm';
 import { getMetadata } from '@/lib/getMetadata';
 import { sanityFetch } from '@/sanity/lib/live';
 import { CONTACT_US_PAGE_CHAT } from '@/sanity/lib/query';
-import { Bounded, ContactUsForm } from '@mns/ui';
+import { Bounded } from '@mns/ui';
 import type { Metadata } from 'next';
 import React from 'react';
 
@@ -28,10 +28,7 @@ const ContactUsPage = async (): Promise<React.JSX.Element> => {
 
   return (
     <Bounded as="main" padding="sm" spacing="sm">
-      <ContactUsForm
-        action={handleContactUsForm}
-        className="md:max-w-200 md:mx-auto"
-      />
+      <ContactForm className="md:max-w-200 md:mx-auto" />
 
       <ChatBubble chat={chat} />
     </Bounded>

@@ -9,3 +9,4 @@ export * from './SubmitButton';
 export * from './LoadingSpinner';
 export * from './PasswordChecker';
 export * from './animations';
+export * from './ServiceCard';

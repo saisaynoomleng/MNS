@@ -29,6 +29,7 @@ export const pageType = defineType({
           { title: 'Main Page', value: 'main' },
           { title: 'Company Page', value: 'company' },
         ],
+        layout: 'radio',
       },
       validation: (rule) => rule.required(),
     }),

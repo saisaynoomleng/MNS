@@ -139,3 +139,15 @@ export const ALL_PRICINGS_QUERY = defineQuery(`*[_type == 'subscription'
  && defined(slug.current)]{
   "slug": slug.current
  }`);
+
+export const COMPANY_PAGE_QUERY = defineQuery(`*[_type == 'page'
+ && slug.current == $slug
+ && type == 'company'][0]{
+  seo,
+  body,
+ }`);
+
+export const ALL_COMPANY_PAGES = defineQuery(`*[_type == 'page'
+ && type == 'company']{
+  "slug": slug.current
+ }`);

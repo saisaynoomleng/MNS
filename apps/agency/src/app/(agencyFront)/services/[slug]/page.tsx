@@ -85,14 +85,6 @@ const ServiceDetailPage = async ({ params }: PageParamsProps) => {
                 pricerPerMonth={s.pricePerMonth as number}
                 inclusives={s.inclusives ?? []}
                 exclusives={s.exclusives ?? []}
-                cta={{ label: 'Learn More', href: `/pricings/${s.slug}` }}
-                renderCallToAction={(props) => (
-                  <RenderAction
-                    {...props}
-                    type="button"
-                    className="bg-primary text-background"
-                  />
-                )}
               />
             ))}
           </div>

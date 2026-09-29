@@ -607,9 +607,9 @@ export type SERVICE_QUERY_RESULT = {
 } | null;
 
 // Source: src/sanity/lib/query.ts
-// Variable: ALL_PRICINGS_QUERY
-// Query: *[_type == 'subscription' && defined(slug.current) && type->slug.current == $type]  | order(createdAt){  _id,  name,  "type": type->name,  "slug": slug.current,  inclusives[],  exclusives[],  pricePerMonth }
-export type ALL_PRICINGS_QUERY_RESULT = Array<{
+// Variable: PRICINGS_PER_TYPE_QUERY
+// Query: *[_type == 'subscription' && defined(slug.current) && type->slug.current == $type]  | order(createdAt asc){  _id,  name,  "type": type->name,  "slug": slug.current,  inclusives[],  exclusives[],  pricePerMonth }
+export type PRICINGS_PER_TYPE_QUERY_RESULT = Array<{
   _id: string;
   name: string | null;
   type: string | null;
@@ -617,6 +617,26 @@ export type ALL_PRICINGS_QUERY_RESULT = Array<{
   inclusives: Array<string> | null;
   exclusives: Array<string> | null;
   pricePerMonth: number | null;
+}>;
+
+// Source: src/sanity/lib/query.ts
+// Variable: PRICINGS_QUERY
+// Query: *[_type == 'subscription' && slug.current == $slug][0]{  name,  "type": type->name,  pricePerMonth,  excerpt,  seo,  inclusives[],  exclusives[] }
+export type PRICINGS_QUERY_RESULT = {
+  name: string | null;
+  type: string | null;
+  pricePerMonth: number | null;
+  excerpt: string | null;
+  seo: Seo | null;
+  inclusives: Array<string> | null;
+  exclusives: Array<string> | null;
+} | null;
+
+// Source: src/sanity/lib/query.ts
+// Variable: ALL_PRICINGS_QUERY
+// Query: *[_type == 'subscription' && defined(slug.current)]{  "slug": slug.current }
+export type ALL_PRICINGS_QUERY_RESULT = Array<{
+  slug: string | null;
 }>;
 
 // Query TypeMap
@@ -630,7 +650,9 @@ declare global {
     '*[_type == \'service\'\n && defined(slug.current)]\n | order(_createdAt){\n  _id,\n  name,\n  subtitle,\n  excerpt,\n  "slug": slug.current,\n  "imageUrl": mainImage.asset->url,\n  "imageAlt": mainImage.alt\n }': ALL_SERVICES_QUERY_RESULT;
     "*[_type == 'capability'\n && defined(slug.current)]{\n  name,\n  _id,\n  value\n }": ALL_CAPABILITIES_QUERY_RESULT;
     '*[_type == \'service\'\n && slug.current == $slug][0]{\n  name,\n  seo{\n    "title": metaTitle,\n    "description": metaDescription,\n    "ogImage": ogImage.asset->url,\n    "ogAlt": ogImage.alt\n  },\n  subtitle,\n  body,\n  "imageUrl": mainImage.asset->url,\n  "imageAlt": mainImage.alt,\n  "subscriptions": *[_type == \'subscription\'\n                    && references(^._id)]\n                    | order(_createdAt){\n                      _id,\n                      name,\n                      "slug": slug.current,\n                      pricePerMonth,\n                      inclusives[],\n                      exclusives[],\n                    }\n }': SERVICE_QUERY_RESULT;
-    '*[_type == \'subscription\'\n && defined(slug.current)\n && type->slug.current == $type]\n  | order(createdAt){\n  _id,\n  name,\n  "type": type->name,\n  "slug": slug.current,\n  inclusives[],\n  exclusives[],\n  pricePerMonth\n }': ALL_PRICINGS_QUERY_RESULT;
+    '*[_type == \'subscription\'\n && defined(slug.current)\n && type->slug.current == $type]\n  | order(createdAt asc){\n  _id,\n  name,\n  "type": type->name,\n  "slug": slug.current,\n  inclusives[],\n  exclusives[],\n  pricePerMonth\n }': PRICINGS_PER_TYPE_QUERY_RESULT;
+    '*[_type == \'subscription\'\n && slug.current == $slug][0]{\n  name,\n  "type": type->name,\n  pricePerMonth,\n  excerpt,\n  seo,\n  inclusives[],\n  exclusives[]\n }': PRICINGS_QUERY_RESULT;
+    '*[_type == \'subscription\'\n && defined(slug.current)]{\n  "slug": slug.current\n }': ALL_PRICINGS_QUERY_RESULT;
   }
 }
 // Lets @sanity/client releases that predate the global registry read it too

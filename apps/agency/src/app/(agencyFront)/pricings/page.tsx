@@ -2,7 +2,7 @@ import ContactForm from '@/components/ContactForm';
 import RenderAction from '@/components/RenderAction';
 import { getMetadata } from '@/lib/getMetadata';
 import { sanityFetch } from '@/sanity/lib/live';
-import { ALL_PRICINGS_QUERY } from '@/sanity/lib/query';
+import { PRICINGS_PER_TYPE_QUERY } from '@/sanity/lib/query';
 import {
   AnimateSlideIn,
   AnimateSlideInGroup,
@@ -12,8 +12,6 @@ import {
   SectionTitle,
 } from '@mns/ui';
 import { Metadata } from 'next';
-import { FaChartBar, FaCrown, FaHeart, FaPencil } from 'react-icons/fa6';
-import { IoMdColorPalette } from 'react-icons/io';
 
 export async function generateMetadata(): Promise<Metadata> {
   const data = await getMetadata({ page: 'pricing-page' });
@@ -26,14 +24,14 @@ export async function generateMetadata(): Promise<Metadata> {
 
 const PricingsPage = async () => {
   const { data: plugs } = await sanityFetch({
-    query: ALL_PRICINGS_QUERY,
+    query: PRICINGS_PER_TYPE_QUERY,
     stega: false,
     perspective: 'published',
     params: { type: 'plug-and-play' },
   });
 
   const { data: enterprise } = await sanityFetch({
-    query: ALL_PRICINGS_QUERY,
+    query: PRICINGS_PER_TYPE_QUERY,
     stega: false,
     perspective: 'published',
     params: { type: 'enterprise' },
@@ -79,14 +77,7 @@ const PricingsPage = async () => {
               key={p._id}
               name={p.name as string}
               inclusives={p.inclusives ?? []}
-              cta={{ label: 'Learn More', href: `/pricings/${p.slug}` }}
-              renderCallToAction={(props) => (
-                <RenderAction
-                  type="button"
-                  className="text-background bg-primary"
-                  {...props}
-                />
-              )}
+              exclusives={p.exclusives ?? []}
               pricerPerMonth={p.pricePerMonth ?? 0}
             />
           ))}
@@ -109,14 +100,6 @@ const PricingsPage = async () => {
               key={e._id}
               name={e.name as string}
               inclusives={e.inclusives ?? []}
-              cta={{ label: 'Learn More', href: `/pricings/${e.slug}` }}
-              renderCallToAction={(props) => (
-                <RenderAction
-                  type="button"
-                  className="text-background bg-primary"
-                  {...props}
-                />
-              )}
               pricerPerMonth={e.pricePerMonth ?? 0}
               exclusives={e.exclusives ?? []}
             />

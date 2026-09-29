@@ -111,10 +111,10 @@ export const SERVICE_QUERY = defineQuery(`*[_type == 'service'
                     }
  }`);
 
-export const ALL_PRICINGS_QUERY = defineQuery(`*[_type == 'subscription'
+export const PRICINGS_PER_TYPE_QUERY = defineQuery(`*[_type == 'subscription'
  && defined(slug.current)
  && type->slug.current == $type]
-  | order(createdAt){
+  | order(createdAt asc){
   _id,
   name,
   "type": type->name,
@@ -122,4 +122,20 @@ export const ALL_PRICINGS_QUERY = defineQuery(`*[_type == 'subscription'
   inclusives[],
   exclusives[],
   pricePerMonth
+ }`);
+
+export const PRICINGS_QUERY = defineQuery(`*[_type == 'subscription'
+ && slug.current == $slug][0]{
+  name,
+  "type": type->name,
+  pricePerMonth,
+  excerpt,
+  seo,
+  inclusives[],
+  exclusives[]
+ }`);
+
+export const ALL_PRICINGS_QUERY = defineQuery(`*[_type == 'subscription'
+ && defined(slug.current)]{
+  "slug": slug.current
  }`);

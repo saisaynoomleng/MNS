@@ -18,8 +18,6 @@ type PricingCardProps = {
   pricerPerMonth: number;
   inclusives: string[];
   exclusives?: string[];
-  cta: CallToActionProps;
-  renderCallToAction: (props: CallToActionProps) => React.ReactElement;
 };
 
 export const PricingCard = ({
@@ -28,8 +26,6 @@ export const PricingCard = ({
   pricerPerMonth,
   inclusives,
   exclusives,
-  cta,
-  renderCallToAction,
 }: PricingCardProps): React.JSX.Element => {
   return (
     <Card
@@ -74,10 +70,6 @@ export const PricingCard = ({
           </div>
         ) : null}
       </CardContent>
-
-      <CardFooter className="mt-auto">
-        {renderCallToAction({ label: cta.label, href: cta.href })}
-      </CardFooter>
     </Card>
   );
 };

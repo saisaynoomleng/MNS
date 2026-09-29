@@ -12,10 +12,20 @@ import {
 import { RxDropdownMenu, RxHamburgerMenu } from 'react-icons/rx';
 import { PiTextColumnsBold } from 'react-icons/pi';
 import { FaFacebookSquare, FaYoutubeSquare } from 'react-icons/fa';
-import { FaGoogle, FaLinkedin, FaMoneyCheckDollar } from 'react-icons/fa6';
+import {
+  FaChartBar,
+  FaCrown,
+  FaGoogle,
+  FaHeart,
+  FaLinkedin,
+  FaMoneyCheckDollar,
+  FaPencil,
+} from 'react-icons/fa6';
 import { RiSuitcaseLine } from 'react-icons/ri';
 import { GiProgression } from 'react-icons/gi';
 import { LuReceiptText } from 'react-icons/lu';
+import { IoMdColorPalette } from 'react-icons/io';
+import { GoDotFill } from 'react-icons/go';
 
 const icons: React.ReactElement[] = [
   <IoSettingsOutline aria-hidden />,
@@ -37,6 +47,12 @@ const icons: React.ReactElement[] = [
   <GiProgression aria-hidden />,
   <MdPhonelink aria-hidden />,
   <LuReceiptText aria-hidden />,
+  <FaHeart aria-hidden />,
+  <FaPencil aria-hidden />,
+  <IoMdColorPalette aria-hidden />,
+  <FaChartBar aria-hidden />,
+  <FaCrown aria-hidden />,
+  <GoDotFill aria-hidden />,
 ];
 
 export const Iconography = (): React.JSX.Element => {

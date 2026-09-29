@@ -66,3 +66,21 @@ export const USER_FEATURE_REQUEST_APPS = defineQuery(`*[_type == 'app'
   _id,
   name,
 }`);
+
+export const ALL_SERVICES_QUERY = defineQuery(`*[_type == 'service'
+ && defined(slug.current)]{
+  _id,
+  name,
+  subtitle,
+  excerpt,
+  "slug": slug.current,
+  "imageUrl": mainImage.asset->url,
+  "imageAlt": mainImage.alt
+ }`);
+
+export const ALL_CAPABILITIES_QUERY = defineQuery(`*[_type == 'capability'
+ && defined(slug.current)]{
+  name,
+  _id,
+  value
+ }`);

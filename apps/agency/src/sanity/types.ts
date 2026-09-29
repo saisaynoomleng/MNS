@@ -639,6 +639,21 @@ export type ALL_PRICINGS_QUERY_RESULT = Array<{
   slug: string | null;
 }>;
 
+// Source: src/sanity/lib/query.ts
+// Variable: COMPANY_PAGE_QUERY
+// Query: *[_type == 'page' && slug.current == $slug && type == 'company'][0]{  seo,  body, }
+export type COMPANY_PAGE_QUERY_RESULT = {
+  seo: Seo | null;
+  body: BlockContent | null;
+} | null;
+
+// Source: src/sanity/lib/query.ts
+// Variable: ALL_COMPANY_PAGES
+// Query: *[_type == 'page' && type == 'company']{  "slug": slug.current }
+export type ALL_COMPANY_PAGES_RESULT = Array<{
+  slug: string | null;
+}>;
+
 // Query TypeMap
 declare global {
   interface SanityQueries {
@@ -653,6 +668,8 @@ declare global {
     '*[_type == \'subscription\'\n && defined(slug.current)\n && type->slug.current == $type]\n  | order(createdAt asc){\n  _id,\n  name,\n  "type": type->name,\n  "slug": slug.current,\n  inclusives[],\n  exclusives[],\n  pricePerMonth\n }': PRICINGS_PER_TYPE_QUERY_RESULT;
     '*[_type == \'subscription\'\n && slug.current == $slug][0]{\n  name,\n  "type": type->name,\n  pricePerMonth,\n  excerpt,\n  seo,\n  inclusives[],\n  exclusives[]\n }': PRICINGS_QUERY_RESULT;
     '*[_type == \'subscription\'\n && defined(slug.current)]{\n  "slug": slug.current\n }': ALL_PRICINGS_QUERY_RESULT;
+    "*[_type == 'page'\n && slug.current == $slug\n && type == 'company'][0]{\n  seo,\n  body,\n }": COMPANY_PAGE_QUERY_RESULT;
+    "*[_type == 'page'\n && type == 'company']{\n  \"slug\": slug.current\n }": ALL_COMPANY_PAGES_RESULT;
   }
 }
 // Lets @sanity/client releases that predate the global registry read it too

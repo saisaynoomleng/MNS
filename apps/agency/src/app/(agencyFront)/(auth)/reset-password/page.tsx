@@ -65,7 +65,10 @@ const ResetPassword = () => {
   };
 
   return (
-    <Bounded as="main" className="md:max-w-200">
+    <Bounded
+      as="main"
+      className="md:max-w-200 min-h-dvh flex flex-col justify-center items-center"
+    >
       <ResetPasswordForm
         requestPasswordAction={handleRequest}
         checkVerificationAction={handleVerification}

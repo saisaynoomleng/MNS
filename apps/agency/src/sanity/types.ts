@@ -606,6 +606,19 @@ export type SERVICE_QUERY_RESULT = {
   }>;
 } | null;
 
+// Source: src/sanity/lib/query.ts
+// Variable: ALL_PRICINGS_QUERY
+// Query: *[_type == 'subscription' && defined(slug.current) && type->slug.current == $type]  | order(createdAt){  _id,  name,  "type": type->name,  "slug": slug.current,  inclusives[],  exclusives[],  pricePerMonth }
+export type ALL_PRICINGS_QUERY_RESULT = Array<{
+  _id: string;
+  name: string | null;
+  type: string | null;
+  slug: string | null;
+  inclusives: Array<string> | null;
+  exclusives: Array<string> | null;
+  pricePerMonth: number | null;
+}>;
+
 // Query TypeMap
 declare global {
   interface SanityQueries {
@@ -617,6 +630,7 @@ declare global {
     '*[_type == \'service\'\n && defined(slug.current)]\n | order(_createdAt){\n  _id,\n  name,\n  subtitle,\n  excerpt,\n  "slug": slug.current,\n  "imageUrl": mainImage.asset->url,\n  "imageAlt": mainImage.alt\n }': ALL_SERVICES_QUERY_RESULT;
     "*[_type == 'capability'\n && defined(slug.current)]{\n  name,\n  _id,\n  value\n }": ALL_CAPABILITIES_QUERY_RESULT;
     '*[_type == \'service\'\n && slug.current == $slug][0]{\n  name,\n  seo{\n    "title": metaTitle,\n    "description": metaDescription,\n    "ogImage": ogImage.asset->url,\n    "ogAlt": ogImage.alt\n  },\n  subtitle,\n  body,\n  "imageUrl": mainImage.asset->url,\n  "imageAlt": mainImage.alt,\n  "subscriptions": *[_type == \'subscription\'\n                    && references(^._id)]\n                    | order(_createdAt){\n                      _id,\n                      name,\n                      "slug": slug.current,\n                      pricePerMonth,\n                      inclusives[],\n                      exclusives[],\n                    }\n }': SERVICE_QUERY_RESULT;
+    '*[_type == \'subscription\'\n && defined(slug.current)\n && type->slug.current == $type]\n  | order(createdAt){\n  _id,\n  name,\n  "type": type->name,\n  "slug": slug.current,\n  inclusives[],\n  exclusives[],\n  pricePerMonth\n }': ALL_PRICINGS_QUERY_RESULT;
   }
 }
 // Lets @sanity/client releases that predate the global registry read it too

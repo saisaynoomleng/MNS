@@ -40,12 +40,12 @@ export const CapabilityProgress = async ({
       <AnimateSlideInGroup
         direction="bottom"
         from="random"
-        className="grid md:grid-cols-3 gap-4 md:gap-8"
+        className="grid max-md:place-items-center md:grid-cols-3 gap-4 md:gap-8"
       >
         {capabilities.map((c) => (
           <div
             key={c._id}
-            className="border p-2 max-w-100 space-y-2 secondary-box-shadow"
+            className="border p-2 max-md:w-100 min-w-50 max-w-100 space-y-2 secondary-box-shadow"
           >
             <div className="flex justify-between items-center">
               <p className="flex gap-x-1 items-center">

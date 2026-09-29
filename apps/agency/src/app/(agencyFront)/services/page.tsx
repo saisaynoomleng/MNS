@@ -108,12 +108,6 @@ const ServicesPage = async (): Promise<React.JSX.Element | null> => {
       <CapabilityProgress />
 
       <div className="flex flex-col gap-y-4 md:gap-y-8">
-        <AnimateSlideIn direction="top">
-          <SectionTitle as="h3" size="md" className="text-center">
-            Have a project in mind?
-          </SectionTitle>
-        </AnimateSlideIn>
-
         <AnimateSlideIn direction="bottom">
           <ContactForm />
         </AnimateSlideIn>

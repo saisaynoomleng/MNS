@@ -110,3 +110,16 @@ export const SERVICE_QUERY = defineQuery(`*[_type == 'service'
                       exclusives[],
                     }
  }`);
+
+export const ALL_PRICINGS_QUERY = defineQuery(`*[_type == 'subscription'
+ && defined(slug.current)
+ && type->slug.current == $type]
+  | order(createdAt){
+  _id,
+  name,
+  "type": type->name,
+  "slug": slug.current,
+  inclusives[],
+  exclusives[],
+  pricePerMonth
+ }`);

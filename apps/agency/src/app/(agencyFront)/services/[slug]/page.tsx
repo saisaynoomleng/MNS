@@ -56,7 +56,7 @@ const ServiceDetailPage = async ({ params }: PageParamsProps) => {
   const { name, subtitle, body, subscriptions, imageAlt, imageUrl } = data;
 
   return (
-    <Bounded spacing="sm" padding="sm">
+    <Bounded spacing="sm" padding="sm" as="main">
       <div className="grid md:grid-cols-[auto_1fr] gap-x-4 items-center">
         <RenderMedia src={imageUrl as string} alt={imageAlt as string} />
 

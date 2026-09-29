@@ -47,47 +47,14 @@ export const subscriptionType = defineType({
       name: 'inclusives',
       title: 'Inclusive Features',
       type: 'array',
-      of: [
-        defineArrayMember({
-          name: 'feature',
-          type: 'object',
-          fields: [
-            defineField({
-              name: 'title',
-              type: 'string',
-            }),
-            defineField({
-              name: 'body',
-              type: 'text',
-              validation: (rule) => rule.required(),
-            }),
-          ],
-        }),
-      ],
+      of: [{ type: 'string' }],
       validation: (rule) => rule.required(),
     }),
     defineField({
       name: 'exclusives',
       title: 'Exclusive Features',
       type: 'array',
-      of: [
-        defineArrayMember({
-          name: 'feature',
-          type: 'object',
-          fields: [
-            defineField({
-              name: 'title',
-              type: 'string',
-            }),
-            defineField({
-              name: 'body',
-              type: 'text',
-              validation: (rule) => rule.required(),
-            }),
-          ],
-        }),
-      ],
-      validation: (rule) => rule.required(),
+      of: [{ type: 'string' }],
     }),
     defineField({
       name: 'seo',

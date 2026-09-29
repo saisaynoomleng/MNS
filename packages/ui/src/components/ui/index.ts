@@ -20,3 +20,4 @@ export * from './skeleton';
 export * from './sidebar';
 export * from './alert-dialog';
 export * from './progress';
+export * from './card';

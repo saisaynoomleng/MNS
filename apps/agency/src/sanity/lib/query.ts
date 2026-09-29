@@ -68,7 +68,8 @@ export const USER_FEATURE_REQUEST_APPS = defineQuery(`*[_type == 'app'
 }`);
 
 export const ALL_SERVICES_QUERY = defineQuery(`*[_type == 'service'
- && defined(slug.current)]{
+ && defined(slug.current)]
+ | order(_createdAt){
   _id,
   name,
   subtitle,
@@ -83,4 +84,29 @@ export const ALL_CAPABILITIES_QUERY = defineQuery(`*[_type == 'capability'
   name,
   _id,
   value
+ }`);
+
+export const SERVICE_QUERY = defineQuery(`*[_type == 'service'
+ && slug.current == $slug][0]{
+  name,
+  seo{
+    "title": metaTitle,
+    "description": metaDescription,
+    "ogImage": ogImage.asset->url,
+    "ogAlt": ogImage.alt
+  },
+  subtitle,
+  body,
+  "imageUrl": mainImage.asset->url,
+  "imageAlt": mainImage.alt,
+  "subscriptions": *[_type == 'subscription'
+                    && references(^._id)]
+                    | order(_createdAt){
+                      _id,
+                      name,
+                      "slug": slug.current,
+                      pricePerMonth,
+                      inclusives[],
+                      exclusives[],
+                    }
  }`);

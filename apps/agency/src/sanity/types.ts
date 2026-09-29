@@ -182,18 +182,8 @@ export type Subscription = {
   pricePerMonth?: number;
   type?: ServiceReference;
   excerpt?: string;
-  inclusives?: Array<{
-    title?: string;
-    body?: string;
-    _type: 'feature';
-    _key: string;
-  }>;
-  exclusives?: Array<{
-    title?: string;
-    body?: string;
-    _type: 'feature';
-    _key: string;
-  }>;
+  inclusives?: Array<string>;
+  exclusives?: Array<string>;
   seo?: Seo;
 };
 
@@ -571,7 +561,7 @@ export type USER_FEATURE_REQUEST_APPS_RESULT = Array<{
 
 // Source: src/sanity/lib/query.ts
 // Variable: ALL_SERVICES_QUERY
-// Query: *[_type == 'service' && defined(slug.current)]{  _id,  name,  subtitle,  excerpt,  "slug": slug.current,  "imageUrl": mainImage.asset->url,  "imageAlt": mainImage.alt }
+// Query: *[_type == 'service' && defined(slug.current)] | order(_createdAt){  _id,  name,  subtitle,  excerpt,  "slug": slug.current,  "imageUrl": mainImage.asset->url,  "imageAlt": mainImage.alt }
 export type ALL_SERVICES_QUERY_RESULT = Array<{
   _id: string;
   name: string | null;
@@ -591,6 +581,31 @@ export type ALL_CAPABILITIES_QUERY_RESULT = Array<{
   value: number | null;
 }>;
 
+// Source: src/sanity/lib/query.ts
+// Variable: SERVICE_QUERY
+// Query: *[_type == 'service' && slug.current == $slug][0]{  name,  seo{    "title": metaTitle,    "description": metaDescription,    "ogImage": ogImage.asset->url,    "ogAlt": ogImage.alt  },  subtitle,  body,  "imageUrl": mainImage.asset->url,  "imageAlt": mainImage.alt,  "subscriptions": *[_type == 'subscription'                    && references(^._id)]                    | order(_createdAt){                      _id,                      name,                      "slug": slug.current,                      pricePerMonth,                      inclusives[],                      exclusives[],                    } }
+export type SERVICE_QUERY_RESULT = {
+  name: string | null;
+  seo: {
+    title: string | null;
+    description: string | null;
+    ogImage: string | null;
+    ogAlt: string | null;
+  } | null;
+  subtitle: string | null;
+  body: BlockContent | null;
+  imageUrl: string | null;
+  imageAlt: string | null;
+  subscriptions: Array<{
+    _id: string;
+    name: string | null;
+    slug: string | null;
+    pricePerMonth: number | null;
+    inclusives: Array<string> | null;
+    exclusives: Array<string> | null;
+  }>;
+} | null;
+
 // Query TypeMap
 declare global {
   interface SanityQueries {
@@ -599,8 +614,9 @@ declare global {
     "*[_type == 'chatBubble'\n && defined(slug.current)\n && slug.current == $page][0]{\n    messages[]{\n      _key,\n      inbound,\n      outbound\n    }\n }": CONTACT_US_PAGE_CHAT_RESULT;
     '*[_type == \'page\'\n && defined(slug.current)\n && slug.current == $page][0]{\n  "title": seo.metaTitle,\n  "description": seo.metaDescription\n }': PAGE_METADATA_QUERY_RESULT;
     "*[_type == 'app'\n && defined(slug.current)]{\n  _id,\n  name,\n}": USER_FEATURE_REQUEST_APPS_RESULT;
-    '*[_type == \'service\'\n && defined(slug.current)]{\n  _id,\n  name,\n  subtitle,\n  excerpt,\n  "slug": slug.current,\n  "imageUrl": mainImage.asset->url,\n  "imageAlt": mainImage.alt\n }': ALL_SERVICES_QUERY_RESULT;
+    '*[_type == \'service\'\n && defined(slug.current)]\n | order(_createdAt){\n  _id,\n  name,\n  subtitle,\n  excerpt,\n  "slug": slug.current,\n  "imageUrl": mainImage.asset->url,\n  "imageAlt": mainImage.alt\n }': ALL_SERVICES_QUERY_RESULT;
     "*[_type == 'capability'\n && defined(slug.current)]{\n  name,\n  _id,\n  value\n }": ALL_CAPABILITIES_QUERY_RESULT;
+    '*[_type == \'service\'\n && slug.current == $slug][0]{\n  name,\n  seo{\n    "title": metaTitle,\n    "description": metaDescription,\n    "ogImage": ogImage.asset->url,\n    "ogAlt": ogImage.alt\n  },\n  subtitle,\n  body,\n  "imageUrl": mainImage.asset->url,\n  "imageAlt": mainImage.alt,\n  "subscriptions": *[_type == \'subscription\'\n                    && references(^._id)]\n                    | order(_createdAt){\n                      _id,\n                      name,\n                      "slug": slug.current,\n                      pricePerMonth,\n                      inclusives[],\n                      exclusives[],\n                    }\n }': SERVICE_QUERY_RESULT;
   }
 }
 // Lets @sanity/client releases that predate the global registry read it too

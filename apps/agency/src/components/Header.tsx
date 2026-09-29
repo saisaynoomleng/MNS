@@ -27,9 +27,9 @@ export const Header = async (): Promise<React.JSX.Element | null> => {
           <Logo />
         </Link>
 
-        <Separator orientation="vertical" className="bg-muted" />
+        {/* <Separator orientation="vertical" className="bg-muted" />
 
-        <DarkModeToggle />
+        <DarkModeToggle /> */}
       </div>
 
       {/* desktop nav */}

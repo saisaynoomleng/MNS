@@ -6,11 +6,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 export const UserButton = () => {
-  const { data: session, isPending } = authClient.useSession();
-
-  if (isPending) {
-    return <Spinner />;
-  }
+  const { data: session } = authClient.useSession();
 
   if (!session?.session?.id) {
     return (

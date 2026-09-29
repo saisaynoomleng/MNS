@@ -10,3 +10,4 @@ export * from './LoadingSpinner';
 export * from './PasswordChecker';
 export * from './animations';
 export * from './ServiceCard';
+export * from './PricingCard';

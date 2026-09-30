@@ -10,6 +10,7 @@ import ContactRouter from './modules/contacts/contact.router.js';
 import UserRouter from './modules/users/user.router.js';
 import SanityRouter from './modules/sanity/sanity.router.js';
 import AppsRouter from './modules/apps/apps.router.js';
+import NewsletterRouter from './modules/newsletter/newsletter.router.js';
 
 const app: Express = express();
 
@@ -41,6 +42,7 @@ app.use('/api/contacts', ContactRouter);
 app.use('/api/users', UserRouter);
 app.use('/api/webhooks/sanity', SanityRouter);
 app.use('/api/apps', AppsRouter);
+app.use('/api/newsletter-subscription', NewsletterRouter);
 
 app.use((req, res) => {
   res.status(404).json({ message: 'No Resources Found' });

@@ -28,9 +28,32 @@ export const appType = defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
+      name: 'demoUrl',
+      type: 'url',
+      title: 'Demo App URL',
+    }),
+    defineField({
       name: 'subtitle',
       title: 'App Preview Subtitle',
       type: 'string',
+    }),
+    defineField({
+      name: 'stage',
+      title: 'App Stage',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'Development', value: 'development' },
+          { title: 'Testing', value: 'testing' },
+          { title: 'Production', value: 'production' },
+        ],
+        layout: 'radio',
+      },
+    }),
+    defineField({
+      name: 'myanmarOnly',
+      type: 'boolean',
+      initialValue: false,
     }),
     defineField({
       name: 'excerpt',

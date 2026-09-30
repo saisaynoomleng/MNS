@@ -151,3 +151,39 @@ export const ALL_COMPANY_PAGES = defineQuery(`*[_type == 'page'
  && type == 'company']{
   "slug": slug.current
  }`);
+
+export const APPS_BY_STAGE_QUERY = defineQuery(`*[_type == 'app'
+ && defined(slug.current)
+ && stage == $stage]{
+  _id,
+  name,
+  type,
+  myanmarOnly,
+  "slug": slug.current,
+  "imageUrl": mainImage.asset->url,
+  "imageAlt": mainImage.alt
+ }`);
+
+export const ALL_APPS_QUERY = defineQuery(`*[_type == 'app'
+ && defined(slug.current)
+ && stage == $stage]{
+  "slug": slug.current,
+ }`);
+
+export const APP_QUERY = defineQuery(`*[_type == 'app'
+ && slug.current == $slug][0]{
+  _id,
+  name,
+  type,
+  excerpt,
+  seo,
+  myanmarOnly,
+  "slug": slug.current,
+  "imageUrl": mainImage.asset->url,
+  "imageAlt": mainImage.alt,
+  url,
+  demoUrl,
+  stage,
+  subtitle,
+  body,
+ }`);

@@ -165,8 +165,7 @@ export const APPS_BY_STAGE_QUERY = defineQuery(`*[_type == 'app'
  }`);
 
 export const ALL_APPS_QUERY = defineQuery(`*[_type == 'app'
- && defined(slug.current)
- && stage == $stage]{
+ && defined(slug.current)]{
   "slug": slug.current,
  }`);
 

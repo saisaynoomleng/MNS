@@ -1,9 +1,4 @@
-import {
-  replaceDash,
-  toTitleCase,
-  type CallToActionProps,
-  type MediaProps,
-} from '@mns/utils';
+import { replaceDash, toTitleCase, type MediaProps } from '@mns/utils';
 import clsx from 'clsx';
 import Link from 'next/link';
 import React from 'react';

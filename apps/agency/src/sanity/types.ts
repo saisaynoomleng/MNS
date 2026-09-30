@@ -91,7 +91,10 @@ export type App = {
   name?: string;
   slug?: Slug;
   url?: string;
+  demoUrl?: string;
   subtitle?: string;
+  stage?: 'development' | 'testing' | 'production';
+  myanmarOnly?: boolean;
   excerpt?: string;
   body?: BlockContent;
   seo?: Seo;
@@ -666,7 +669,7 @@ export type APPS_BY_STAGE_QUERY_RESULT = Array<{
     | 'health-care'
     | 'retail-and-commerce'
     | null;
-  myanmarOnly: null;
+  myanmarOnly: boolean | null;
   slug: string | null;
   imageUrl: string | null;
   imageAlt: string | null;
@@ -674,7 +677,7 @@ export type APPS_BY_STAGE_QUERY_RESULT = Array<{
 
 // Source: src/sanity/lib/query.ts
 // Variable: ALL_APPS_QUERY
-// Query: *[_type == 'app' && defined(slug.current) && stage == $stage]{  "slug": slug.current, }
+// Query: *[_type == 'app' && defined(slug.current)]{  "slug": slug.current, }
 export type ALL_APPS_QUERY_RESULT = Array<{
   slug: string | null;
 }>;
@@ -693,13 +696,13 @@ export type APP_QUERY_RESULT = {
     | null;
   excerpt: string | null;
   seo: Seo | null;
-  myanmarOnly: null;
+  myanmarOnly: boolean | null;
   slug: string | null;
   imageUrl: string | null;
   imageAlt: string | null;
   url: string | null;
-  demoUrl: null;
-  stage: null;
+  demoUrl: string | null;
+  stage: 'development' | 'production' | 'testing' | null;
   subtitle: string | null;
   body: BlockContent | null;
 } | null;
@@ -721,7 +724,7 @@ declare global {
     "*[_type == 'page'\n && slug.current == $slug\n && type == 'company'][0]{\n  seo,\n  body,\n }": COMPANY_PAGE_QUERY_RESULT;
     "*[_type == 'page'\n && type == 'company']{\n  \"slug\": slug.current\n }": ALL_COMPANY_PAGES_RESULT;
     '*[_type == \'app\'\n && defined(slug.current)\n && stage == $stage]{\n  _id,\n  name,\n  type,\n  myanmarOnly,\n  "slug": slug.current,\n  "imageUrl": mainImage.asset->url,\n  "imageAlt": mainImage.alt\n }': APPS_BY_STAGE_QUERY_RESULT;
-    '*[_type == \'app\'\n && defined(slug.current)\n && stage == $stage]{\n  "slug": slug.current,\n }': ALL_APPS_QUERY_RESULT;
+    '*[_type == \'app\'\n && defined(slug.current)]{\n  "slug": slug.current,\n }': ALL_APPS_QUERY_RESULT;
     '*[_type == \'app\'\n && slug.current == $slug][0]{\n  _id,\n  name,\n  type,\n  excerpt,\n  seo,\n  myanmarOnly,\n  "slug": slug.current,\n  "imageUrl": mainImage.asset->url,\n  "imageAlt": mainImage.alt,\n  url,\n  demoUrl,\n  stage,\n  subtitle,\n  body,\n }': APP_QUERY_RESULT;
   }
 }

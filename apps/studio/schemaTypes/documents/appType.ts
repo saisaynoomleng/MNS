@@ -31,6 +31,7 @@ export const appType = defineType({
       name: 'demoUrl',
       type: 'url',
       title: 'Demo App URL',
+      validation: (rule) => rule.required(),
     }),
     defineField({
       name: 'subtitle',

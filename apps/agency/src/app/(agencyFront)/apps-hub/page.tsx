@@ -1,5 +1,4 @@
 import { AppCard } from '@/components/AppCard';
-import RenderAction from '@/components/RenderAction';
 import { RenderMedia } from '@/components/RenderMedia';
 import { getMetadata } from '@/lib/getMetadata';
 import { sanityFetch } from '@/sanity/lib/live';

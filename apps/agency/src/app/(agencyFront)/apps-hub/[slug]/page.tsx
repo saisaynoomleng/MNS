@@ -1,4 +1,5 @@
 import AppLaunchButton from '@/components/AppLaunchButton';
+import { Newsletter } from '@/components/Newsletter';
 import { SanityPortableTextComponent } from '@/components/SanityPortableTextComponent';
 import { urlFor } from '@/sanity/lib/image';
 import { sanityFetch } from '@/sanity/lib/live';
@@ -98,8 +99,7 @@ const AppDetailPage = async ({ params }: PageParamsProps) => {
           )}
         </div>
       ) : (
-        <div>
-          (
+        <div className="space-y-4 md:space-y-8">
           <div className="space-y-2">
             <p>
               App is currently in development stage, and cannot be launched at
@@ -108,7 +108,8 @@ const AppDetailPage = async ({ params }: PageParamsProps) => {
 
             <p>You can subscribe to our newsletter for updates!</p>
           </div>
-          ){/* <NewsletterForm /> */}
+
+          <Newsletter />
         </div>
       )}
     </Bounded>

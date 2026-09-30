@@ -2,7 +2,6 @@ import { urlFor } from '@/sanity/lib/image';
 import { PortableTextComponents } from 'next-sanity';
 import Image from 'next/image';
 import Link from 'next/link';
-import { number } from 'zod';
 
 export const SanityPortableTextComponent: PortableTextComponents = {
   types: {
@@ -49,6 +48,7 @@ export const SanityPortableTextComponent: PortableTextComponents = {
           href={value?.href}
           target={target}
           rel={target === '_blank' ? 'noreferrer nofollow' : ''}
+          className="text-primary"
         >
           {children}
         </Link>

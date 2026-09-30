@@ -654,6 +654,56 @@ export type ALL_COMPANY_PAGES_RESULT = Array<{
   slug: string | null;
 }>;
 
+// Source: src/sanity/lib/query.ts
+// Variable: APPS_BY_STAGE_QUERY
+// Query: *[_type == 'app' && defined(slug.current) && stage == $stage]{  _id,  name,  type,  myanmarOnly,  "slug": slug.current,  "imageUrl": mainImage.asset->url,  "imageAlt": mainImage.alt }
+export type APPS_BY_STAGE_QUERY_RESULT = Array<{
+  _id: string;
+  name: string | null;
+  type:
+    | 'creative-and-media'
+    | 'food-and-hospitality'
+    | 'health-care'
+    | 'retail-and-commerce'
+    | null;
+  myanmarOnly: null;
+  slug: string | null;
+  imageUrl: string | null;
+  imageAlt: string | null;
+}>;
+
+// Source: src/sanity/lib/query.ts
+// Variable: ALL_APPS_QUERY
+// Query: *[_type == 'app' && defined(slug.current) && stage == $stage]{  "slug": slug.current, }
+export type ALL_APPS_QUERY_RESULT = Array<{
+  slug: string | null;
+}>;
+
+// Source: src/sanity/lib/query.ts
+// Variable: APP_QUERY
+// Query: *[_type == 'app' && slug.current == $slug][0]{  _id,  name,  type,  excerpt,  seo,  myanmarOnly,  "slug": slug.current,  "imageUrl": mainImage.asset->url,  "imageAlt": mainImage.alt,  url,  demoUrl,  stage,  subtitle,  body, }
+export type APP_QUERY_RESULT = {
+  _id: string;
+  name: string | null;
+  type:
+    | 'creative-and-media'
+    | 'food-and-hospitality'
+    | 'health-care'
+    | 'retail-and-commerce'
+    | null;
+  excerpt: string | null;
+  seo: Seo | null;
+  myanmarOnly: null;
+  slug: string | null;
+  imageUrl: string | null;
+  imageAlt: string | null;
+  url: string | null;
+  demoUrl: null;
+  stage: null;
+  subtitle: string | null;
+  body: BlockContent | null;
+} | null;
+
 // Query TypeMap
 declare global {
   interface SanityQueries {
@@ -670,6 +720,9 @@ declare global {
     '*[_type == \'subscription\'\n && defined(slug.current)]{\n  "slug": slug.current\n }': ALL_PRICINGS_QUERY_RESULT;
     "*[_type == 'page'\n && slug.current == $slug\n && type == 'company'][0]{\n  seo,\n  body,\n }": COMPANY_PAGE_QUERY_RESULT;
     "*[_type == 'page'\n && type == 'company']{\n  \"slug\": slug.current\n }": ALL_COMPANY_PAGES_RESULT;
+    '*[_type == \'app\'\n && defined(slug.current)\n && stage == $stage]{\n  _id,\n  name,\n  type,\n  myanmarOnly,\n  "slug": slug.current,\n  "imageUrl": mainImage.asset->url,\n  "imageAlt": mainImage.alt\n }': APPS_BY_STAGE_QUERY_RESULT;
+    '*[_type == \'app\'\n && defined(slug.current)\n && stage == $stage]{\n  "slug": slug.current,\n }': ALL_APPS_QUERY_RESULT;
+    '*[_type == \'app\'\n && slug.current == $slug][0]{\n  _id,\n  name,\n  type,\n  excerpt,\n  seo,\n  myanmarOnly,\n  "slug": slug.current,\n  "imageUrl": mainImage.asset->url,\n  "imageAlt": mainImage.alt,\n  url,\n  demoUrl,\n  stage,\n  subtitle,\n  body,\n }': APP_QUERY_RESULT;
   }
 }
 // Lets @sanity/client releases that predate the global registry read it too

@@ -1,5 +1,5 @@
 import { urlFor } from '@/sanity/lib/image';
-import { Button } from '@mns/ui';
+import { Bounded, Button } from '@mns/ui';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -8,7 +8,7 @@ const NotFoundPage = () => {
     'https://cdn.sanity.io/images/a8ioaakl/production/f2b8d9c403933c9f73fc1efd253084495ececb83-626x655.png';
 
   return (
-    <div className="flex flex-col justify-center items-center min-h-screen">
+    <Bounded className="flex flex-col justify-center items-center min-h-screen">
       <div className="flex flex-col md:flex-row gap-x-4 items-center">
         <div className="overflow-hidden relative">
           <Image
@@ -29,7 +29,7 @@ const NotFoundPage = () => {
           </Button>
         </div>
       </div>
-    </div>
+    </Bounded>
   );
 };
 

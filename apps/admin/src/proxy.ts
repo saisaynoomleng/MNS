@@ -1,12 +1,14 @@
 import { getSessionCookie } from 'better-auth/cookies';
 import { NextRequest, NextResponse } from 'next/server';
-import { env } from '../lib/env/server';
-import { BetterAuthSessionProps } from '../lib/auth-client';
+import { env } from './lib/env/server';
+import { BetterAuthSessionProps } from './lib/auth-client';
 
 const publicRoutes = ['/sign-in', '/not-authorized'];
 
 export async function proxy(request: NextRequest) {
-  if (publicRoutes.includes(request.nextUrl.pathname)) {
+  const pathname = request.nextUrl.pathname;
+
+  if (publicRoutes.includes(pathname)) {
     return NextResponse.next();
   }
 
@@ -18,7 +20,7 @@ export async function proxy(request: NextRequest) {
 
   const response = await fetch(`${env.API_URL}/api/auth/get-session`, {
     headers: {
-      cookie: request.headers.get('cookie') || '',
+      cookie: request.headers.get('cookie') ?? '',
     },
   });
 
@@ -26,11 +28,15 @@ export async function proxy(request: NextRequest) {
     return NextResponse.redirect(new URL('/sign-in', request.url));
   }
 
-  const session: BetterAuthSessionProps = await response.json();
+  const session: BetterAuthSessionProps | null = await response.json();
 
-  const userRoles = session.user.role?.split(',') || [];
+  if (!session?.user) {
+    return NextResponse.redirect(new URL('/sign-in', request.url));
+  }
 
-  if (!userRoles.includes('admin')) {
+  const roles = session.user.role?.split(',').map((role) => role.trim()) ?? [];
+
+  if (!roles.includes('admin')) {
     return NextResponse.redirect(new URL('/not-authorized', request.url));
   }
 
@@ -38,5 +44,5 @@ export async function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/:path*'],
+  matcher: ['/((?!_next/static|_next/image|favicon.ico).*)'],
 };

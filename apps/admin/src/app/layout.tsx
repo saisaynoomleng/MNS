@@ -2,7 +2,9 @@ import type { Metadata } from 'next';
 import './globals.css';
 import { chivo_mono, instrument_sans, sue_ellen_francisco } from '@/lib/font';
 import { QueryProvider } from '@/components/QueryProvider';
-import { Toaster } from '@mns/ui';
+import { SidebarProvider, SidebarTrigger, Toaster } from '@mns/ui';
+import { AdminSidebar } from '@/components/AdminSidebar';
+import { AdminSessionContext } from '@/components/SessionContext';
 
 export const metadata: Metadata = {
   title: 'mns. admin',
@@ -18,14 +20,20 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
     >
       <body>
         <QueryProvider>
-          {children}
+          <AdminSessionContext>
+            <SidebarProvider>
+              <AdminSidebar />
+              <SidebarTrigger className="md:hidden" />
+              {children}
 
-          <Toaster
-            richColors
-            closeButton
-            position="bottom-center"
-            duration={3000}
-          />
+              <Toaster
+                richColors
+                closeButton
+                position="bottom-center"
+                duration={3000}
+              />
+            </SidebarProvider>
+          </AdminSessionContext>
         </QueryProvider>
       </body>
     </html>

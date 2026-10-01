@@ -24,7 +24,8 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
             <SidebarProvider>
               <AdminSidebar />
               <SidebarTrigger className="md:hidden" />
-              {children}
+
+              <main className="w-full">{children}</main>
 
               <Toaster
                 richColors

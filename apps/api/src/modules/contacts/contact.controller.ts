@@ -4,10 +4,23 @@ import { emailClient } from '../../lib/emailClient.js';
 import { SendEmailCommand } from '@aws-sdk/client-ses';
 import env from '../../lib/env.js';
 import db, { ContactsTable } from '../../db/index.js';
+import { contactRepository } from './contact.repository.js';
 
 export const ContactController = () => {
+  const repository = contactRepository();
+
   return {
-    getAll: async () => {},
+    getAll: async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        const data = await repository.findAll();
+
+        return res.status(200).json(data);
+      } catch (error) {
+        console.error('Contacts API error', error);
+
+        return next(error);
+      }
+    },
 
     getById: async () => {},
 

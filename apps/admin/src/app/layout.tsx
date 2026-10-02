@@ -5,6 +5,7 @@ import { QueryProvider } from '@/components/QueryProvider';
 import { SidebarProvider, SidebarTrigger, Toaster } from '@mns/ui';
 import { AdminSidebar } from '@/components/AdminSidebar';
 import { AdminSessionContext } from '@/components/SessionContext';
+import { AdminHeader } from '@/components/AdminHeader';
 
 export const metadata: Metadata = {
   title: 'mns. admin',
@@ -24,7 +25,11 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
             <SidebarProvider>
               <AdminSidebar />
               <SidebarTrigger className="md:hidden" />
-              {children}
+
+              <main className="w-full">
+                <AdminHeader />
+                {children}
+              </main>
 
               <Toaster
                 richColors

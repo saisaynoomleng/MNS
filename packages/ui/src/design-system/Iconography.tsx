@@ -4,7 +4,10 @@ import { Bounded, SectionTitle } from '../components';
 import { IoClose, IoSettingsOutline } from 'react-icons/io5';
 import { CiImageOn, CiLink } from 'react-icons/ci';
 import {
+  MdFeaturedPlayList,
+  MdNearbyError,
   MdOutlineDesignServices,
+  MdOutlineEmail,
   MdOutlineQuestionAnswer,
   MdOutlineVideoCameraFront,
   MdPhonelink,
@@ -20,12 +23,15 @@ import {
   FaLinkedin,
   FaMoneyCheckDollar,
   FaPencil,
+  FaUserGroup,
 } from 'react-icons/fa6';
 import { RiSuitcaseLine } from 'react-icons/ri';
-import { GiProgression } from 'react-icons/gi';
+import { GiNewspaper, GiProgression } from 'react-icons/gi';
 import { LuReceiptText } from 'react-icons/lu';
 import { IoMdColorPalette } from 'react-icons/io';
 import { GoDotFill } from 'react-icons/go';
+import { BiSolidDashboard } from 'react-icons/bi';
+import { VscChatSparkleError } from 'react-icons/vsc';
 
 const icons: React.ReactElement[] = [
   <IoSettingsOutline aria-hidden />,
@@ -53,6 +59,13 @@ const icons: React.ReactElement[] = [
   <FaChartBar aria-hidden />,
   <FaCrown aria-hidden />,
   <GoDotFill aria-hidden />,
+  <BiSolidDashboard aria-hidden />,
+  <MdOutlineEmail aria-hidden />,
+  <GiNewspaper aria-hidden />,
+  <MdFeaturedPlayList aria-hidden />,
+  <VscChatSparkleError aria-hidden />,
+  <FaUserGroup aria-hidden />,
+  <MdNearbyError aria-hidden />,
 ];
 
 export const Iconography = (): React.JSX.Element => {

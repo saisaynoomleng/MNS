@@ -5,3 +5,4 @@ export * from './ContactEmail.js';
 export * from './DeleteUserVerificationEmail.js';
 export * from './ExistingUserSignUpEmail.js';
 export * from './NewsletterEmail.js';
+export * from './ContactReplyEmail.js';

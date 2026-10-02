@@ -1,4 +1,8 @@
-import db from '../../db/index.js';
+import { eq } from 'drizzle-orm';
+import db, {
+  ContactMessagesTable,
+  type InferInsertContactMessageTable,
+} from '../../db/index.js';
 
 export const contactRepository = () => {
   return {
@@ -34,9 +38,49 @@ export const contactRepository = () => {
           createdAt: true,
           updatedAt: true,
         },
+
+        where: { id },
       });
 
       return data;
+    },
+
+    saveReplyMessage: async ({
+      id,
+      message,
+    }: {
+      id: string;
+      message: string;
+    }) => {
+      const [data] = await db
+        .insert(ContactMessagesTable)
+        .values({
+          message,
+          contactId: id,
+          direction: 'outbound',
+          status: 'pending',
+        })
+        .returning({
+          id: ContactMessagesTable.id,
+          status: ContactMessagesTable.status,
+        });
+
+      return data;
+    },
+
+    updateContactMessageTableStatus: async ({
+      id,
+      status,
+    }: {
+      id: string;
+      status: InferInsertContactMessageTable['status'];
+    }) => {
+      await db
+        .update(ContactMessagesTable)
+        .set({
+          status,
+        })
+        .where(eq(ContactMessagesTable.id, id));
     },
   };
 };

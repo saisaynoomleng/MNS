@@ -82,3 +82,9 @@ export const featureRequestStatus = t.pgEnum('featureRequest', [
   'in_progress',
   'declined',
 ]);
+
+export const contactMessageStatus = t.pgEnum('contactMessageStatus', [
+  'pending',
+  'sent',
+  'failed',
+]);

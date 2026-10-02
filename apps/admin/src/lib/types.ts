@@ -28,3 +28,15 @@ export const AllContactsSchema = z.array(
 
 export type ContactType = z.infer<typeof ContactSchema>;
 export type AllContactType = z.infer<typeof AllContactsSchema>;
+
+/**
+ * Reply to customer's email from contact form's schema
+ */
+export const ContactReplyFormSchema = z.object({
+  id: z.uuid().min(1, { error: 'Id is required' }),
+  message: z
+    .string()
+    .min(10, { error: 'Message must have at least 10 characters' })
+    .max(5000, { error: 'Message cannot exceeds 5000 characters' }),
+});
+export type ContactReplyFormInput = z.input<typeof ContactReplyFormSchema>;

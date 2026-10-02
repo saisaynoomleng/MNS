@@ -1,7 +1,7 @@
 'use client';
 
 import { BackTo } from '@/components/BackTo';
-import { useGetContactsById } from '@/hooks/contacts';
+import { useGetContactsById, useReplyContactForm } from '@/hooks/contacts';
 import {
   Bounded,
   Card,
@@ -9,26 +9,46 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
+  Field,
+  FormTextareaField,
+  LoadingSpinner,
   SectionTitle,
   Separator,
   Spinner,
+  SubmitButton,
 } from '@mns/ui';
 import { formatDateUS, formatPriceInUSD, toTitleCase } from '@mns/utils';
 import { useParams } from 'next/navigation';
-import { FaCheck, FaRegBuilding } from 'react-icons/fa6';
+import { FaCheck } from 'react-icons/fa6';
 import {
   RiBuilding2Line,
   RiCalendar2Line,
   RiMoneyDollarBoxLine,
 } from 'react-icons/ri';
 import { CONTACTS_STATUS_COLORS } from '../page';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { ContactReplyFormInput, ContactReplyFormSchema } from '@/lib/types';
+import { zodResolver } from '@hookform/resolvers/zod';
+import clsx from 'clsx';
 
 const ContactDetail = () => {
   const params = useParams<{ id: string }>();
+  const {
+    mutateAsync: replyAction,
+    isPending: replyPending,
+    isError: replyError,
+  } = useReplyContactForm();
 
   const { id } = params;
-
   if (!id) return null;
+
+  const form = useForm<ContactReplyFormInput>({
+    resolver: zodResolver(ContactReplyFormSchema),
+    defaultValues: {
+      message: '',
+      id,
+    },
+  });
 
   const { data: contact, isPending, isError } = useGetContactsById(id);
 
@@ -49,8 +69,12 @@ const ContactDetail = () => {
     maxBudget,
     status,
     createdAt,
-    updatedAt,
   } = contact;
+
+  const onReply: SubmitHandler<ContactReplyFormInput> = async (data) => {
+    await replyAction(data);
+    form.reset();
+  };
 
   return (
     <Bounded as="main" padding="sm" spacing="sm" isCenterd={false} size="full">
@@ -142,7 +166,7 @@ const ContactDetail = () => {
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="flex flex-col gap-y-4 justify-between">
           <CardHeader>
             <CardTitle>
               Reply to{' '}
@@ -150,7 +174,28 @@ const ContactDetail = () => {
             </CardTitle>
           </CardHeader>
 
-          <CardContent>{/* Reply Form */}</CardContent>
+          <CardContent>
+            <form
+              onSubmit={form.handleSubmit(onReply)}
+              className="flex flex-col gap-y-4 min-h-full"
+            >
+              <FormTextareaField
+                name="message"
+                control={form.control}
+                maxLength={5000}
+                label="Message"
+              />
+
+              <Field orientation="horizontal" className="mt-auto">
+                <SubmitButton
+                  disabled={replyPending}
+                  className={clsx(replyPending && 'bg-muted')}
+                >
+                  {replyPending ? <LoadingSpinner /> : 'Send'}
+                </SubmitButton>
+              </Field>
+            </form>
+          </CardContent>
         </Card>
       </div>
 

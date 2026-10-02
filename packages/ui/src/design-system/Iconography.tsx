@@ -8,6 +8,7 @@ import {
   MdNearbyError,
   MdOutlineDesignServices,
   MdOutlineEmail,
+  MdOutlineKeyboardArrowLeft,
   MdOutlineQuestionAnswer,
   MdOutlineVideoCameraFront,
   MdPhonelink,
@@ -17,6 +18,7 @@ import { PiTextColumnsBold } from 'react-icons/pi';
 import { FaFacebookSquare, FaYoutubeSquare } from 'react-icons/fa';
 import {
   FaChartBar,
+  FaCheck,
   FaCrown,
   FaGoogle,
   FaHeart,
@@ -25,7 +27,11 @@ import {
   FaPencil,
   FaUserGroup,
 } from 'react-icons/fa6';
-import { RiSuitcaseLine } from 'react-icons/ri';
+import {
+  RiBuilding2Line,
+  RiMoneyDollarBoxLine,
+  RiSuitcaseLine,
+} from 'react-icons/ri';
 import { GiNewspaper, GiProgression } from 'react-icons/gi';
 import { LuReceiptText } from 'react-icons/lu';
 import { IoMdColorPalette } from 'react-icons/io';
@@ -67,6 +73,10 @@ const icons: React.ReactElement[] = [
   <FaUserGroup aria-hidden />,
   <MdNearbyError aria-hidden />,
   <CiFilter aria-hidden />,
+  <MdOutlineKeyboardArrowLeft aria-hidden />,
+  <RiBuilding2Line aria-hidden />,
+  <RiMoneyDollarBoxLine aria-hidden />,
+  <FaCheck aria-hidden />,
 ];
 
 export const Iconography = (): React.JSX.Element => {

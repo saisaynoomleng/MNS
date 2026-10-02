@@ -22,7 +22,23 @@ export const ContactController = () => {
       }
     },
 
-    getById: async () => {},
+    getById: async (
+      req: Request<{ id: string }>,
+      res: Response,
+      next: NextFunction,
+    ) => {
+      try {
+        const { id } = req.params;
+
+        const data = await repository.findById(id);
+
+        return res.status(200).json(data);
+      } catch (error) {
+        console.error(`Get BY ID API error`, error);
+
+        return next(error);
+      }
+    },
 
     create: async (req: Request, res: Response, next: NextFunction) => {
       try {

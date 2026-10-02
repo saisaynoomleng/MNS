@@ -26,6 +26,13 @@ import { useSearchParams } from 'next/navigation';
 import { CiFilter } from 'react-icons/ci';
 import { MdOutlineEmail } from 'react-icons/md';
 
+export const CONTACTS_STATUS_COLORS: Record<ContactType['status'], string> = {
+  in_progress: '#e17115',
+  new: '#0e79b2',
+  spam: '#d3322f',
+  resolved: '#3b6047',
+};
+
 const ContactsPage = () => {
   const { data: contacts, isPending, isError } = useGetAllContacts();
   const searchParams = useSearchParams();
@@ -61,13 +68,6 @@ const ContactsPage = () => {
     ? contacts.filter((c) => c.status === status)
     : contacts;
 
-  const statusColor: Record<ContactType['status'], string> = {
-    in_progress: '#e17115',
-    new: '#0e79b2',
-    spam: '#d3322f',
-    resolved: '#3b6047',
-  };
-
   return (
     <Bounded as="main" isCenterd={false} padding="sm" size="full" spacing="sm">
       <div className="grid md:grid-cols-2 gap-4">
@@ -96,7 +96,10 @@ const ContactsPage = () => {
                   size={50}
                   className="border border-muted p-2"
                   style={{
-                    color: statusColor[status as keyof typeof statusColor],
+                    color:
+                      CONTACTS_STATUS_COLORS[
+                        status as keyof typeof CONTACTS_STATUS_COLORS
+                      ],
                   }}
                 />
                 <div className="space-y-1">
@@ -164,7 +167,9 @@ const ContactsPage = () => {
                 </Link>
               </TableCell>
               <TableCell>{contact.email}</TableCell>
-              <TableCell style={{ color: statusColor[contact.status] }}>
+              <TableCell
+                style={{ color: CONTACTS_STATUS_COLORS[contact.status] }}
+              >
                 {toTitleCase(contact.status)}
               </TableCell>
               <TableCell>{formatDateUS(contact.createdAt)}</TableCell>

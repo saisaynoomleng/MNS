@@ -1,3 +1,4 @@
+import * as z from 'zod';
 import type { auth } from '../lib/auth.js';
 
 declare global {
@@ -7,3 +8,7 @@ declare global {
     }
   }
 }
+
+export const IdParamsSchema = z.object({
+  id: z.uuid().min(1, { error: 'ID is required' }),
+});

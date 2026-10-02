@@ -14,6 +14,15 @@ export const ContactSchema = z.object({
   status: z.enum(['new', 'in_progress', 'resolved', 'spam']),
   createdAt: z.coerce.date(),
   updatedAt: z.coerce.date(),
+  messages: z.array(
+    z.object({
+      direction: z.enum(['inbound', 'outbound']),
+      status: z.enum(['pending', 'sent', 'failed']),
+      message: z.string(),
+      createdAt: z.coerce.date(),
+      id: z.uuid(),
+    }),
+  ),
 });
 
 export const AllContactsSchema = z.array(

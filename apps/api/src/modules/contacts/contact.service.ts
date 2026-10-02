@@ -25,6 +25,8 @@ export const contactService = () => {
 
       if (!data) return;
 
+      await repository.updateContactTableStatus({ id });
+
       const html = await renderContactReplyEmail({ message, name });
 
       const sendEmailCommand = new SendEmailCommand({
@@ -52,13 +54,13 @@ export const contactService = () => {
       const emailResult = await emailClient.send(sendEmailCommand);
 
       if (!emailResult.MessageId) {
-        await repository.updateContactMessageTableStatus({
+        return await repository.updateContactMessageTableStatus({
           id: data.id,
           status: 'failed',
         });
       }
 
-      await repository.updateContactMessageTableStatus({
+      return await repository.updateContactMessageTableStatus({
         id: data.id,
         status: 'sent',
       });

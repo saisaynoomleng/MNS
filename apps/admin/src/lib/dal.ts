@@ -55,6 +55,20 @@ export const getContactById = async (id: string): Promise<ContactType> => {
         statusText: response.statusText,
         body: await response.text(),
       });
+
+      return {
+        id: '',
+        name: '',
+        companyName: '',
+        email: '',
+        message: '',
+        minBudget: 0,
+        maxBudget: 0,
+        status: 'new',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        messages: [],
+      };
     }
 
     const data = await response.json();
@@ -74,6 +88,7 @@ export const getContactById = async (id: string): Promise<ContactType> => {
       status: 'new',
       createdAt: new Date(),
       updatedAt: new Date(),
+      messages: [],
     };
   }
 };

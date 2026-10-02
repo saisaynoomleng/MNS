@@ -9,11 +9,19 @@ const router = Router();
 const controller = ContactController();
 
 router.get('/', requireAdmin, controller.getAll);
+
 router.get(
   '/:id',
   requireAdmin,
   ValidateParams(IdParamsSchema),
   controller.getById,
+);
+
+router.post(
+  '/:id/reply-to-contact',
+  ValidateParams(IdParamsSchema),
+  requireAdmin,
+  controller.replyToContact,
 );
 
 router.post('/', ValidateBody(ContactUsFormSchema), controller.create);

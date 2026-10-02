@@ -5,9 +5,11 @@ import { SendEmailCommand } from '@aws-sdk/client-ses';
 import env from '../../lib/env.js';
 import db, { ContactsTable } from '../../db/index.js';
 import { contactRepository } from './contact.repository.js';
+import { contactService } from './contact.service.js';
 
 export const ContactController = () => {
   const repository = contactRepository();
+  const service = contactService();
 
   return {
     getAll: async (req: Request, res: Response, next: NextFunction) => {
@@ -32,9 +34,37 @@ export const ContactController = () => {
 
         const data = await repository.findById(id);
 
+        if (!data) {
+          console.log(data);
+          return res.status(500).json({
+            message: 'Server Error!',
+          });
+        }
+
         return res.status(200).json(data);
       } catch (error) {
         console.error(`Get BY ID API error`, error);
+
+        return next(error);
+      }
+    },
+
+    replyToContact: async (
+      req: Request<{ id: string }, {}, { message: string }>,
+      res: Response,
+      next: NextFunction,
+    ) => {
+      try {
+        const { id } = req.params;
+        const { message } = req.body;
+
+        await service.replyToContact({ id, message });
+
+        return res.status(201).json({
+          message: 'Succesfully replied to the contact!',
+        });
+      } catch (error) {
+        console.error(`Reply Email API error`);
 
         return next(error);
       }
@@ -46,6 +76,16 @@ export const ContactController = () => {
           req.body;
 
         const html = await renderContactEmail({ name });
+
+        await db.insert(ContactsTable).values({
+          name,
+          email,
+          message,
+          minBudget,
+          maxBudget,
+          companyName,
+          status: 'new',
+        });
 
         await emailClient.send(
           new SendEmailCommand({
@@ -70,16 +110,6 @@ export const ContactController = () => {
             },
           }),
         );
-
-        await db.insert(ContactsTable).values({
-          name,
-          email,
-          message,
-          minBudget,
-          maxBudget,
-          companyName,
-          status: 'new',
-        });
 
         return res.status(201).json({
           message: 'Your message have reached us!',

@@ -3,8 +3,13 @@
 import { authClient } from '@/lib/auth-client';
 import { Button } from '@mns/ui';
 import { useRouter } from 'next/navigation';
+import { MdNearbyError } from 'react-icons/md';
 
-export const SignOutButton = () => {
+type SignOutProps = {
+  state: 'collapsed' | 'expanded';
+};
+
+export const SignOutButton = ({ state }: SignOutProps) => {
   const router = useRouter();
 
   const handleSignOut = async () => {
@@ -16,8 +21,18 @@ export const SignOutButton = () => {
   };
 
   return (
-    <Button variant="destructive" onClick={() => handleSignOut}>
-      Sign Out
+    <Button
+      variant="destructive"
+      onClick={() => handleSignOut}
+      className="rounded-lg"
+    >
+      {state === 'collapsed' ? (
+        <span>
+          <MdNearbyError />
+        </span>
+      ) : (
+        <span>Sign Out</span>
+      )}
     </Button>
   );
 };

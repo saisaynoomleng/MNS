@@ -72,7 +72,7 @@ const ContactsPage = () => {
         </Card>
 
         {Object.entries(allStatuses).map(([status, count]) => (
-          <Card id={status}>
+          <Card key={status}>
             <CardContent>
               <div className="flex gap-x-4 items-center">
                 <MdOutlineEmail
@@ -85,7 +85,7 @@ const ContactsPage = () => {
                 />
                 <div className="space-y-1">
                   <p className="font-semibold">
-                    Total {toTitleCase(replaceUnderscore(status))}
+                    {toTitleCase(replaceUnderscore(status))}
                   </p>
                   <p className="font-semibold text-fs-500">{count}</p>
                 </div>

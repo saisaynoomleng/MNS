@@ -1,7 +1,11 @@
-import React from 'react';
+import { Bounded } from '@mns/ui';
 
 const ContactDetail = () => {
-  return <div>ContactDetail</div>;
+  return (
+    <Bounded as="main" padding="sm" spacing="sm" isCenterd={false}>
+      ContactDetail
+    </Bounded>
+  );
 };
 
 export default ContactDetail;

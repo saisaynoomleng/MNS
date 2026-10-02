@@ -1,5 +1,8 @@
 import * as z from 'zod';
 
+/**
+ * Contacts
+ */
 export const ContactSchema = z
   .object({
     id: z.uuid(),
@@ -18,6 +21,15 @@ export const ContactSchema = z
     path: ['maxBudget'],
   });
 
-export const AllContactsSchema = z.array(ContactSchema);
+export const AllContactsSchema = z.array(
+  ContactSchema.pick({
+    name: true,
+    email: true,
+    createdAt: true,
+    id: true,
+    status: true,
+  }),
+);
 
 export type ContactType = z.infer<typeof ContactSchema>;
+export type AllContactType = z.infer<typeof AllContactsSchema>;

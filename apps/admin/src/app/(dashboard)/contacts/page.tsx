@@ -1,7 +1,7 @@
 'use client';
 
 import { useGetAllContacts } from '@/hooks/contacts';
-import { ContactType } from '@/lib/AdminValidations';
+import { ContactType } from '@/lib/types';
 import {
   Bounded,
   Button,

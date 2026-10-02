@@ -35,25 +35,41 @@ type SidebarLinks = {
 };
 
 const SIDEBAR_LINKS: SidebarLinks[] = [
-  { label: 'Dashboard', href: '/', icon: <BiSolidDashboard /> },
-  { label: 'Applications', href: '/applications', icon: <MdPhonelink /> },
+  { label: 'Dashboard', href: '/', icon: <BiSolidDashboard aria-hidden /> },
+  {
+    label: 'Applications',
+    href: '/applications',
+    icon: <MdPhonelink aria-hidden />,
+  },
   {
     label: 'Subscriptions',
     href: '/subscriptions',
-    icon: <FaMoneyCheckDollar />,
+    icon: <FaMoneyCheckDollar aria-hidden />,
   },
-  { label: 'Services', href: '/services', icon: <MdOutlineDesignServices /> },
-  { label: 'Contacts', href: '/contacts', icon: <MdOutlineEmail /> },
-  { label: 'Newsletters', href: '/newsletters', icon: <GiNewspaper /> },
+  {
+    label: 'Services',
+    href: '/services',
+    icon: <MdOutlineDesignServices aria-hidden />,
+  },
+  {
+    label: 'Contacts',
+    href: '/contacts',
+    icon: <MdOutlineEmail aria-hidden />,
+  },
+  {
+    label: 'Newsletters',
+    href: '/newsletters',
+    icon: <GiNewspaper aria-hidden />,
+  },
   {
     label: 'Feature Requests',
     href: '/feature-requests',
-    icon: <MdFeaturedPlayList />,
+    icon: <MdFeaturedPlayList aria-hidden />,
   },
   {
     label: 'Error Reports',
     href: '/error-reports',
-    icon: <VscChatSparkleError />,
+    icon: <VscChatSparkleError aria-hidden />,
   },
   { label: 'Customers', href: '/customers', icon: <FaUserGroup /> },
 ];
@@ -88,6 +104,7 @@ export const AdminSidebar = () => {
                     )}
                   >
                     <span>{s.icon}</span>
+                    <span className="sr-only">{s.label}</span>
                     <span
                       className={clsx(
                         SidebarState === 'collapsed' ? 'hidden' : 'block',

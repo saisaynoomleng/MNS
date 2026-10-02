@@ -4,8 +4,14 @@ import { useGetAllContacts } from '@/hooks/contacts';
 import { ContactType } from '@/lib/AdminValidations';
 import {
   Bounded,
+  Button,
   Card,
   CardContent,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
   Spinner,
   Table,
   TableBody,
@@ -16,10 +22,16 @@ import {
 } from '@mns/ui';
 import { formatDateUS, replaceUnderscore, toTitleCase } from '@mns/utils';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
+import { CiFilter } from 'react-icons/ci';
 import { MdOutlineEmail } from 'react-icons/md';
 
 const ContactsPage = () => {
   const { data: contacts, isPending, isError } = useGetAllContacts();
+  const searchParams = useSearchParams();
+
+  const page = searchParams.get('page');
+  const status = searchParams.get('status');
 
   if (isPending) {
     return <Spinner />;
@@ -45,6 +57,10 @@ const ContactsPage = () => {
     },
   );
 
+  const allContacts = status
+    ? contacts.filter((c) => c.status === status)
+    : contacts;
+
   const statusColor: Record<ContactType['status'], string> = {
     in_progress: '#e17115',
     new: '#0e79b2',
@@ -53,7 +69,7 @@ const ContactsPage = () => {
   };
 
   return (
-    <Bounded as="main" isCenterd={false} padding="sm" size="full" spacing="lg">
+    <Bounded as="main" isCenterd={false} padding="sm" size="full" spacing="sm">
       <div className="grid md:grid-cols-2 gap-4">
         <Card className="col-span-full">
           <CardContent>
@@ -95,7 +111,39 @@ const ContactsPage = () => {
         ))}
       </div>
 
-      {/* To Do: Filter */}
+      <div className="mr-auto">
+        {/*To Do: search bar */}
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="outline" className="border-muted">
+              <span>Filter</span>
+              <span>
+                <CiFilter aria-hidden />
+              </span>
+            </Button>
+          </DropdownMenuTrigger>
+
+          <DropdownMenuContent>
+            <DropdownMenuGroup>
+              {Object.keys(allStatuses).map((status) => (
+                <DropdownMenuItem key={status} asChild>
+                  <Link
+                    href={{
+                      pathname: '/contacts',
+                      query: {
+                        ...(page && { page }),
+                        status,
+                      },
+                    }}
+                  >
+                    {toTitleCase(replaceUnderscore(status))}
+                  </Link>
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuGroup>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
 
       <Table>
         <TableHeader>
@@ -108,7 +156,7 @@ const ContactsPage = () => {
         </TableHeader>
 
         <TableBody>
-          {contacts.map((contact) => (
+          {allContacts.map((contact) => (
             <TableRow key={contact.id}>
               <TableCell>
                 <Link href={`/contacts/${contact.id}`}>

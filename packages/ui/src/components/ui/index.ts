@@ -22,3 +22,4 @@ export * from './alert-dialog';
 export * from './progress';
 export * from './card';
 export * from './table';
+export * from './dropdown-menu';

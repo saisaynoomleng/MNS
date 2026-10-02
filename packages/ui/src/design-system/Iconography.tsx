@@ -2,7 +2,7 @@ import type React from 'react';
 import { Bounded, SectionTitle } from '../components';
 
 import { IoClose, IoSettingsOutline } from 'react-icons/io5';
-import { CiImageOn, CiLink } from 'react-icons/ci';
+import { CiFilter, CiImageOn, CiLink } from 'react-icons/ci';
 import {
   MdFeaturedPlayList,
   MdNearbyError,
@@ -66,6 +66,7 @@ const icons: React.ReactElement[] = [
   <VscChatSparkleError aria-hidden />,
   <FaUserGroup aria-hidden />,
   <MdNearbyError aria-hidden />,
+  <CiFilter aria-hidden />,
 ];
 
 export const Iconography = (): React.JSX.Element => {

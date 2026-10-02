@@ -23,7 +23,7 @@ export const SignOutButton = ({ state }: SignOutProps) => {
   return (
     <Button
       variant="destructive"
-      onClick={() => handleSignOut}
+      onClick={handleSignOut}
       className="rounded-lg"
     >
       {state === 'collapsed' ? (

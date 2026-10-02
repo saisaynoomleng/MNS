@@ -1,6 +1,7 @@
 import { eq } from 'drizzle-orm';
 import db, {
   ContactMessagesTable,
+  ContactsTable,
   type InferInsertContactMessageTable,
 } from '../../db/index.js';
 
@@ -81,6 +82,17 @@ export const contactRepository = () => {
           status,
         })
         .where(eq(ContactMessagesTable.id, id));
+    },
+
+    updateContactTableStatus: async ({ id }: { id: string }) => {
+      await db
+        .update(ContactsTable)
+        .set({
+          status: 'in_progress',
+        })
+        .where(eq(ContactsTable.id, id));
+
+      return;
     },
   };
 };

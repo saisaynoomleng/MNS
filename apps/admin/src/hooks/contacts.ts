@@ -37,8 +37,6 @@ export const useReplyContactForm = () => {
       await queryClient.invalidateQueries({
         queryKey: queryKeys.contacts.all,
       });
-
-      return;
     },
 
     onError: (err) => {
